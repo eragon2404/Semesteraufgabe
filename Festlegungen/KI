@@ -1,0 +1,15 @@
+Zur KI:
+    definition: "sinvolles Feld":
+        y, x liegt im Feld
+        [y][x] == 0
+        dort darf (siehe Regeln zums setzen der Schiffe) ein Schiff liegen
+
+    Algo:
+        Wenn der Betrag der Menge der Felder mit dem Wert 3 == 0 ist:
+                Wähle aus einem Muster (muss noch festgelegt werden und ist abhänig von den Schiffsarten)
+                    ein zufälliges y,x sodass y,x ein "sinvolles Feld" ist
+                Schieße auf y,x
+        Sonst Wenn der Betrag der Menge der Felder mit dem Wert 3 == 1 ist:
+                Wähle ein zufälliges Nachbarfeld(y,x) von dem Feld mit dem Wert 3 sodass y,x ein "sinvolles Feld" ist
+        Sonst:
+                Wähle ein zufälliges y,x am Ende der Kette der Felder mit dem Wert 3, sodass y,x ein "sinvolles Feld" ist
