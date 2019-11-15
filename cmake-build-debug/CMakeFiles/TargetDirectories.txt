@@ -1,0 +1,3 @@
+C:/Users/benni/CLionProjects/Semesteraufgabe/cmake-build-debug/CMakeFiles/SchiffeVersenken.dir
+C:/Users/benni/CLionProjects/Semesteraufgabe/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/benni/CLionProjects/Semesteraufgabe/cmake-build-debug/CMakeFiles/rebuild_cache.dir
