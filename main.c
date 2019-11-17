@@ -15,6 +15,7 @@ int main(void) {
     int playerTurn = 0;
 
     int size = getBattlegroundSize();
+    /*TODO: Die variable Länge des Arrays muss umgangen werden (Methode mit "switch case" oder so?)*/
     char battleground0[size][size]; /*Matrize Spieler 0*/
     char battleground1[size][size]; /*Matrize Spieler 1*/
 
@@ -31,7 +32,7 @@ int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße T
     int n;
     do{
         printf("Waehlen sie eine Feldgroesse: (min 10, max 20): ");
-        scanf("%i", &n); // NOLINT(cert-err34-c)
+        scanf("%i", &n); /* NOLINT(cert-err34-c) */
         if (n < 10 || n > 20){
             printf("Keine gueltige Eingabe!\n");
             n = 0;
