@@ -9,13 +9,11 @@ Schiffarten und Menge sind variabel und werden in einem Array gespeichert. ships
 Es werden 2 Spielfelder erstellt, für jeden Spieler eins.
 Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, u, h, d
             Wobei:
-                    w (000) = Water
-                    m (001) = Miss
-                    u (010) = Unhit
-                    h (011) = Hit
-                    d (100) = Downed
-
-            Speicherplatz für ein Spielfeld ist damit: (sy * sx * 3) bit
+                    w = Water
+                    m = Miss
+                    u = Unhit
+                    h = Hit
+                    d = Downed
 
             Beispiel:
                 sy = 4, sx = 5
