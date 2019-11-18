@@ -1,16 +1,19 @@
+
+Es wird immer erst y dann x genannt!
+
 Spielfeldgröße sy * sx ist variabel
 
 Schiffarten und Menge sind variabel und werden in einem Array gespeichert. ships = [|S1|,|S2|,...,|Sn|]
             Beispiel: [2,2,4] beduetet 2 Schiffe der Länge 2 und 1 Schiff der Länge 4.
 
 Es werden 2 Spielfelder erstellt, für jeden Spieler eins.
-Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten 0, 1, 2, 3, 4
+Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, u, h, d
             Wobei:
-                    0 (000) = Wasser
-                    1 (001) = Schuss ins Wasser
-                    2 (010) = Ungetroffenes Schiff
-                    3 (011) = Getroffenes Schiff
-                    4 (100) = Versenktes Schiff
+                    w (000) = Water
+                    m (001) = Miss
+                    u (010) = Unhit
+                    h (011) = Hit
+                    d (100) = Downed
 
             Speicherplatz für ein Spielfeld ist damit: (sy * sx * 3) bit
 
@@ -18,10 +21,10 @@ Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten 0, 1, 2
                 sy = 4, sx = 5
                 ships = [2,2,3]
 
-                    0 0 1 0 0 0     <- Hier wurde ein Schuss ins Wasser gesetzt
-                    2 2 0 0 0 0     <- Hier steht ein ungetroffenes Schiff der Länge 2
-                    0 0 0 3 2 2     <- Hier steht ein Schiff der Länge 3 das einmal getroffen wurde
-                    0 4 4 0 0 0     <- Hier steht ein versenktes Schiff der Länge 2
+                    w w m w w w    <- Hier wurde ein Schuss ins Wasser gesetzt
+                    u u u w w w     <- Hier steht ein ungetroffenes Schiff der Länge 2
+                    w w h u u w     <- Hier steht ein Schiff der Länge 3 das einmal getroffen wurde
+                    w d d w w w     <- Hier steht ein versenktes Schiff der Länge 2
 
 Regeln zum setzen der Schiffe:
             -Jedes Schiff muss einmal gesetzt werden
