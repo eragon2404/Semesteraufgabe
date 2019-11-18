@@ -39,6 +39,7 @@ int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße T
             return n;
         }
     } while (!n);
+    return 0;
 }
 
 void initBattleground(char (*battleground0)[], char (*battleground1)[], int size) /*Initalisiert die Matrizen mit '~' als leere Felder*/
