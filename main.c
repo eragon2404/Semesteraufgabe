@@ -1,4 +1,5 @@
 #include <stdio.h>
+#define ARRAY_SIZE 20
 
 /*Rund um das Spielfeld und seine Erstellung*/
 int getBattlegroundSize();
@@ -15,12 +16,10 @@ int main(void) {
     int playerTurn = 0;
 
     int size = getBattlegroundSize();
-    /*TODO: Die variable Länge des Arrays muss umgangen werden (Methode mit "switch case" oder so?)*/
-    char battleground0[size][size]; /*Matrize Spieler 0*/
-    char battleground1[size][size]; /*Matrize Spieler 1*/
+    char battleground0[ARRAY_SIZE][ARRAY_SIZE]; /*Matrize Spieler 0*/
+    char battleground1[ARRAY_SIZE][ARRAY_SIZE]; /*Matrize Spieler 1*/
 
-    initBattleground(battleground0, battleground1, size);
-
+    initBattleground(battleground0, battleground1, size); /*TODO: Das hier moechte in die setzeSchiffe Methode*/
     drawScreen(battleground0, size, playerTurn);
 
 
