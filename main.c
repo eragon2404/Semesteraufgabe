@@ -47,8 +47,8 @@ void initBattleground(char (*battleground0)[], char (*battleground1)[], int size
     int x, y;
     for (x = 0; x < size; x++){
         for(y = 0; y < size; y++){
-            (*battleground0 + x)[y] = '~';
-            (*battleground1 + x)[y] = '~';
+            (*battleground0 + x)[y] = 'w';
+            (*battleground1 + x)[y] = 'w';
         }
     }
 
@@ -62,7 +62,7 @@ void drawIntro()
            "--------------------------------------------------------------------------------\n");
 }
 
-void drawScreen(char (*matrix)[], int size, int playerTurn) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize*/
+void drawScreen(char (*matrix)[], int size, int playerTurn) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize TODO: Ein Koordinatensystem zeichnen*/
 {
     int x, y;
 
