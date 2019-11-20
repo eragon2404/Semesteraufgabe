@@ -1,3 +1,5 @@
+/*TODO: Spiel fertig machen*/
+
 #include <stdio.h>
 #define ARRAY_SIZE 20
 
