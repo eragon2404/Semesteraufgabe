@@ -13,14 +13,26 @@ Zur KI:
     definition: "sinvolles Feld":
         y, x liegt im Feld
         [y][x] == 0
-        dort darf (siehe Regeln zums setzen der Schiffe) ein Schiff liegen
+        für schwierigkeit 3:
+            dort darf (siehe Regeln zums setzen der Schiffe) ein Schiff liegen
+            liegt im Muster
 
     Algo:
-        Wenn der Betrag der Menge der Felder mit dem Wert 3 == 0 ist:
-                Wähle aus einem Muster (muss noch festgelegt werden und ist abhänig von den Schiffsarten)
-                    ein zufälliges y,x sodass y,x ein "sinvolles Feld" ist
-                Schieße auf y,x
-        Sonst Wenn der Betrag der Menge der Felder mit dem Wert 3 == 1 ist:
-                Wähle ein zufälliges Nachbarfeld(y,x) von dem Feld mit dem Wert 3 sodass y,x ein "sinvolles Feld" ist
-        Sonst:
-                Wähle ein zufälliges y,x am Ende der Kette der Felder mit dem Wert 3, sodass y,x ein "sinvolles Feld" ist
+        Analyse der Matrix:
+            Durchlaufe die Matrix und zähle die Anzahl der sinvollen Felder in count.
+            Wenn ein erstes getroffenes Feld gefunden wurde speichere es als first.
+            Wenn noch ein getroffenes Feld gefunden wurde speichere es in last. (kann mehrmals überschrieben werden)
+
+        Entscheidung treffen:
+            first und last sind leer: (oder schwierigkeit ist 1)
+                Bestimme random int von 0 bis count-1
+                Durchlaufe das Feld ein weiteres mal und zähle die sinvollen Felder mit. Wenn die Zufallszahl erreicht
+                wurde wird das derzeitige Feld zurückgegeben
+
+            first ist nicht leer, last schon:
+                Bestimme ein beliebiges sinvolles an first angrenzendes Feld und gebe es zurück
+
+            first und last sind nicht leer:
+                Bestimme den Einheitsvektor von first zu last.
+                Addiere den Vektor zu last. Wenn das resultierende Feld sinvoll ist gebe es zurück.
+                        Ansonsten subtrahiere den Vektor von first und gebe das resultierende Feld zurück.
