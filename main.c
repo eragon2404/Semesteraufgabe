@@ -86,3 +86,26 @@ void clearScreen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
            "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
 
+
+/*--------------KI---------------*/
+
+
+int * ki(char (*matrix)[], int size, int difficulty)
+{
+    return 1;
+}
+
+int is_useful(char (*matrix)[], int y, int x, int difficulty)
+{
+    return 1;
+}
+
+int * get_from_solo(char (*matrix)[], int y, int x, int difficulty)
+{
+    return 1;
+}
+
+int * get_from_double(char (*matrix)[], int y, int x, int difficulty)
+{
+    return 1;
+}
