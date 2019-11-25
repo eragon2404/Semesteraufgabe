@@ -1,4 +1,15 @@
 Zur KI:
+    Schwierigkeiten: 1, 2, 3
+        1 (einfach):
+            Die KI schießt auf zufällige Felder auf die sie noch nicht geschossen hat
+        2 (normal):
+            Die KI schießt auf zufällige Felder auf die sie noch nicht geschossen hat,
+            bis sie ein Schiif getroffen hat. Sie arbeitet dann an diesem Schiff bis es versenkt ist.
+        3 (schwierig):
+            Die KI arbeitet ein Muster in zufälliger Reihenfolge ab bis sie ein Schiff getroffen hat.
+            Sie arbeitet dann an diesem Schiff unter Beachtung der Spielregeln (kann dort ein Schiff sein?) bis es
+            versenkt ist.
+
     definition: "sinvolles Feld":
         y, x liegt im Feld
         [y][x] == 0
