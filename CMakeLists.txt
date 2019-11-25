@@ -3,4 +3,4 @@ project(Semesteraufgabe C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(Semesteraufgabe main.c bp5.c)
+add_executable(Semesteraufgabe main.c)
