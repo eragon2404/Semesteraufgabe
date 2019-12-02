@@ -139,7 +139,7 @@ int * ki_diif3(char (*matrix)[], int size)
             }
         }
     }
-
+    /* Kein getroffenes Schiff -> Zufaelliges Feld im Muster nehmen */
     if (count_hit == 0){
         random_num = rand() % count_hit;
         in = 0;
@@ -154,22 +154,24 @@ int * ki_diif3(char (*matrix)[], int size)
                 }
             }
         }
+        /* Ein getroffenes Schiff - Feld -> sinvolles anliegendes Feld nehmen */
     } else if (count_hit == 1){
-        if (is_useful(matrix, first_hit[0] + 1, first_hit[1] + 0, size, 3)) {
+        if (is_useful(matrix, first_hit[0] + 1, first_hit[1] + 0, size, 2)) {
             result[0] = first_hit[0] + 1;
             result[1] = first_hit[1] + 0;
-        } else if (is_useful(matrix, first_hit[0] - 1, first_hit[1] + 0, size, 3)) {
+        } else if (is_useful(matrix, first_hit[0] - 1, first_hit[1] + 0, size, 2)) {
             result[0] = first_hit[0] - 1;
             result[1] = first_hit[1] + 0;
-        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] + 1, size, 3)) {
+        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] + 1, size, 2)) {
             result[0] = first_hit[0] + 0;
             result[1] = first_hit[1] + 1;
-        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] - 1, size, 3)) {
+        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] - 1, size, 2)) {
             result[0] = first_hit[0] + 0;
             result[1] = first_hit[1] - 1;
         }
         return result;
 
+        /* Zwei getroffenes Schiff - Felder -> sinvolles ende des Schiifs nehmen */
     } else if (count_hit > 1){
         vector[0] = last_hit[0] - first_hit[0];
         vector[1] = last_hit[1] - first_hit[1];
@@ -184,7 +186,7 @@ int * ki_diif3(char (*matrix)[], int size)
         result[0] = last_hit[0] + vector[0];
         result[1] = last_hit[1] + vector[1];
 
-        if (is_useful(matrix, result[0], result[1], size, 3)) {
+        if (is_useful(matrix, result[0], result[1], size, 2)) {
             return result;
         } else {
             result[0] = first_hit[0] - vector[0];
