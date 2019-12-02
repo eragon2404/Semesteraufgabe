@@ -1,0 +1,10 @@
+
+
+KI:
+    um den Zug der KI zu berechnen:
+        Methode: get_ai_turn
+        Übergabe: ( (char[][]) Matrix des Gegenspielers der KI,
+                    (int) größe der Matrix,
+                    (int) schwierigkeit (1/2/3),
+                  )
+        Rückgabe: (int[2]) Array der Form [y, x] = Position auf die geschossen werden soll
