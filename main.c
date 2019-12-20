@@ -4,15 +4,15 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define ARRAY_SIZE 20
+#define OUT_OF_MEMORY -69420
 
 /*Rund um das Spielfeld und seine Erstellung*/
 int getBattlegroundSize();
-void initBattleground(char (*battleground0)[], char (*battleground1)[], int size);
+int initBattleground(char **battleground0, char **battleground1, int size);
 
 /*Alles, was das Spiel in die Konsole bringt*/
 void drawIntro();
-void drawScreen(char (*matrix)[], int size, int playerTurn);
+void drawScreen(char **matrix, int size, int playerTurn);
 void clearScreen();
 
 /*Fuer die KI*/
@@ -23,18 +23,30 @@ int * get_from_double(char (*matrix)[], int y, int x, int difficulty);
 
 
 int main(void) {
+
+    int playerTurn, i;
+    playerTurn = 0;
     drawIntro();
-    int playerTurn = 0;
+
 
     int size = getBattlegroundSize();
-    char battleground0[ARRAY_SIZE][ARRAY_SIZE]; /*Matrize Spieler 0*/
-    char battleground1[ARRAY_SIZE][ARRAY_SIZE]; /*Matrize Spieler 1*/
+    char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
+    battleground0 = NULL;
+    battleground1 = NULL;
 
-    initBattleground(battleground0, battleground1, size); /*TODO: Das hier moechte in die setzeSchiffe Methode*/
+    if (initBattleground(battleground0, battleground1, size) == OUT_OF_MEMORY) {/*TODO: Das hier moechte in die setzeSchiffe Methode*/
+        printf("Out of memory, abort!");
+        return -1;
+    }
+
     drawScreen(battleground0, size, playerTurn);
 
 
 
+    for (i = 0; i < size; i++){
+        free(battleground0[i]);
+        free(battleground1[i]);
+    }
     return 0;
 }
 
@@ -51,16 +63,27 @@ int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße T
             return n;
         }
     } while (!n);
+
     return 0;
 }
 
-void initBattleground(char (*battleground0)[], char (*battleground1)[], int size) /*Initalisiert die Matrizen mit '~' als leere Felder*/
+int initBattleground(char **battleground0, char **battleground1, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
 {
     int x, y;
+
+    battleground0 = malloc(size * sizeof(char*));
+    battleground1 = malloc(size * sizeof(char*));
+
+    if (battleground0 == NULL || battleground1 == NULL){
+        return OUT_OF_MEMORY;
+    }
+
     for (x = 0; x < size; x++){
+        battleground0[x] = malloc(size);
+        battleground1[x] = malloc(size);
         for(y = 0; y < size; y++){
-            (*battleground0 + x)[y] = 'w';
-            (*battleground1 + x)[y] = 'w';
+            battleground0[x][y] = 'w';
+            battleground1[x][y] = 'w';
         }
     }
 
@@ -74,14 +97,14 @@ void drawIntro()
            "--------------------------------------------------------------------------------\n");
 }
 
-void drawScreen(char (*matrix)[], int size, int playerTurn) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize TODO: Ein Koordinatensystem zeichnen*/
+void drawScreen(char **matrix, int size, int playerTurn) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize TODO: Ein Koordinatensystem zeichnen*/
 {
     int x, y;
 
     clearScreen();
     for(x = 0; x < size; x++){
         for(y = 0; y < size; y++){
-            printf("%c  ", (*matrix + x)[y]);
+            printf("%c  ", matrix[x][y]);
         }
         printf("\n");
     }
