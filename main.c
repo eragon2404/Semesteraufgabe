@@ -14,6 +14,7 @@ int initBattleground(char **battleground0, char **battleground1, int size);
 void drawIntro();
 void drawScreen(char **matrix, int size, int playerTurn);
 void clearScreen();
+void flush();
 
 /*Fuer die KI*/
 int * ki(char **matrix, int size, int difficulty);
@@ -65,7 +66,14 @@ int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße T
     int n;
     do{
         printf("Waehlen sie eine Feldgroesse: (min 10, max 20): ");
-        scanf("%i", &n); /* NOLINT(cert-err34-c) */
+        if (scanf("%i", &n) /* NOLINT(cert-err34-c) */ != 1) {
+            printf("Keine gültige Eingabe!\n");
+            n = 0;
+            if (getchar() != '\n'){
+                flush();
+            }
+            continue;
+        }
         if (n < 10 || n > 20){
             printf("Keine gueltige Eingabe!\n");
             n = 0;
@@ -119,6 +127,10 @@ void clearScreen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 {
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
            "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+void flush(){
+    while(getchar() != '\n');
 }
 
 
