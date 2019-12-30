@@ -16,10 +16,10 @@ void drawScreen(char **matrix, int size, int playerTurn);
 void clearScreen();
 
 /*Fuer die KI*/
-int * ki(char (*matrix)[], int size, int difficulty);
-int is_useful(char (*matrix)[], int y, int x, int size, int difficulty);
-int * get_from_solo(char (*matrix)[], int y, int x, int difficulty);
-int * get_from_double(char (*matrix)[], int y, int x, int difficulty);
+int * ki(char **matrix, int size, int difficulty);
+int is_useful(char **matrix, int y, int x, int size, int difficulty);
+int * get_from_solo(char **matrix, int y, int x, int difficulty);
+int * get_from_double(char **matrix, int y, int x, int difficulty);
 
 
 int main(void) {
@@ -31,8 +31,16 @@ int main(void) {
 
     int size = getBattlegroundSize();
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
-    battleground0 = NULL;
-    battleground1 = NULL;
+
+
+    /* TODO: Kann man das hier noch in die methode integrieren? Der Fehler, dass die beiden ptr nicht initalisiert sind muss halt vermieden werden */
+    battleground0 = malloc(size * sizeof(char*));
+    battleground1 = malloc(size * sizeof(char*));
+
+    if (battleground0 == NULL || battleground1 == NULL){
+        printf("Out of memory, abort!");
+        return -1;
+    }
 
     if (initBattleground(battleground0, battleground1, size) == OUT_OF_MEMORY) {/*TODO: Das hier moechte in die setzeSchiffe Methode*/
         printf("Out of memory, abort!");
@@ -42,11 +50,13 @@ int main(void) {
     drawScreen(battleground0, size, playerTurn);
 
 
-
+    /* Gibt reservierten Speicher der Matrizen wieder frei */
     for (i = 0; i < size; i++){
         free(battleground0[i]);
         free(battleground1[i]);
     }
+    free(battleground0);
+    free(battleground1);
     return 0;
 }
 
@@ -70,14 +80,6 @@ int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße T
 int initBattleground(char **battleground0, char **battleground1, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
 {
     int x, y;
-
-    battleground0 = malloc(size * sizeof(char*));
-    battleground1 = malloc(size * sizeof(char*));
-
-    if (battleground0 == NULL || battleground1 == NULL){
-        return OUT_OF_MEMORY;
-    }
-
     for (x = 0; x < size; x++){
         battleground0[x] = malloc(size);
         battleground1[x] = malloc(size);
@@ -123,7 +125,7 @@ void clearScreen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 /*--------------KI---------------*/
 
 
-int * ki_diif3(char (*matrix)[], int size)
+int * ki_diif3(char **matrix, int size)
 {
 
     static int result[2];
@@ -219,7 +221,7 @@ int * ki_diif3(char (*matrix)[], int size)
     }
 }
 
-int is_useful(char (*matrix)[], int y, int x, int size, int difficulty)
+int is_useful(char **matrix, int y, int x, int size, int difficulty)
 {
     if (y < 0 || y >= size || x < 0 || x >= size) {
         return 0;
