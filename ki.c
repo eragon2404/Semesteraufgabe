@@ -1,10 +1,7 @@
-//
-// Created by NoahB on 04.01.20.
-//
-
 #include "ki.h"
 #include "battleground.h"
 #include <stdlib.h>
+
 
 int * ai_diif3(char **matrix, int size)
 {
@@ -100,6 +97,7 @@ int * ai_diif3(char **matrix, int size)
             return result;
         }
     }
+    return NULL;
 }
 
 int is_useful(char **matrix, int y, int x, int size, int difficulty)
@@ -140,20 +138,5 @@ int is_useful(char **matrix, int y, int x, int size, int difficulty)
     return 1;
 }
 
-int ai_set_ships(char **matrix, int size, int *ships, int ship_count)
-{
-    int i;
-    while (1){
-        for (i = 0; i < ship_count; i++){
-            if (!set_ship(matrix, size, rand() % size, rand() % size, rand() % 4, ships[i])){
-                break;
-            }
-        }
-        if (i == ship_count - 1) {
-            return 1;
-        } else {
-            initBattleground(matrix, size);
-        }
-    }
-}
+
 

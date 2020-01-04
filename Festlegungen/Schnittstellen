@@ -32,7 +32,7 @@ KI:
 
     um Schiffe automatisch zu setzen:
 
-        Methode: ai_set_ships
+        Methode: rand_set_ships
 
         Übergabe: ( (**char) Matrix auf der die Schiffe gesetzt werden sollen,
                     (int) Größe der Matrix,

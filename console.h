@@ -1,13 +1,11 @@
-//
-// Created by NoahB on 04.01.20.
-//
-
 #ifndef SEMESTERAUFGABE_CONSOLE_H
 #define SEMESTERAUFGABE_CONSOLE_H
 
-void drawIntro();
-void drawScreen(char **matrix, int size, int playerTurn);
-void clearScreen();
+void draw_intro();
+void draw_screen(char **matrix, int size);
+void player_set_ships(char **matrix, int size, int *ships, int ship_count);
+
+void clear_screen();
 void flush();
 
-#endif //SEMESTERAUFGABE_CONSOLE_H
+#endif
