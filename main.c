@@ -27,17 +27,18 @@ int main(void) {
     size = get_battleground_size();
 
 
+
     ships[0] = 2;
-    ships[1] = 3;
-    ships[2] = 3;
-    ships[3] = 4;
-    ships[4] = 5;
+    ships[1] = 2;
+    ships[2] = 2;
+    ships[3] = 3;
+    ships[4] = 3;
     ships[5] = 4;
-    ships[6] = 3;
-    ships[7] = 3;
+    ships[6] = 4;
+    ships[7] = 4;
     ships[8] = 5;
     ships[9] = 5;
-    ship_count = 5;
+    ship_count = 10;
 
 
 
