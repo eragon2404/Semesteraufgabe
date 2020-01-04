@@ -8,7 +8,7 @@
 
 /*Rund um das Spielfeld und seine Erstellung*/
 int getBattlegroundSize();
-int initBattleground(char **battleground0, char **battleground1, int size);
+int initBattleground(char **battleground, int size);
 
 /*Alles, was das Spiel in die Konsole bringt*/
 void drawIntro();
@@ -43,7 +43,12 @@ int main(void) {
         return -1;
     }
 
-    if (initBattleground(battleground0, battleground1, size) == OUT_OF_MEMORY) {/*TODO: Das hier moechte in die setzeSchiffe Methode*/
+    if (initBattleground(battleground0, size) == OUT_OF_MEMORY) {/*TODO: Das hier moechte in die setzeSchiffe Methode*/
+        printf("Out of memory, abort!");
+        return -1;
+    }
+
+    if (initBattleground(battleground1, size) == OUT_OF_MEMORY) {/*TODO: Das hier moechte in die setzeSchiffe Methode*/
         printf("Out of memory, abort!");
         return -1;
     }
@@ -85,15 +90,13 @@ int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße*/
     return 0;
 }
 
-int initBattleground(char **battleground0, char **battleground1, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
+int initBattleground(char **battleground, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
 {
     int x, y;
     for (x = 0; x < size; x++){
-        battleground0[x] = malloc(size);
-        battleground1[x] = malloc(size);
+        battleground[x] = malloc(size);
         for(y = 0; y < size; y++){
-            battleground0[x][y] = 'w';
-            battleground1[x][y] = 'w';
+            battleground[x][y] = 'w';
         }
     }
 
