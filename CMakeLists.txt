@@ -3,4 +3,4 @@ project(Semesteraufgabe C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(Semesteraufgabe main.c)
+add_executable(Semesteraufgabe main.c ki.c ki.h battleground.c battleground.h console.c console.h)
