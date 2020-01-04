@@ -127,13 +127,13 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
             for (i = 0; i <= ship_length; i++){
                 if (matrix[y - i][x] != 'w'){
                     return 0;
-                } else if (y - i + 1 < size && matrix[y + i + 1][x] != 'w') { /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                } else if (y - i + 1 < size && matrix[y - i + 1][x] != 'w') { /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
                     return 0;
-                } else if (y - i - 1 >= 0 && matrix[y + i - 1][x] != 'w'){
+                } else if (y - i - 1 >= 0 && matrix[y - i - 1][x] != 'w'){
                     return 0;
-                } else if (x - 1 >= 0 && matrix[y + i][x - 1] != 'w'){
+                } else if (x - 1 >= 0 && matrix[y - i][x - 1] != 'w'){
                     return 0;
-                } else if (x + 1 < size && matrix[y + i][x + 1] != 'w'){
+                } else if (x + 1 < size && matrix[y - i][x + 1] != 'w'){
                     return 0;
                 }
             }
