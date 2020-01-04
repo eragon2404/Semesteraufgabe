@@ -61,7 +61,7 @@ int main(void) {
     return 0;
 }
 
-int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße TODO: Alles andere als Zahlen abfangen*/
+int getBattlegroundSize() /*Fragt den Spiele nach der gewünschten Feldgröße*/
 {
     int n;
     do{
