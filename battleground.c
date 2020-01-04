@@ -56,6 +56,9 @@ int rand_set_ships(char **matrix, int size, int *ships, int ship_count) /*TODO: 
         if (i == ship_count) {
             return 1;
         } else {
+            for (i = 0; i < size; i++){
+                free(matrix[i]);
+            }
             init_battleground(matrix, size);
         }
     }
