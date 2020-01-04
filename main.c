@@ -17,10 +17,11 @@ void clearScreen();
 void flush();
 
 /*Fuer die KI*/
-int * ki(char **matrix, int size, int difficulty);
+int * ai_diff3(char **matrix, int size, int difficulty);
 int is_useful(char **matrix, int y, int x, int size, int difficulty);
 int * get_from_solo(char **matrix, int y, int x, int difficulty);
 int * get_from_double(char **matrix, int y, int x, int difficulty);
+int ai_set_ships(char **matrix, int size, int *ships, int ship_count);
 
 
 int main(void) {
@@ -140,7 +141,7 @@ void flush(){
 /*--------------KI---------------*/
 
 
-int * ki_diif3(char **matrix, int size)
+int * ai_diif3(char **matrix, int size)
 {
 
     static int result[2];
@@ -274,3 +275,19 @@ int is_useful(char **matrix, int y, int x, int size, int difficulty)
     return 1;
 }
 
+int ai_set_ships(char **matrix, int size, int *ships, int ship_count)
+{
+    int i;
+    while (1){
+        for (i = 0; i < ship_count; i++){
+            if (!set_ship(matrix, size, rand() % size, rand() % size, rand() % 4, ships[i])){
+                break;
+            }
+        }
+        if (i == ship_count - 1) {
+            return 1;
+        } else {
+            initBattleground(matrix, size);
+        }
+    }
+}
