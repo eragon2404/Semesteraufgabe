@@ -29,24 +29,34 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
     return 0;
 }
 
-int init_battleground(char **battleground, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
+int init_battleground(char **matrix, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
 {
     int x, y;
     for (x = 0; x < size; x++){
-        if ((battleground[x] = malloc(size)) == NULL){
+        if ((matrix[x] = malloc(size)) == NULL){
             return OUT_OF_MEMORY;
         }
-        for(y = 0; y < size; y++){
-            battleground[x][y] = 'w';
-        }
     }
+
+    reset_battleground(matrix, size);
     return 1;
 
+}
+
+void reset_battleground(char **matrix, int size){
+    int x, y;
+    for (x = 0; x < size; x++){
+        for(y = 0; y < size; y++){
+            matrix[x][y] = 'w';
+        }
+    }
 }
 
 int rand_set_ships(char **matrix, int size, int *ships, int ship_count) /*TODO: Diese Methode sorgt fuer Crashes. Warum und wie kann dem Abhilfe geschaffen werden?*/
 {
     int i;
+
+    printf("Das kann jetzt einen Moment dauern!\n");
     while (1){
         for (i = 0; i < ship_count; i++){
             if (!set_ship(matrix, size, rand() % size, rand() % size, rand() % 4, ships[i])){
@@ -56,10 +66,7 @@ int rand_set_ships(char **matrix, int size, int *ships, int ship_count) /*TODO: 
         if (i == ship_count) {
             return 1;
         } else {
-            for (i = 0; i < size; i++){
-                free(matrix[i]);
-            }
-            init_battleground(matrix, size);
+            reset_battleground(matrix, size);
         }
     }
 }

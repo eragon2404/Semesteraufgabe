@@ -17,7 +17,7 @@
 
 int main(void) {
 
-    int i, playerTurn, size, *ships, ship_count;
+    int i, playerTurn, size, ships[10], ship_count;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -26,19 +26,18 @@ int main(void) {
     draw_intro();
     size = get_battleground_size();
 
-    ships = malloc(6 * sizeof(int));
 
     ships[0] = 2;
-    ships[1] = 2;
+    ships[1] = 3;
     ships[2] = 3;
-    ships[3] = 3;
-    ships[4] = 4;
+    ships[3] = 4;
+    ships[4] = 5;
     ships[5] = 4;
     ships[6] = 3;
     ships[7] = 3;
     ships[8] = 5;
     ships[9] = 5;
-    ship_count = 10;
+    ship_count = 5;
 
 
 
@@ -70,7 +69,6 @@ int main(void) {
 
 
     /* Gibt reservierten Speicher wieder frei */
-    free(ships);
 
     for (i = 0; i < size; i++){
         free(battleground0[i]);
