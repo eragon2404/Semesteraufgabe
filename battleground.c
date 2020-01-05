@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define ship_mass_treshold 0.9
+
 
 
 int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße*/
@@ -182,4 +184,16 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
     }
 
     return 1;
+}
+
+int ship_mass_validation(int size, int *ships, int ship_count){
+    int i;
+    int mass;
+    mass = 0;
+    for(i = 0; i < ship_count; i++){
+        mass += ships[i];
+    }
+    mass *= 2;
+    mass += ship_count;
+    return (float)mass/(float)(size*size) <= ship_mass_treshold;
 }
