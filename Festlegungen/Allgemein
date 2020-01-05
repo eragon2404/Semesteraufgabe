@@ -35,3 +35,6 @@ Regeln zum setzen der Schiffe:
 Regeln zum Schießen:
             -Der Schuss muss im Feld liegen
             -Bei einem Treffer darf nochmal geschossen werden
+
+IDEE: Anzahl der durch n Schiffe belegten Felder: (Summe der Länge aller Schiffe) * 2 + n
+    Diese muss in einem gewissen Bereich (mit safety margin) liegen um für eine Matrix mit x * y Feldern geeignet zu sein
