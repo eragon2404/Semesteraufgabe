@@ -5,7 +5,11 @@
 #define OUT_OF_MEMORY -69420
 #endif
 
+#define SHIP_MASS_THRESHOLD 0.9
+#define SHIPS_LIMIT 15
+
 int get_battleground_size();
+int get_ships(int **ships, int *ship_count);
 int init_battleground(char **battleground, int size);
 void reset_battleground(char **matrix, int size);
 int rand_set_ships(char **matrix, int size, int *ships, int ship_count);

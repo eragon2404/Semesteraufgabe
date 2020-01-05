@@ -10,7 +10,7 @@ void draw_intro()
            "--------------------------------------------------------------------------------\n");
 }
 
-void draw_screen(char **matrix, int size) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize TODO: Ein Koordinatensystem zeichnen*/
+void draw_screen(char **matrix, int size) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize */
 {
     int x, y;
 

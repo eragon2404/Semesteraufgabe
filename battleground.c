@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define ship_mass_treshold 0.9
+
 
 
 
@@ -26,9 +26,56 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
         } else {
             return n;
         }
-    } while (!n);
+    } while (1);
+}
 
-    return 0;
+int get_ships(int **ships, int *ship_count)
+{
+    int length, i;
+
+    printf("Wie viele Schiffe soll es geben? (Min 1, Max %i)\n", SHIPS_LIMIT);
+    do{
+        printf("Eingabe: ");
+        if (scanf("%i", ship_count) != 1) {
+            printf("Keine gueltige Eingabe!\n");
+            if (getchar() != '\n'){
+                flush();
+            }
+            continue;
+        }
+        if (*ship_count < 1 || *ship_count > SHIPS_LIMIT){
+        } else {
+            break;
+        }
+    } while (1);
+
+    if ((*ships = malloc(*ship_count * sizeof(int))) == NULL){
+        return OUT_OF_MEMORY;
+    }
+
+    for(i = 0; i < *ship_count; i++){
+        printf("Welche Groeße soll Schiff %i haben? (Min 2, Max 5)\n", i);
+        do{
+            printf("Eingabe: ");
+            if (scanf("%i", &length) != 1) {
+                printf("Keine gueltige Eingabe!\n");
+                if (getchar() != '\n'){
+                    flush();
+                }
+                continue;
+            }
+            if (length < 2 || length > 5){
+                printf("Keine gueltige Eingabe!\n");
+            } else {
+                break;
+            }
+        } while (1);
+
+        *(*ships + i) = length;
+    }
+
+    printf("ship_count: %i\n", *ship_count);
+    return 1;
 }
 
 int init_battleground(char **matrix, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
@@ -195,5 +242,5 @@ int ship_mass_validation(int size, int *ships, int ship_count){
     }
     mass *= 2;
     mass += ship_count;
-    return (float)mass/(float)(size*size) <= ship_mass_treshold;
+    return (float)mass/(float)(size*size) <= SHIP_MASS_THRESHOLD;
 }
