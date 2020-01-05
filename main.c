@@ -33,9 +33,9 @@ int main(void) {
     ships[2] = 2;
     ships[3] = 3;
     ships[4] = 3;
-    ships[5] = 4;
+    ships[5] = 3;
     ships[6] = 4;
-    ships[7] = 4;
+    ships[7] = 5;
     ships[8] = 5;
     ships[9] = 5;
     ship_count = 10;

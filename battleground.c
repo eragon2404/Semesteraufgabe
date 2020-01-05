@@ -10,7 +10,7 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
     int n;
     do{
         printf("Waehlen sie eine Feldgroesse: (min 10, max 20): ");
-        if (scanf("%i", &n) /* NOLINT(cert-err34-c) */ != 1) {
+        if (scanf("%i", &n) != 1) {
             printf("Keine gültige Eingabe!\n");
             n = 0;
             if (getchar() != '\n'){
@@ -31,7 +31,7 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
 
 int init_battleground(char **matrix, int size) /*Initalisiert die Matrizen mit 'w' als leere Felder*/
 {
-    int x, y;
+    int x;
     for (x = 0; x < size; x++){
         if ((matrix[x] = malloc(size)) == NULL){
             return OUT_OF_MEMORY;
@@ -52,7 +52,7 @@ void reset_battleground(char **matrix, int size){
     }
 }
 
-int rand_set_ships(char **matrix, int size, int *ships, int ship_count) /*TODO: Diese Methode sorgt fuer Crashes. Warum und wie kann dem Abhilfe geschaffen werden?*/
+int rand_set_ships(char **matrix, int size, int *ships, int ship_count)
 {
     int i;
 

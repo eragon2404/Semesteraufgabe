@@ -15,9 +15,22 @@ void draw_screen(char **matrix, int size) /*Zeigt den Spieler, der an der Reihe 
     int x, y;
 
     clear_screen();
+
+    printf("\t");
     for(x = 0; x < size; x++){
-        for(y = 0; y < size; y++){
-            printf("%c  ", matrix[x][y]);
+        if (x < 9){
+            printf("%i  ", x + 1);
+        } else {
+            printf("%i ", x + 1);
+        }
+
+    }
+    printf("\n");
+
+    for(y = 0; y < size; y++){
+        printf("%i:\t", y + 1);
+        for(x = 0; x < size; x++){
+            printf("%c  ", matrix[y][x]);
         }
         printf("\n");
     }
