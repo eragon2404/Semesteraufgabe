@@ -62,7 +62,7 @@ int main(void) {
         return -1;
     }
 
-    if (get_ships(&ships, &ship_count) == OUT_OF_MEMORY){
+    if (get_ships(&ships, &ship_count, size) == OUT_OF_MEMORY){
         printf("Out of memory, abort!");
         return -1;
     }

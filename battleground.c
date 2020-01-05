@@ -29,52 +29,50 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
     } while (1);
 }
 
-int get_ships(int **ships, int *ship_count)
-{
+int get_ships(int **ships, int *ship_count, int size) {
     int length, i;
-
-    printf("Wie viele Schiffe soll es geben? (Min 1, Max %i)\n", SHIPS_LIMIT);
     do{
-        printf("Eingabe: ");
-        if (scanf("%i", ship_count) != 1) {
-            printf("Keine gueltige Eingabe!\n");
-            if (getchar() != '\n'){
-                flush();
-            }
-            continue;
-        }
-        if (*ship_count < 1 || *ship_count > SHIPS_LIMIT){
-        } else {
-            break;
-        }
-    } while (1);
-
-    if ((*ships = malloc(*ship_count * sizeof(int))) == NULL){
-        return OUT_OF_MEMORY;
-    }
-
-    for(i = 0; i < *ship_count; i++){
-        printf("Welche Groeße soll Schiff %i haben? (Min 2, Max 5)\n", i);
-        do{
+        printf("Wie viele Schiffe soll es geben? (Min 1, Max %i)\n", SHIPS_LIMIT);
+        do {
             printf("Eingabe: ");
-            if (scanf("%i", &length) != 1) {
+            if (scanf("%i", ship_count) != 1) {
                 printf("Keine gueltige Eingabe!\n");
-                if (getchar() != '\n'){
+                if (getchar() != '\n') {
                     flush();
                 }
                 continue;
             }
-            if (length < 2 || length > 5){
-                printf("Keine gueltige Eingabe!\n");
+            if (*ship_count < 1 || *ship_count > SHIPS_LIMIT) {
             } else {
                 break;
             }
         } while (1);
 
-        *(*ships + i) = length;
-    }
+        if ((*ships = malloc(*ship_count * sizeof(int))) == NULL) {
+            return OUT_OF_MEMORY;
+        }
 
-    printf("ship_count: %i\n", *ship_count);
+        for (i = 0; i < *ship_count; i++) {
+            printf("Welche Groeße soll Schiff %i haben? (Min 2, Max 5)\n", i);
+            do {
+                printf("Eingabe: ");
+                if (scanf("%i", &length) != 1) {
+                    printf("Keine gueltige Eingabe!\n");
+                    if (getchar() != '\n') {
+                        flush();
+                    }
+                    continue;
+                }
+                if (length < 2 || length > 5) {
+                    printf("Keine gueltige Eingabe!\n");
+                } else {
+                    break;
+                }
+            } while (1);
+
+            *(*ships + i) = length;
+        }
+    }while(!ship_mass_validation(size, *ships, *ship_count));
     return 1;
 }
 
@@ -103,14 +101,23 @@ void reset_battleground(char **matrix, int size){
 
 int rand_set_ships(char **matrix, int size, int *ships, int ship_count)
 {
-    int i;
+    int i, j, done;
+    done = 0;
 
     printf("Das kann jetzt einen Moment dauern!\n");
     while (1){
         for (i = 0; i < ship_count; i++){
-            if (!set_ship(matrix, size, rand() % size, rand() % size, rand() % 4, ships[i])){
+
+            for(j = 0; j < 1000; j++){
+                done = set_ship(matrix, size, rand() % size, rand() % size, rand() % 4, ships[i]);
+                if (done){
+                    break;
+                }
+            }
+            if (!done){
                 break;
             }
+
         }
         if (i == ship_count) {
             return 1;
@@ -242,5 +249,6 @@ int ship_mass_validation(int size, int *ships, int ship_count){
     }
     mass *= 2;
     mass += ship_count;
-    return (float)mass/(float)(size*size) <= SHIP_MASS_THRESHOLD;
+    printf("%f", (float)mass/(float)(size*size));
+    return ((float)mass/(float)(size*size) <= SHIP_MASS_THRESHOLD); /*das hier wird ein Bool*/
 }
