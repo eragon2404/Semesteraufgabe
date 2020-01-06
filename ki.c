@@ -3,6 +3,20 @@
 #include <stdlib.h>
 
 
+int * get_ai_turn(char **battleground, int size, int difficulty)
+{
+    switch (difficulty) {
+        case 1:
+            return NULL;
+        case 2:
+            return NULL;
+        case 3:
+            return ai_diff3(battleground, size);
+        default:
+            return 0;
+    }
+}
+
 int * ai_diif3(char **matrix, int size)
 {
 
