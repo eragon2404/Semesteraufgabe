@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err34-c"
 #include "console.h"
 #include "battleground.h"
 #include <stdio.h>
@@ -5,7 +7,8 @@
 
 /*---------------------------------Methoden die das Spiel zeichnen----------------------------------------------------*/
 
-void draw_intro() {
+void draw_intro()
+{
     printf("--------------------------------------------------------------------------------\n"
            "                            Schiffe Versenken Deluxe                            \n"
            "--------------------------------------------------------------------------------\n"
@@ -47,7 +50,8 @@ void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 
 /*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
-void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
+void player_set_ships(char **matrix, int size, int *ships, int ship_count) /*Lässt den Spieler seine Schiffe setzen*/
+{
     int i, current_ship, x, y, direction;
     i = 1;
     current_ship = 0;
@@ -152,7 +156,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
     }
 }
 
-void getSettings(int *single, int *diff, int *standart)
+void getSettings(int *single, int *diff, int *standart)/*Fragt Spieler nach den Spieleinstellungen*/
 {
     *single = *diff = *standart = -1;
 
@@ -261,7 +265,8 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
     } while (1);
 }
 
-int get_ships(int **ships, int *ship_count, int size) {
+int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viele Schiffe welcher Art es geben soll*/
+{
     int length, i;
     do {
         printf("Wie viele Schiffe soll es geben? (Min 1, Max %i)\n", SHIPS_LIMIT);
@@ -309,6 +314,7 @@ int get_ships(int **ships, int *ship_count, int size) {
 }
 
 
-void flush() {
+void flush()
+{
     while (getchar() != '\n');
 }
