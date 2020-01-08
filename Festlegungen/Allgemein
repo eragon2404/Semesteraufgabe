@@ -7,11 +7,11 @@ Schiffarten und Menge sind variabel und werden in einem Array gespeichert. ships
             Beispiel: [2,2,4] beduetet 2 Schiffe der Länge 2 und 1 Schiff der Länge 4.
 
 Es werden 2 Spielfelder erstellt, für jeden Spieler eins.
-Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, u, h, d
+Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, (länge), h, d
             Wobei:
                     w = Water
                     m = Miss
-                    u = Unhit
+                    (länge) = Unhit, die Länge ist angegeben um die Treffer auf verschiedene Schiffsarten nachvollziehen zu können
                     h = Hit
                     d = Downed
 
@@ -20,8 +20,8 @@ Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, u
                 ships = [2,2,3]
 
                     w w m w w w    <- Hier wurde ein Schuss ins Wasser gesetzt
-                    u u u w w w     <- Hier steht ein ungetroffenes Schiff der Länge 2
-                    w w h u u w     <- Hier steht ein Schiff der Länge 3 das einmal getroffen wurde
+                    2 2 w w w w     <- Hier steht ein Schiff der Länge 2
+                    w w h 3 3 w     <- Hier steht ein Schiff der Länge 3 das einmal getroffen wurde
                     w d d w w w     <- Hier steht ein versenktes Schiff der Länge 2
 
 Regeln zum setzen der Schiffe:
@@ -30,7 +30,7 @@ Regeln zum setzen der Schiffe:
             -Ein Schiff muss im Spielfeld liegen
             -Zwei Teile von zwei verschiedenen Schiffen müssen eine Manhattan-Distanz >= 2 haben
 
-        Diese Eigenschaften müssen beim setzten eines Schiffs geprüft werden.
+        Diese Eigenschaften müssen beim setzen eines Schiffs geprüft werden.
         
 Regeln zum Schießen:
             -Der Schuss muss im Feld liegen

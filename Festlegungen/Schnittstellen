@@ -1,5 +1,34 @@
+Nützliche Methoden und wie man sie ansprechen kann
 
-Logik:
+console.c :
+
+    Eine Matrix auf der Konsole ausgeben:
+        Methode: draw_screen
+
+        Übergabe:   (**char)    Matrix die ausgegeben werden soll
+                    (int)       Größe der Matrix
+
+        Rückgabe:   -/-
+
+    Einen Spieler die Schiffe in die Matrix setzen lassen:
+        Methode: player_set_ship
+
+        Übergabe:   (**char)    Matrix in die Schiff gesetzt werden soll
+                    (int)       Größe der Matrix
+                    (*int)      Feld der Schiffe repräsentiert durch ihre Länge
+                    (int)       Anzahl der zu setzenden Schiffe
+
+        Rückgabe:   -/-
+
+battleground.c :
+
+    Matrix zrücksetzen:
+        Methode: reset_battleground
+
+        Übergabe:   (**char)    Matrix die zurückgesetzt werden soll
+                    (int)       Größe der Matrix
+
+        Rückgabe:   -/-
 
     um ein Schiff zu setzen:
 
@@ -14,22 +43,6 @@ Logik:
                   )
         Rückgabe: (int) 1 bei Erfolg, 0 wenn das Schiff so nicht gesetzt werden darf
 
-
-KI:
-
-    um den Zug der KI zu berechnen:
-
-        Methode: get_ai_turn
-
-        Übergabe: ( (**char) Matrix des Gegenspielers der KI,
-                    (int) Größe der Matrix,
-                    (int) Schwierigkeit (1/2/3),
-                  )
-
-        Rückgabe: (int[2]) Array der Form [y, x] = Position auf die geschossen werden soll
-
-
-
     um Schiffe automatisch zu setzen:
 
         Methode: rand_set_ships
@@ -41,3 +54,17 @@ KI:
                   )
 
         Rückgabe: (int) 1 bei Erfolg
+
+
+ki.c :
+
+    um den Zug der KI zu berechnen:
+
+        Methode: get_ai_turn
+
+        Übergabe: ( (**char) Matrix des Gegenspielers der KI,
+                    (int) Größe der Matrix,
+                    (int) Schwierigkeit (1/2/3),
+                  )
+
+        Rückgabe: (int[2]) Array der Form [y, x] = Position auf die geschossen werden soll

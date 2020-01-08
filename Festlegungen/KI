@@ -10,7 +10,7 @@ Zur KI:
             Sie arbeitet dann an diesem Schiff unter Beachtung der Spielregeln (kann dort ein Schiff sein?) bis es
             versenkt ist.
 
-    definition: "sinvolles Feld":
+    definition: "sinnvolles Feld":
         y, x liegt im Feld
         [y][x] == 0
         für schwierigkeit 3:
