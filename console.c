@@ -2,23 +2,22 @@
 #include "battleground.h"
 #include <stdio.h>
 
-void draw_intro()
-{
+void draw_intro() {
     printf("--------------------------------------------------------------------------------\n"
            "                            Schiffe Versenken Deluxe                            \n"
            "--------------------------------------------------------------------------------\n"
            "--------------------------------------------------------------------------------\n");
 }
 
-void draw_screen(char **matrix, int size) /*Zeigt den Spieler, der an der Reihe ist, an und zeichnet dessen Matrize */
+void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
 {
     int x, y;
 
     clear_screen();
 
     printf("\t");
-    for(x = 0; x < size; x++){
-        if (x < 9){
+    for (x = 0; x < size; x++) {
+        if (x < 9) {
             printf("%i  ", x + 1);
         } else {
             printf("%i ", x + 1);
@@ -27,16 +26,16 @@ void draw_screen(char **matrix, int size) /*Zeigt den Spieler, der an der Reihe 
     }
     printf("\n");
 
-    for(y = 0; y < size; y++){
+    for (y = 0; y < size; y++) {
         printf("%i:\t", y + 1);
-        for(x = 0; x < size; x++){
+        for (x = 0; x < size; x++) {
             printf("%c  ", matrix[y][x]);
         }
         printf("\n");
     }
 }
 
-void player_set_ships(char **matrix, int size, int *ships, int ship_count){
+void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
     int i, current_ship, x, y, direction;
     current_ship = 0;
     direction = 0;
@@ -51,31 +50,32 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count){
         }
         printf("%i\n", ships[ship_count - 1]);
 
-        printf("Wohin soll das Schiff %i mit Laenge %i? (Eingabe: x.y.richtung (o = 0, r = 1, u = 2, l = 3)\n", current_ship + 1, ships[current_ship]);
+        printf("Wohin soll das Schiff %i mit Laenge %i? (Eingabe: x.y.richtung (o = 0, r = 1, u = 2, l = 3)\n",
+               current_ship + 1, ships[current_ship]);
         do {
             if (scanf("%i.%i.%i", &x, &y, &direction) != 3) {
                 printf("Ungueltige Eingabe! (Format: x.y.richtung)\n");
-                if (getchar() != '\n'){
+                if (getchar() != '\n') {
                     flush();
                 }
                 continue;
             }
             if (x - 1 < 0 || y - 1 < 0 || x > size || y > size) {
                 printf("Ungueltige Koordinate! (Format: x.y.richtung)\n");
-                if (getchar() != '\n'){
+                if (getchar() != '\n') {
                     flush();
                 }
                 continue;
             }
             if (direction < 0 || direction > 3) {
                 printf("Ungueltige Richtungsangabe! (o = 0, r = 1, u = 2, l = 3)\n");
-                if (getchar() != '\n'){
+                if (getchar() != '\n') {
                     flush();
                 }
                 continue;
             }
 
-            if (getchar() != '\n'){
+            if (getchar() != '\n') {
                 flush();
             }
 
@@ -96,6 +96,6 @@ void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
            "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
 
-void flush(){
-    while(getchar() != '\n');
+void flush() {
+    while (getchar() != '\n');
 }

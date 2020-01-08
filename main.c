@@ -16,22 +16,23 @@
 #define DEBUG 0
 
 
-
 int main(void) {
 
     int i, playerTurn, size, *ships, ship_count;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
+    battleground0 = NULL;
+    battleground1 = NULL;
     ships = NULL;
 
     playerTurn = 0;
     draw_intro();
     size = get_battleground_size();
 
-    if (DEBUG){
+    if (DEBUG) {
         ship_count = 10;
-        if ((ships = malloc(ship_count * sizeof(int))) == NULL){
+        if ((ships = malloc(ship_count * sizeof(int))) == NULL) {
             printf("Out of memory, abort!");
             return -1;
         }
@@ -48,21 +49,13 @@ int main(void) {
         ships[9] = 5;
     }
 
-    /* TODO: Kann man das hier noch in die methode integrieren? Der Fehler, dass die beiden ptr nicht initalisiert sind muss halt vermieden werden */
-    battleground0 = malloc(size * sizeof(char*));
-    battleground1 = malloc(size * sizeof(char*));
-
-    if (battleground0 == NULL || battleground1 == NULL){
+    if (init_battleground(&battleground0, size) == OUT_OF_MEMORY ||
+        init_battleground(&battleground1, size) == OUT_OF_MEMORY) {
         printf("Out of memory, abort!");
         return -1;
     }
 
-    if (init_battleground(battleground0, size) == OUT_OF_MEMORY || init_battleground(battleground1, size) == OUT_OF_MEMORY) {
-        printf("Out of memory, abort!");
-        return -1;
-    }
-
-    if (get_ships(&ships, &ship_count, size) == OUT_OF_MEMORY){
+    if (get_ships(&ships, &ship_count, size) == OUT_OF_MEMORY) {
         printf("Out of memory, abort!");
         return -1;
     }
@@ -78,7 +71,7 @@ int main(void) {
 
     free(ships);
 
-    for (i = 0; i < size; i++){
+    for (i = 0; i < size; i++) {
         free(battleground0[i]);
         free(battleground1[i]);
     }

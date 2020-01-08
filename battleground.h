@@ -10,11 +10,17 @@
 #define SHIPS_LIMIT 15
 
 int get_battleground_size();
+
 int get_ships(int **ships, int *ship_count, int size);
-int init_battleground(char **battleground, int size);
+
+int init_battleground(char ***battleground, int size);
+
 void reset_battleground(char **matrix, int size);
+
 int rand_set_ships(char **matrix, int size, int *ships, int ship_count);
+
 int set_ship(char **matrix, int size, int y, int x, int direction, int ship_length);
+
 int ship_mass_validation(int size, int *ships, int ship_count);
 
 #endif
