@@ -17,6 +17,6 @@ int rand_set_ships(char **matrix, int size, int *ships, int ship_count);
 
 int set_ship(char **matrix, int size, int y, int x, int direction, int ship_length);
 
-int ship_mass_validation(int size, int *ships, int ship_count);
+int ship_mass_validation(int size, const int *ships, int ship_count);
 
 #endif

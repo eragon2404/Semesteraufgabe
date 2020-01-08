@@ -178,7 +178,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
     return 1;
 }
 
-int ship_mass_validation(int size, int *ships, int ship_count) {
+int ship_mass_validation(int size, const int *ships, int ship_count) {
     int i;
     int mass;
     mass = 0;
