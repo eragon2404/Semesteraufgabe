@@ -49,20 +49,69 @@ void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 
 void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
     int i, current_ship, x, y, direction;
+    i = 1;
     current_ship = 0;
     direction = 0;
 
+    printf("Moechten sie die Schiffe zufaellig setzen lassen? (j / n)\n");
+    do{
+        switch (getchar()){
+            case 'j':
+                rand_set_ships(matrix, size, ships, ship_count);
+                if (getchar() != '\n'){
+                    flush();
+                }
+
+                do{ /*Wiederholt das zufällige Setzen solange, bis der Spieler zufrieden ist*/
+                    draw_screen(matrix, size);
+                    printf("Ist das so in Ordnung? (j / n)\n");
+                    switch (getchar()){
+                        case 'j':
+                            if (getchar() != '\n'){
+                                flush();
+                            }
+                            return;
+                        case 'n':
+                            reset_battleground(matrix, size);
+                            rand_set_ships(matrix, size, ships, ship_count);
+                            if (getchar() != '\n'){
+                                flush();
+                            }
+                        default:
+                            printf("Keine gueltige Antwort, erneut versuchen!\n");
+                            if (getchar() != '\n'){
+                                flush();
+                            }
+                            break;
+                    }
+                } while (1);
+
+            case 'n':
+                if (getchar() != '\n'){
+                    flush();
+                }
+                i = 0;
+                break;
+            default:
+                printf("Keine gueltige Antwort, erneut versuchen!\n");
+                if (getchar() != '\n'){
+                    flush();
+                }
+                break;
+
+        }
+    } while (i);
 
     while (current_ship < ship_count) {
 
         draw_screen(matrix, size);
-        printf("Es stehen folgende Schiffe zur Auswahl:\n");
+        printf("Es stehen folgende Schiffe zur Auswahl (Die Zahl gibt die Laenge an):\n");
         for (i = 0; i < ship_count - 1; i++) {
-            printf("%i", ships[i]);
+            printf("%i ", ships[i]);
         }
         printf("%i\n", ships[ship_count - 1]);
 
-        printf("Wohin soll das Schiff %i mit Laenge %i? (Eingabe: x.y.richtung (o = 0, r = 1, u = 2, l = 3)\n",
+        printf("Wohin soll das Schiff %i mit Laenge %i? (Eingabe: \"x.y.richtung\" (oben = 0, rechts = 1, unten = 2, links = 3))\n",
                current_ship + 1, ships[current_ship]);
         do {
             if (scanf("%i.%i.%i", &x, &y, &direction) != 3) {
@@ -80,7 +129,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
                 continue;
             }
             if (direction < 0 || direction > 3) {
-                printf("Ungueltige Richtungsangabe! (o = 0, r = 1, u = 2, l = 3)\n");
+                printf("Ungueltige Richtungsangabe! (oben = 0, rechts = 1, unten = 2, links = 3)\n");
                 if (getchar() != '\n') {
                     flush();
                 }
