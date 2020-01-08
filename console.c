@@ -1,6 +1,9 @@
 #include "console.h"
 #include "battleground.h"
 #include <stdio.h>
+#include <stdlib.h>
+
+/*---------------------------------Methoden die das Spiel zeichnen----------------------------------------------------*/
 
 void draw_intro() {
     printf("--------------------------------------------------------------------------------\n"
@@ -34,6 +37,15 @@ void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
         printf("\n");
     }
 }
+
+
+void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
+{
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+           "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+/*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
 void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
     int i, current_ship, x, y, direction;
@@ -90,11 +102,162 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
     }
 }
 
-void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
+void getSettings(int *single, int *diff, int *standart)
 {
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
-           "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    *single = *diff = *standart = -1;
+
+    printf("Moechten sie allein oder zu zweit spielen? (1 / 2)\n");
+    do{
+        switch (getchar()){
+            case '1':
+                *single = 1;
+                if (getchar() != '\n'){
+                    flush();
+                }
+                break;
+            case '0':
+                *single = 0;
+                if (getchar() != '\n'){
+                    flush();
+                }
+                break;
+            default:
+                printf("Keine gueltige Antwort, erneut versuchen!\n");
+                if (getchar() != '\n'){
+                    flush();
+                }
+                break;
+
+        }
+    } while (*single == -1);
+
+    if (*single){
+        printf("Welchen Schwierigkeitsgrad des Computers wuenschen sie? (1, 2, 3)\n");
+        do{
+            switch (getchar()){
+                case '1':
+                    *diff = 1;
+                    if (getchar() != '\n'){
+                        flush();
+                    }
+                    break;
+                case '2':
+                    *diff = 2;
+                    if (getchar() != '\n'){
+                        flush();
+                    }
+                    break;
+                case '3':
+                    *diff = 3;
+                    if (getchar() != '\n'){
+                        flush();
+                    }
+                    break;
+                default:
+                    printf("Keine gueltige Antwort, erneut versuchen!\n");
+                    if (getchar() != '\n'){
+                        flush();
+                    }
+                    break;
+
+            }
+        } while (*diff == -1);
+    }
+
+    printf("Wuenschen sie die Standarteinstellungen mit Feldgroesse 10 und 5 Schiffen? (j / n)\n");
+    do{
+        switch (getchar()){
+            case 'j':
+                *standart = 1;
+                if (getchar() != '\n'){
+                    flush();
+                }
+                return;
+            case 'n':
+                *standart = 0;
+                if (getchar() != '\n'){
+                    flush();
+                }
+                break;
+            default:
+                printf("Keine gueltige Antwort, erneut versuchen!\n");
+                if (getchar() != '\n'){
+                    flush();
+                }
+                break;
+        }
+    } while (*standart == -1);
 }
+
+int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße*/
+{
+    int n;
+    do {
+        printf("Waehlen sie eine Feldgroesse: (min 10, max 20):\n");
+        if (scanf("%i", &n) != 1) {
+            printf("Keine gueltige Eingabe!\n");
+            n = 0;
+            if (getchar() != '\n') {
+                flush();
+            }
+            continue;
+        }
+        if (n < 10 || n > 20) {
+            printf("Keine gueltige Eingabe!\n");
+            n = 0;
+        } else {
+            return n;
+        }
+    } while (1);
+}
+
+int get_ships(int **ships, int *ship_count, int size) {
+    int length, i;
+    do {
+        printf("Wie viele Schiffe soll es geben? (Min 1, Max %i)\n", SHIPS_LIMIT);
+        do {
+            printf("Eingabe:\n");
+            if (scanf("%i", ship_count) != 1) {
+                printf("Keine gueltige Eingabe!\n");
+                if (getchar() != '\n') {
+                    flush();
+                }
+                continue;
+            }
+            if (*ship_count < 1 || *ship_count > SHIPS_LIMIT) {
+            } else {
+                break;
+            }
+        } while (1);
+
+        if ((*ships = malloc(*ship_count * sizeof(int))) == NULL) {
+            return OUT_OF_MEMORY;
+        }
+
+        for (i = 0; i < *ship_count; i++) {
+            printf("Welche Groesse soll Schiff %i haben? (Min 2, Max 5)\n", i + 1);
+            do {
+                printf("Eingabe:\n");
+                if (scanf("%i", &length) != 1) {
+                    printf("Keine gueltige Eingabe!\n");
+                    if (getchar() != '\n') {
+                        flush();
+                    }
+                    continue;
+                }
+                if (length < 2 || length > 5) {
+                    printf("Keine gueltige Eingabe!\n");
+                } else {
+                    break;
+                }
+            } while (1);
+
+            *(*ships + i) = length;
+        }
+    } while (!ship_mass_validation(size, *ships, *ship_count));
+    return 1;
+}
+
 
 void flush() {
     while (getchar() != '\n');

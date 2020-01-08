@@ -17,7 +17,7 @@ int * get_ai_turn(char **battleground, int size, int difficulty)
     }
 }
 
-int * ai_diif3(char **matrix, int size)
+int * ai_diff3(char **matrix, int size)
 {
 
     static int result[2];

@@ -9,10 +9,6 @@
 
 #define SHIPS_LIMIT 15
 
-int get_battleground_size();
-
-int get_ships(int **ships, int *ship_count, int size);
-
 int init_battleground(char ***battleground, int size);
 
 void reset_battleground(char **matrix, int size);
