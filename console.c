@@ -77,6 +77,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
                             if (getchar() != '\n'){
                                 flush();
                             }
+                            break;
                         default:
                             printf("Keine gueltige Antwort, erneut versuchen!\n");
                             if (getchar() != '\n'){
@@ -111,8 +112,8 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) {
         }
         printf("%i\n", ships[ship_count - 1]);
 
-        printf("Wohin soll das Schiff %i mit Laenge %i? (Eingabe: \"x.y.richtung\" (oben = 0, rechts = 1, unten = 2, links = 3))\n",
-               current_ship + 1, ships[current_ship]);
+        printf("Wohin soll das Schiff %i (von %i) mit Laenge %i? (Eingabe: \"x.y.richtung\" (oben = 0, rechts = 1, unten = 2, links = 3))\n",
+               current_ship + 1, ship_count, ships[current_ship]);
         do {
             if (scanf("%i.%i.%i", &x, &y, &direction) != 3) {
                 printf("Ungueltige Eingabe! (Format: x.y.richtung)\n");
@@ -164,7 +165,7 @@ void getSettings(int *single, int *diff, int *standart)
                     flush();
                 }
                 break;
-            case '0':
+            case '2':
                 *single = 0;
                 if (getchar() != '\n'){
                     flush();
