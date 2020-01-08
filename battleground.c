@@ -95,7 +95,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
             }
 
             for (i = 0; i <= ship_length; i++) {
-                matrix[y + i][x] = 'U';
+                matrix[y + i][x] = '1' + ship_length;
             }
             break;
 
@@ -119,7 +119,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
             }
 
             for (i = 0; i <= ship_length; i++) {
-                matrix[y][x - i] = 'U';
+                matrix[y][x - i] = '1' + ship_length;
             }
             break;
 
@@ -143,7 +143,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
             }
 
             for (i = 0; i <= ship_length; i++) {
-                matrix[y - i][x] = 'U';
+                matrix[y - i][x] = '1' + ship_length;
             }
             break;
 
@@ -167,7 +167,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
             }
 
             for (i = 0; i <= ship_length; i++) {
-                matrix[y][x + i] = 'U';
+                matrix[y][x + i] = '1' + ship_length;
             }
             break;
 
