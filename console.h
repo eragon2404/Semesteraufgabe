@@ -13,6 +13,10 @@ int get_battleground_size();
 
 int get_ships(int **ships, int *ship_count, int size);
 
+int player_move(char **matrix, int size);
+
+int check_move(char **matrix, int size, int x, int y);
+
 void clear_screen();
 
 void flush();

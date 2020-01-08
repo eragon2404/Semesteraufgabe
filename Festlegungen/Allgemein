@@ -10,9 +10,9 @@ Es werden 2 Spielfelder erstellt, für jeden Spieler eins.
 Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, (länge), h, d
             Wobei:
                     w = Water
-                    m = Miss
+                    M = Miss
                     (länge) = Unhit, die Länge ist angegeben um die Treffer auf verschiedene Schiffsarten nachvollziehen zu können
-                    h = Hit
+                    X = Hit
                     d = Downed
 
             Beispiel:

@@ -4,6 +4,7 @@
 #include "battleground.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /*---------------------------------Methoden die das Spiel zeichnen----------------------------------------------------*/
 
@@ -311,6 +312,47 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
         }
     } while (!ship_mass_validation(size, *ships, *ship_count));
     return 1;
+}
+
+int player_move(char **matrix, int size)
+{
+    int x, y, hit;
+    hit = 0;
+    draw_screen(matrix, size);
+    printf("Wohin moechten sie schiessen? (Format: x.y)\n");
+
+    do {
+        if (scanf("%i.%i", &x, &y) != 2) {
+            printf("Ungueltige Eingabe! (Format: x.y)\n");
+            if (getchar() != '\n') {
+                flush();
+            }
+        } else if (x < 1 || x > size || y < 1 || y > size){
+            printf("Ungueltige Koordinate! (Format: x.y)\n");
+        } else {
+            break;
+        }
+    } while (1);
+
+    x--;
+    y--;
+
+    if (isdigit(matrix[y][x])){
+        hit = matrix[y][x];
+        matrix[y][x] = 'X';
+        return hit;
+    } else if (matrix[y][x] == 'M' || matrix[y][x] == 'X'){
+        printf("Diese Feld hatten sie schon. Schade!\n");
+        return 0;
+    } else {
+        matrix[y][x] = 'M';
+    }
+
+}
+
+int check_move(char **matrix, int size, int x, int y)
+{
+
 }
 
 

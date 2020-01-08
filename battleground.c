@@ -1,4 +1,6 @@
 #pragma clang diagnostic push
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "bugprone-narrowing-conversions"
 #pragma ide diagnostic ignored "bugprone-branch-clone"
 #include "battleground.h"
 #include <stdio.h>

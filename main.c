@@ -18,7 +18,7 @@
 
 int main(void) {
 
-    int i, playerTurn, size, *ships, ship_count, single, diff, standart;
+    int i, playerTurn, size, *ships, ship_count, single, diff, standart, win;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -26,7 +26,7 @@ int main(void) {
     battleground1 = NULL;
     ships = NULL;
 
-    playerTurn = 0;
+    playerTurn = win = 0;
     draw_intro();
     getSettings(&single, &diff, &standart);
     clear_screen();
@@ -93,6 +93,14 @@ int main(void) {
         player_set_ships(battleground1, size, ships, ship_count);
     }
     clear_screen();
+
+    i = 0;
+    do{
+        if (!playerTurn){
+            player_move(battleground1, size);
+        }
+        i++;
+    } while (i < 3);
 
 
 
