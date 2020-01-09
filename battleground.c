@@ -5,6 +5,7 @@
 #include "battleground.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 
 
@@ -192,4 +193,34 @@ int ship_mass_validation(int size, const int *ships, int ship_count) /*Stellt si
     mass += ship_count;
     printf("%f", (float) mass / (float) (size * size));
     return ((float) mass / (float) (size * size) <= SHIP_MASS_THRESHOLD); /*das hier wird ein Bool*/
+}
+
+int shoot(char **matrix, int x, int y)
+{
+    int hit;
+    if (isdigit(matrix[y][x])){
+        hit = matrix[y][x];
+        matrix[y][x] = 'X';
+        return hit;
+    } else if (matrix[y][x] == 'M' || matrix[y][x] == 'X'){
+        printf("Diese Feld hatten sie schon. Schade!\n");
+        return -1;
+    } else {
+        matrix[y][x] = 'M';
+    }
+    return 0;
+}
+
+int end_game(char **matrix, int size)
+{
+    int x, y;
+    for(x = 0; x < size; x++){
+        for(y = 0; y < size; y++){
+            if(isdigit(matrix[y][x])){
+                return 0;
+            }
+        }
+    }
+
+    return 1;
 }

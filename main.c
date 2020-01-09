@@ -18,7 +18,7 @@
 
 int main(void) {
 
-    int i, playerTurn, size, *ships, ship_count, single, diff, standart, win;
+    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *aishot;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -26,7 +26,7 @@ int main(void) {
     battleground1 = NULL;
     ships = NULL;
 
-    playerTurn = win = 0;
+    player_turn = win = 0;
     draw_intro();
     getSettings(&single, &diff, &standart);
     clear_screen();
@@ -94,17 +94,37 @@ int main(void) {
     }
     clear_screen();
 
-    i = 0;
-    do{
-        if (!playerTurn){
-            player_move(battleground1, size);
+    do{ /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
+        if (!player_turn){
+            player_move(battleground0, size, player_turn);
+
+            if (end_game(battleground0, size)){
+                win = 1;
+            }
+
+            player_turn = !player_turn;
+        } else {
+            if (single){
+                aishot = get_ai_turn(battleground1, size, diff);
+                shoot(battleground1, aishot[1], aishot[0]);
+                if (end_game(battleground1, size)){
+                    win = 2;
+                }
+                player_turn = !player_turn;
+            } else {
+                player_move(battleground1, size, player_turn);
+                if (end_game(battleground1, size)){
+                    win = 2;
+                }
+                player_turn = !player_turn;
+            }
         }
-        i++;
-    } while (i < 3);
+    } while (!win);
 
-
-
+    clear_screen();
     draw_screen(battleground0, size);
+    draw_screen(battleground1, size);
+    printf("Spieler %i hat gewonnen!\n", win);
 
 
     /* Gibt reservierten Speicher wieder frei */

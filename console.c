@@ -20,8 +20,6 @@ void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
 {
     int x, y;
 
-    clear_screen();
-
     printf("\t");
     for (x = 0; x < size; x++) {
         if (x < 9) {
@@ -40,6 +38,7 @@ void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 
@@ -68,6 +67,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) /*Lä
                 }
 
                 do{ /*Wiederholt das zufällige Setzen solange, bis der Spieler zufrieden ist*/
+                    clear_screen();
                     draw_screen(matrix, size);
                     printf("Ist das so in Ordnung? (j / n)\n");
                     switch (getchar()){
@@ -110,6 +110,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) /*Lä
 
     while (current_ship < ship_count) {
 
+        clear_screen();
         draw_screen(matrix, size);
         printf("Es stehen folgende Schiffe zur Auswahl (Die Zahl gibt die Laenge an):\n");
         for (i = 0; i < ship_count - 1; i++) {
@@ -280,11 +281,14 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
                 }
                 continue;
             }
-            if (*ship_count < 1 || *ship_count > SHIPS_LIMIT) {
-            } else {
+            if (!(*ship_count < 1 || *ship_count > SHIPS_LIMIT)) {
                 break;
             }
         } while (1);
+
+        if (getchar() != '\n') {
+            flush();
+        }
 
         if ((*ships = malloc(*ship_count * sizeof(int))) == NULL) {
             return OUT_OF_MEMORY;
@@ -303,6 +307,9 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
                 }
                 if (length < 2 || length > 5) {
                     printf("Keine gueltige Eingabe!\n");
+                    if (getchar() != '\n') {
+                        flush();
+                    }
                 } else {
                     break;
                 }
@@ -311,14 +318,20 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
             *(*ships + i) = length;
         }
     } while (!ship_mass_validation(size, *ships, *ship_count));
+    if (getchar() != '\n') {
+        flush();
+    }
     return 1;
 }
 
-int player_move(char **matrix, int size)
+int player_move(char **matrix, int size, int player_turn)
 {
     int x, y, hit;
     hit = 0;
-    draw_screen(matrix, size);
+
+    clear_screen();
+    printf("Spieler %i ist an der Reihe:\n", player_turn + 1);
+    draw_screen(matrix, size); /*TODO: Hier muss selbstverständlich noch die zensierte Methode zur Ausgabe der Matrix verwendet werden*/
     printf("Wohin moechten sie schiessen? (Format: x.y)\n");
 
     do {
@@ -337,17 +350,7 @@ int player_move(char **matrix, int size)
     x--;
     y--;
 
-    if (isdigit(matrix[y][x])){
-        hit = matrix[y][x];
-        matrix[y][x] = 'X';
-        return hit;
-    } else if (matrix[y][x] == 'M' || matrix[y][x] == 'X'){
-        printf("Diese Feld hatten sie schon. Schade!\n");
-        return 0;
-    } else {
-        matrix[y][x] = 'M';
-    }
-
+    return shoot(matrix, x, y);
 }
 
 int check_move(char **matrix, int size, int x, int y)

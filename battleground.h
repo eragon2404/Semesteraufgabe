@@ -19,4 +19,8 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
 
 int ship_mass_validation(int size, const int *ships, int ship_count);
 
+int shoot(char **matrix, int x, int y);
+
+int end_game(char **matrix, int size);
+
 #endif
