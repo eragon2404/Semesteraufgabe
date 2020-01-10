@@ -211,7 +211,7 @@ int shoot(char **matrix, int x, int y)
     return 0;
 }
 
-int end_game(char **matrix, int size)
+int is_end_game(char **matrix, int size)
 {
     int x, y;
     for(x = 0; x < size; x++){
