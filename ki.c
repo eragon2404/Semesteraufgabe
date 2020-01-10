@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 
-int * get_ai_turn(char **battleground, int size, int difficulty)
+int * get_ai_turn(char **battleground, int size, int difficulty, int *ships)
 {
     switch (difficulty) {
         case 1:
@@ -12,13 +12,13 @@ int * get_ai_turn(char **battleground, int size, int difficulty)
         case 2:
             return NULL;
         case 3:
-            return ai_diff3(battleground, size);
+            return ai_diff3(battleground, size, ships);
         default:
             return 0;
     }
 }
 
-int * ai_diff3(char **matrix, int size)
+int * ai_diff3(char **matrix, int size, int *ships)
 {
 
     static int result[2];
@@ -52,38 +52,40 @@ int * ai_diff3(char **matrix, int size)
                     last_hit[1] = ix;
                 }
                 count_hit++;
-            } else if (is_useful(matrix, iy, ix, size, 3) == 1) {
+            } else if (is_useful(matrix, iy, ix, size, 3, ships) == 1) {
                 count_useful++;
             }
         }
     }
     /* Kein getroffenes Schiff -> Zufaelliges Feld im Muster nehmen */
     if (count_hit == 0){
-        random_num = rand() % count_hit;
+        random_num = rand() % count_useful;
         in = 0;
         for (iy = 0; iy < size; iy++) {
             for (ix = 0; ix < size; ix++) {
-                if (is_useful(matrix, iy, ix, size, 3) == 1) {
+                if (is_useful(matrix, iy, ix, size, 3, ships) == 1) {
                     if (in == random_num) {
                         result[0] = iy;
                         result[1] = ix;
                         return result;
+                    } else{
+                        in++;
                     }
                 }
             }
         }
         /* Ein getroffenes Schiff - Feld -> sinvolles anliegendes Feld nehmen */
     } else if (count_hit == 1){
-        if (is_useful(matrix, first_hit[0] + 1, first_hit[1] + 0, size, 2)) {
+        if (is_useful(matrix, first_hit[0] + 1, first_hit[1] + 0, size, 2, ships)) {
             result[0] = first_hit[0] + 1;
             result[1] = first_hit[1] + 0;
-        } else if (is_useful(matrix, first_hit[0] - 1, first_hit[1] + 0, size, 2)) {
+        } else if (is_useful(matrix, first_hit[0] - 1, first_hit[1] + 0, size, 2, ships)) {
             result[0] = first_hit[0] - 1;
             result[1] = first_hit[1] + 0;
-        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] + 1, size, 2)) {
+        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] + 1, size, 2, ships)) {
             result[0] = first_hit[0] + 0;
             result[1] = first_hit[1] + 1;
-        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] - 1, size, 2)) {
+        } else if (is_useful(matrix, first_hit[0] + 0, first_hit[1] - 1, size, 2, ships)) {
             result[0] = first_hit[0] + 0;
             result[1] = first_hit[1] - 1;
         }
@@ -104,7 +106,7 @@ int * ai_diff3(char **matrix, int size)
         result[0] = last_hit[0] + vector[0];
         result[1] = last_hit[1] + vector[1];
 
-        if (is_useful(matrix, result[0], result[1], size, 2)) {
+        if (is_useful(matrix, result[0], result[1], size, 2, ships)) {
             return result;
         } else {
             result[0] = first_hit[0] - vector[0];
@@ -115,7 +117,7 @@ int * ai_diff3(char **matrix, int size)
     return NULL;
 }
 
-int is_useful(char **matrix, int y, int x, int size, int difficulty)
+int is_useful(char **matrix, int y, int x, int size, int difficulty, const int *ships)
 {
     if (y < 0 || y >= size || x < 0 || x >= size) {
         return 0;
@@ -146,7 +148,7 @@ int is_useful(char **matrix, int y, int x, int size, int difficulty)
         }
     }
     if (difficulty >= 3) {
-        if ((y + 1) % 2 != (x + 1) % 2){
+        if ((y + x) % ships[0] != 0){
             return 0;
         }
     }
