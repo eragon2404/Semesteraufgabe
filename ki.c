@@ -43,7 +43,7 @@ int * ai_diff3(char **matrix, int size, int *ships)
     /*Matrix analysieren*/
     for (iy = 0; iy < size; iy++){
         for (ix = 0; ix < size; ix++){
-            if ((*matrix + iy*size)[ix] == 'h'){
+            if (matrix[iy][ix] == 'X'){
                 if (count_hit == 0){
                     first_hit[0] = iy;
                     first_hit[1] = ix;
@@ -122,7 +122,7 @@ int is_useful(char **matrix, int y, int x, int size, int difficulty, const int *
     if (y < 0 || y >= size || x < 0 || x >= size) {
         return 0;
     }
-    if (!(isdigit((*matrix + y*size)[x]) || (*matrix + y*size)[x] == 'w'))  {
+    if (!(isdigit(matrix[y][x]) || (matrix[y][x] == 'w')))  {
         return 0;
     }
     if (difficulty >= 2) {

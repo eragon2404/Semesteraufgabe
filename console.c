@@ -325,9 +325,10 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
     return 1;
 }
 
-int player_move(char **matrix, int size, int player_turn)
+int * player_move(char **matrix, int size, int player_turn)
 {
     int x, y;
+    static int result[2];
 
     clear_screen();
     printf("Spieler %i ist an der Reihe:\n", player_turn + 1);
@@ -347,10 +348,41 @@ int player_move(char **matrix, int size, int player_turn)
         }
     } while (1);
 
+    if (getchar() != '\n') {
+        flush();
+    }
+
     x--;
     y--;
 
-    return shoot(matrix, x, y);
+    result[0] = x;
+    result[1] = y;
+
+    return result;
+}
+
+int response(char **matrix, int size, int *shot, int hit, int player)
+{
+    clear_screen();
+    printf("Spieler %i hat auf %i/%i geschossen!\n", player + 1, shot[0] + 1, shot[1] + 1);
+    switch (hit) {
+        case -1:
+            printf("Auf dieses Feld wurde aber bereits geschossen.\n\n");
+            break;
+        case 0:
+            printf("Ein Schuss ins Wasser.\n\n");
+            break;
+        default:
+            printf("TREFFER - auf ein Schiff der Laenge %i\n\n", hit);
+            break;
+    }
+    draw_screen(matrix, size);
+    printf("\n  WEITER (enter)");
+    if(getchar() != '\n'){
+        flush();
+    }
+    clear_screen();
+    return 1;
 }
 
 int check_move(char **matrix, int size, int x, int y)

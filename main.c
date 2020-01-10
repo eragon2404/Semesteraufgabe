@@ -18,7 +18,7 @@
 
 int main(void) {
 
-    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *aishot, hit;
+    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *shot, hit;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -97,38 +97,44 @@ int main(void) {
     do{ /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
 
         if (!player_turn){  /*Spieler 1*/
-            hit = player_move(battleground1, size, player_turn);
+            shot = player_move(battleground1, size, player_turn);
+            hit = shoot(battleground1, shot[0], shot[1]);
+            response(battleground1, size, shot, hit, player_turn);
 
             if (is_end_game(battleground1, size)){
                 win = 1;
             }
 
-            if(!hit){
+            if(hit < 1){
                 player_turn = !player_turn;
             }
 
 
         } else { /*Spieler 2*/
             if (single){ /*KI*/
-                aishot = get_ai_turn(battleground0, size, diff, ships);
-                hit = shoot(battleground0, aishot[1], aishot[0]);
+                shot = get_ai_turn(battleground0, size, diff, ships);
+                hit = shoot(battleground0, shot[1], shot[0]);
+                response(battleground0, size, shot, hit, player_turn);
 
                 if (is_end_game(battleground0, size)){
                     win = 2;
                 }
 
-                if(!hit){
+                if(hit < 1){
                     player_turn = !player_turn;
                 }
 
 
             } else { /*Spieler*/
-                hit = player_move(battleground0, size, player_turn);
+                shot = player_move(battleground0, size, player_turn);
+                hit = shoot(battleground0, shot[0], shot[1]);
+                response(battleground0, size, shot, hit, player_turn);
+
                 if (is_end_game(battleground0, size)){
                     win = 2;
                 }
 
-                if(!hit){
+                if(hit < 1){
                     player_turn = !player_turn;
                 }
             }
