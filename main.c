@@ -18,7 +18,7 @@
 
 int main(void) {
 
-    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *shot, hit;
+    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *shot, hit, downed;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -95,11 +95,14 @@ int main(void) {
     clear_screen();
 
     do{ /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
-
+        downed = 0;
         if (!player_turn){  /*Spieler 1*/
             shot = player_move(battleground1, size, player_turn);
             hit = shoot(battleground1, shot[0], shot[1]);
-            response(battleground1, size, shot, hit, player_turn);
+            if(hit > 0){
+                downed = check_downed(battleground1, size, shot[1], shot[0]);
+            }
+            response(battleground1, size, shot, hit, downed, player_turn);
 
             if (is_end_game(battleground1, size)){
                 win = 1;
@@ -114,7 +117,10 @@ int main(void) {
             if (single){ /*KI*/
                 shot = get_ai_turn(battleground0, size, diff, ships);
                 hit = shoot(battleground0, shot[1], shot[0]);
-                response(battleground0, size, shot, hit, player_turn);
+                if(hit > 0){
+                    downed = check_downed(battleground0, size, shot[0], shot[1]);
+                }
+                response(battleground0, size, shot, hit, downed, player_turn);
 
                 if (is_end_game(battleground0, size)){
                     win = 2;
@@ -128,7 +134,10 @@ int main(void) {
             } else { /*Spieler*/
                 shot = player_move(battleground0, size, player_turn);
                 hit = shoot(battleground0, shot[0], shot[1]);
-                response(battleground0, size, shot, hit, player_turn);
+                if(hit > 0){
+                    downed = check_downed(battleground0, size, shot[1], shot[0]);
+                }
+                response(battleground0, size, shot, hit, downed, player_turn);
 
                 if (is_end_game(battleground0, size)){
                     win = 2;

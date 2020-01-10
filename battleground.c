@@ -199,7 +199,7 @@ int shoot(char **matrix, int x, int y)
 {
     int hit;
     if (isdigit(matrix[y][x])){
-        hit = matrix[y][x];
+        hit = matrix[y][x] - '0';
         matrix[y][x] = 'X';
         return hit;
     } else if (matrix[y][x] == 'M' || matrix[y][x] == 'X'){
@@ -209,6 +209,52 @@ int shoot(char **matrix, int x, int y)
         matrix[y][x] = 'M';
     }
     return 0;
+}
+
+int check_downed(char **matrix, int size, int y, int x)
+{
+    int count;
+    count = 0;
+    count += check_downed_helper(matrix, size, y - 1, x , -1, 0);
+    count += check_downed_helper(matrix, size, y + 1, x , +1, 0);
+    count += check_downed_helper(matrix, size, y, x - 1 , 0, -1);
+    count += check_downed_helper(matrix, size, y, x + 1 , 0, +1);
+    if(count > 0){
+        return 0;
+    }
+    matrix[y][x] = 'D';
+    downed_maker(matrix, size, y - 1, x, -1, 0);
+    downed_maker(matrix, size, y + 1, x, +1, 0);
+    downed_maker(matrix, size, y, x - 1, 0, -1);
+    downed_maker(matrix, size, y, x + 1, 0, +1);
+    return 1;
+}
+
+int check_downed_helper(char **matrix, int size, int y, int x, int dy, int dx)
+{
+    if (y < 0 || x < 0 || y >= size || x >= size){
+        return 0;
+    }
+    if (matrix[y][x] == 'X'){
+        return check_downed_helper(matrix, size, y + dy, x + dx, dy, dx);
+    }
+    if (isdigit(matrix[y][x])) {
+        return 1;
+    }
+    return 0;
+}
+
+int downed_maker(char **matrix, int size, int y, int x, int dy, int dx)
+{
+    if (y < 0 || x < 0 || y >= size || x >= size){
+        return 1;
+    }
+    if (matrix[y][x] != 'X'){
+        return 1;
+    }
+    matrix[y][x] = 'D';
+    downed_maker(matrix, size, y + dy, x + dx, dy, dx);
+    return 1;
 }
 
 int is_end_game(char **matrix, int size)

@@ -361,21 +361,25 @@ int * player_move(char **matrix, int size, int player_turn)
     return result;
 }
 
-int response(char **matrix, int size, int *shot, int hit, int player)
+int response(char **matrix, int size, int *shot, int hit, int downed, int player)
 {
     clear_screen();
     printf("Spieler %i hat auf %i/%i geschossen!\n", player + 1, shot[0] + 1, shot[1] + 1);
     switch (hit) {
         case -1:
-            printf("Auf dieses Feld wurde aber bereits geschossen.\n\n");
+            printf("Auf dieses Feld wurde aber bereits geschossen.\n");
             break;
         case 0:
-            printf("Ein Schuss ins Wasser.\n\n");
+            printf("Ein Schuss ins Wasser.\n");
             break;
         default:
-            printf("TREFFER - auf ein Schiff der Laenge %i\n\n", hit);
+            printf("TREFFER - auf ein Schiff der Laenge %i\n", hit);
             break;
     }
+    if(downed){
+        printf("VERSENKT\n");
+    }
+    printf("\n");
     draw_screen(matrix, size);
     printf("\n  WEITER (enter)");
     if(getchar() != '\n'){

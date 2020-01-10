@@ -21,6 +21,12 @@ int ship_mass_validation(int size, const int *ships, int ship_count);
 
 int shoot(char **matrix, int x, int y);
 
+int check_downed(char **matrix, int size, int y, int x);
+
+int downed_maker(char **matrix, int size, int y, int x, int dy, int dx);
+
+int check_downed_helper(char **matrix, int size, int y, int x, int dy, int dx);
+
 int is_end_game(char **matrix, int size);
 
 #endif

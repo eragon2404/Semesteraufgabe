@@ -15,7 +15,7 @@ int get_ships(int **ships, int *ship_count, int size);
 
 int * player_move(char **matrix, int size, int  player_turn);
 
-int response(char **matrix, int size, int *shot, int hit, int player);
+int response(char **matrix, int size, int *shot, int hit, int downed, int player);
 
 int check_move(char **matrix, int size, int x, int y);
 
