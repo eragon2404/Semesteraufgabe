@@ -97,9 +97,9 @@ int main(void) {
     do{ /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
 
         if (!player_turn){  /*Spieler 1*/
-            hit = player_move(battleground0, size, player_turn);
+            hit = player_move(battleground1, size, player_turn);
 
-            if (is_end_game(battleground0, size)){
+            if (is_end_game(battleground1, size)){
                 win = 1;
             }
 
@@ -110,10 +110,10 @@ int main(void) {
 
         } else { /*Spieler 2*/
             if (single){ /*KI*/
-                aishot = get_ai_turn(battleground1, size, diff, ships);
-                hit = shoot(battleground1, aishot[1], aishot[0]);
+                aishot = get_ai_turn(battleground0, size, diff, ships);
+                hit = shoot(battleground0, aishot[1], aishot[0]);
 
-                if (is_end_game(battleground1, size)){
+                if (is_end_game(battleground0, size)){
                     win = 2;
                 }
 
@@ -123,8 +123,8 @@ int main(void) {
 
 
             } else { /*Spieler*/
-                hit = player_move(battleground1, size, player_turn);
-                if (is_end_game(battleground1, size)){
+                hit = player_move(battleground0, size, player_turn);
+                if (is_end_game(battleground0, size)){
                     win = 2;
                 }
 
