@@ -327,8 +327,7 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
 
 int player_move(char **matrix, int size, int player_turn)
 {
-    int x, y, hit;
-    hit = 0;
+    int x, y;
 
     clear_screen();
     printf("Spieler %i ist an der Reihe:\n", player_turn + 1);
