@@ -18,7 +18,7 @@
 
 int main(void) {
 
-    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *aishot;
+    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *aishot, hit;
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -95,28 +95,42 @@ int main(void) {
     clear_screen();
 
     do{ /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
-        if (!player_turn){
-            player_move(battleground0, size, player_turn);
 
-            if (end_game(battleground0, size)){
+        if (!player_turn){  /*Spieler 1*/
+            hit = player_move(battleground0, size, player_turn);
+
+            if (is_end_game(battleground0, size)){
                 win = 1;
             }
 
-            player_turn = !player_turn;
-        } else {
-            if (single){
-                aishot = get_ai_turn(battleground1, size, diff);
-                shoot(battleground1, aishot[1], aishot[0]);
-                if (end_game(battleground1, size)){
+            if(!hit){
+                player_turn = !player_turn;
+            }
+
+
+        } else { /*Spieler 2*/
+            if (single){ /*KI*/
+                aishot = get_ai_turn(battleground1, size, diff, ships);
+                hit = shoot(battleground1, aishot[1], aishot[0]);
+
+                if (is_end_game(battleground1, size)){
                     win = 2;
                 }
-                player_turn = !player_turn;
-            } else {
-                player_move(battleground1, size, player_turn);
-                if (end_game(battleground1, size)){
+
+                if(!hit){
+                    player_turn = !player_turn;
+                }
+
+
+            } else { /*Spieler*/
+                hit = player_move(battleground1, size, player_turn);
+                if (is_end_game(battleground1, size)){
                     win = 2;
                 }
-                player_turn = !player_turn;
+
+                if(!hit){
+                    player_turn = !player_turn;
+                }
             }
         }
     } while (!win);
