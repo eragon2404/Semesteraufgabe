@@ -65,6 +65,7 @@ ki.c :
         Übergabe: ( (**char) Matrix des Gegenspielers der KI,
                     (int) Größe der Matrix,
                     (int) Schwierigkeit (1/2/3),
+                    (*int) Liste aller Schiffe
                   )
 
         Rückgabe: (int[2]) Array der Form [y, x] = Position auf die geschossen werden soll
