@@ -20,7 +20,8 @@ int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die M
     }
 
     for (x = 0; x < size; x++) {
-        if (((*(*matrix + x)) = malloc(size)) == NULL) {
+        if (((*(*matrix + x)) = malloc(size * sizeof(char))) == NULL) {
+            /*TODO: Im Fehlerfall muss hier der reservierte Speicher gefreed werden!*/
             return OUT_OF_MEMORY;
         }
     }
@@ -28,6 +29,49 @@ int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die M
     reset_battleground(*matrix, size);
     return 1;
 
+}
+
+int init_stats(int ***stats, int *ships, int ship_count)
+{
+    int ship_class_count, last, i, j;
+    ship_class_count = last = 0;
+
+    for (i = 0; i < ship_count; i++){
+        if (last < ships[i]) {
+            ship_class_count++;
+            last = ships[i];
+        }
+    }
+
+    if ((*stats = malloc(ship_class_count * sizeof(int*))) == NULL){
+        return OUT_OF_MEMORY;
+    }
+
+    for (i = 0; i < ship_class_count; i++){
+        if ((*(*stats + i) = malloc(2 * sizeof(int))) == NULL){
+            free(*stats);
+            return OUT_OF_MEMORY;
+        }
+    }
+
+    set_ships_stats(*stats, ship_class_count, ships, ship_count);
+
+    return ship_class_count;
+}
+
+void set_ships_stats(int **stats, int ship_class_count, int *ships, int ship_count)
+{
+    int last, i, j;
+    last = j = 0;
+    for (i = 0; i < ship_class_count; i++){
+        for(j = j; j < ship_count; j++){
+            if (last < ships[j]){
+                last = stats[i][0] = ships[j];
+                stats[i][1] = 0;
+                break;
+            }
+        }
+    }
 }
 
 void reset_battleground(char **matrix, int size) /*Setzt die Matrix zurueck*/
@@ -269,4 +313,11 @@ int is_end_game(char **matrix, int size)
     }
 
     return 1;
+}
+
+
+
+int compare (const void * a, const void * b)
+{
+    return ( *(int*)a - *(int*)b );
 }

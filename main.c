@@ -18,7 +18,10 @@
 
 int main(void) {
 
-    int i, player_turn, size, *ships, ship_count, single, diff, standart, win, *shot, hit, downed;
+    int i, player_turn, win, *shot, hit, downed; /*Hilfsvariablen*/
+    int size, *ships, ship_count, single, diff, standart; /*Settings*/
+    int **stats, ship_class_count; /*Statistikspeicher*/
+
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
     srand(time(NULL));
@@ -45,6 +48,11 @@ int main(void) {
         ships[3] = 4;
         ships[4] = 5;
 
+        if ((ship_class_count = init_stats(&stats, ships, ship_count)) == OUT_OF_MEMORY) {
+            printf("Out of memory, abort!");
+            return -1;
+        }
+
     } else {
 
         size = get_battleground_size();
@@ -52,6 +60,13 @@ int main(void) {
             printf("Out of memory, abort!");
             return -1;
         }
+        qsort(ships, size, sizeof(int), compare);
+
+        if ((ship_class_count = init_stats(&stats, ships, ship_count)) == OUT_OF_MEMORY) {
+            printf("Out of memory, abort!");
+            return -1;
+        }
+
         clear_screen();
     }
 

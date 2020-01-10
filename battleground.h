@@ -11,6 +11,10 @@
 
 int init_battleground(char ***battleground, int size);
 
+int init_stats(int ***stats, int *ships, int ship_count);
+
+void set_ships_stats(int **stats, int ship_class_count, int *ships, int ship_count);
+
 void reset_battleground(char **matrix, int size);
 
 int rand_set_ships(char **matrix, int size, int *ships, int ship_count);
@@ -28,5 +32,7 @@ int downed_maker(char **matrix, int size, int y, int x, int dy, int dx);
 int check_downed_helper(char **matrix, int size, int y, int x, int dy, int dx);
 
 int is_end_game(char **matrix, int size);
+
+int compare (const void * a, const void * b);
 
 #endif
