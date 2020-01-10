@@ -355,8 +355,8 @@ int * player_move(char **matrix, int size, int player_turn)
     x--;
     y--;
 
-    result[0] = x;
-    result[1] = y;
+    result[1] = x;
+    result[0] = y;
 
     return result;
 }
@@ -364,7 +364,7 @@ int * player_move(char **matrix, int size, int player_turn)
 int response(char **matrix, int size, int *shot, int hit, int downed, int player)
 {
     clear_screen();
-    printf("Spieler %i hat auf %i/%i geschossen!\n", player + 1, shot[0] + 1, shot[1] + 1);
+    printf("Spieler %i hat auf %i.%i geschossen!\n", player + 1, shot[1] + 1, shot[0] + 1);
     switch (hit) {
         case -1:
             printf("Auf dieses Feld wurde aber bereits geschossen.\n");
@@ -388,12 +388,6 @@ int response(char **matrix, int size, int *shot, int hit, int downed, int player
     clear_screen();
     return 1;
 }
-
-int check_move(char **matrix, int size, int x, int y)
-{
-
-}
-
 
 void flush()
 {

@@ -195,7 +195,7 @@ int ship_mass_validation(int size, const int *ships, int ship_count) /*Stellt si
     return ((float) mass / (float) (size * size) <= SHIP_MASS_THRESHOLD); /*das hier wird ein Bool*/
 }
 
-int shoot(char **matrix, int x, int y)
+int shoot(char **matrix, int y, int x)
 {
     int hit;
     if (isdigit(matrix[y][x])){

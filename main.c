@@ -100,7 +100,7 @@ int main(void) {
             shot = player_move(battleground1, size, player_turn);
             hit = shoot(battleground1, shot[0], shot[1]);
             if(hit > 0){
-                downed = check_downed(battleground1, size, shot[1], shot[0]);
+                downed = check_downed(battleground1, size, shot[0], shot[1]);
             }
             response(battleground1, size, shot, hit, downed, player_turn);
 
@@ -116,7 +116,7 @@ int main(void) {
         } else { /*Spieler 2*/
             if (single){ /*KI*/
                 shot = get_ai_turn(battleground0, size, diff, ships);
-                hit = shoot(battleground0, shot[1], shot[0]);
+                hit = shoot(battleground0, shot[0], shot[1]);
                 if(hit > 0){
                     downed = check_downed(battleground0, size, shot[0], shot[1]);
                 }
@@ -135,7 +135,7 @@ int main(void) {
                 shot = player_move(battleground0, size, player_turn);
                 hit = shoot(battleground0, shot[0], shot[1]);
                 if(hit > 0){
-                    downed = check_downed(battleground0, size, shot[1], shot[0]);
+                    downed = check_downed(battleground0, size, shot[0], shot[1]);
                 }
                 response(battleground0, size, shot, hit, downed, player_turn);
 
