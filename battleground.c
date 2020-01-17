@@ -21,7 +21,12 @@ int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die M
 
     for (x = 0; x < size; x++) {
         if (((*(*matrix + x)) = malloc(size * sizeof(char))) == NULL) {
-            /*TODO: Im Fehlerfall muss hier der reservierte Speicher gefreed werden!*/
+            x--;
+            while (x <= 0){
+                free((*(*matrix + x)));
+                x--;
+            }
+            free(*matrix);
             return OUT_OF_MEMORY;
         }
     }
@@ -31,7 +36,7 @@ int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die M
 
 }
 
-int init_stats(int ***stats, int *ships, int ship_count)
+int init_stats(int ***stats, int *ships, int ship_count) /*Initalisiert eine Matrix zum Verfolgen der Treffer auf die vorhandenen Schiffstypen*/
 {
     int ship_class_count, last, i, j;
     ship_class_count = last = 0;
@@ -49,6 +54,11 @@ int init_stats(int ***stats, int *ships, int ship_count)
 
     for (i = 0; i < ship_class_count; i++){
         if ((*(*stats + i) = malloc(2 * sizeof(int))) == NULL){
+            i--;
+            while (i <= 0){
+                free((*(*stats + i)));
+                i--;
+            }
             free(*stats);
             return OUT_OF_MEMORY;
         }

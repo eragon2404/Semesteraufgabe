@@ -49,6 +49,7 @@ int main(void) {
         ships[4] = 5;
 
         if ((ship_class_count = init_stats(&stats, ships, ship_count)) == OUT_OF_MEMORY) {
+            free(ships);
             printf("Out of memory, abort!");
             return -1;
         }
@@ -60,9 +61,12 @@ int main(void) {
             printf("Out of memory, abort!");
             return -1;
         }
-        qsort(ships, size, sizeof(int), compare);
+        if (ship_count > 1){
+            qsort(ships, size, sizeof(int), compare);
+        }
 
         if ((ship_class_count = init_stats(&stats, ships, ship_count)) == OUT_OF_MEMORY) {
+            free(ships);
             printf("Out of memory, abort!");
             return -1;
         }
@@ -91,8 +95,28 @@ int main(void) {
         ships[9] = 2;
     }
 
-    if (init_battleground(&battleground0, size) == OUT_OF_MEMORY ||
-        init_battleground(&battleground1, size) == OUT_OF_MEMORY) {
+    if (init_battleground(&battleground0, size) == OUT_OF_MEMORY) {
+        free(ships);
+        for (i = 0; i < ship_class_count; i++){
+            free(stats[i]);
+        }
+        free(stats);
+        printf("Out of memory, abort!");
+        return -1;
+    }
+
+    if (init_battleground(&battleground1, size) == OUT_OF_MEMORY) {
+        free(ships);
+        for (i = 0; i < ship_class_count; i++){
+            free(stats[i]);
+        }
+        free(stats);
+
+        for (i = 0; i < size; i++) {
+            free(battleground0[i]);
+        }
+        free(battleground0);
+
         printf("Out of memory, abort!");
         return -1;
     }
@@ -174,6 +198,10 @@ int main(void) {
     /* Gibt reservierten Speicher wieder frei */
 
     free(ships);
+    for (i = 0; i < ship_class_count; i++) {
+        free(stats[i]);
+    }
+    free(stats);
 
     for (i = 0; i < size; i++) {
         free(battleground0[i]);
