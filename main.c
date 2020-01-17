@@ -13,8 +13,6 @@
 #define OUT_OF_MEMORY -69420
 #endif
 
-#define DEBUG 0
-
 
 int main(void) {
 
@@ -72,27 +70,6 @@ int main(void) {
         }
 
         clear_screen();
-    }
-
-    if (DEBUG) {
-
-        free(ships);
-        ship_count = 10;
-        if ((ships = malloc(ship_count * sizeof(int))) == NULL) {
-            printf("Out of memory, abort!");
-            return -1;
-        }
-
-        ships[0] = 2;
-        ships[1] = 2;
-        ships[2] = 3;
-        ships[3] = 4;
-        ships[4] = 5;
-        ships[5] = 2;
-        ships[6] = 3;
-        ships[7] = 4;
-        ships[8] = 5;
-        ships[9] = 2;
     }
 
     if (init_battleground(&battleground0, size) == OUT_OF_MEMORY) {
