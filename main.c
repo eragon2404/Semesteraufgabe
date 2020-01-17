@@ -130,7 +130,7 @@ int main(void) {
 
 
         } else { /*Spieler 2*/
-            if (single){ /*KI*/
+            if (single){ /*KI Spieler 2*/
                 shot = get_ai_turn(battleground0, size, diff, ships);
                 hit = shoot(battleground0, shot[0], shot[1]);
                 if(hit > 0){
@@ -149,7 +149,7 @@ int main(void) {
                 }
 
 
-            } else { /*Spieler*/
+            } else { /*Menschlicher Spieler 2*/
                 shot = player_move(battleground0, size, player_turn);
                 hit = shoot(battleground0, shot[0], shot[1]);
                 if(hit > 0){
@@ -173,18 +173,21 @@ int main(void) {
     clear_screen();
     draw_screen(battleground0, size);
     draw_screen(battleground1, size);
-    print_stats(stats0, stats1, ship_class_count);
-
     printf("Spieler %i hat gewonnen!\n", win);
+    print_stats(stats0, stats1, ship_class_count);
 
 
     /* Gibt reservierten Speicher wieder frei */
-
     free(ships);
     for (i = 0; i < ship_class_count; i++) {
         free(stats0[i]);
     }
     free(stats0);
+
+    for (i = 0; i < ship_class_count; i++) {
+        free(stats1[i]);
+    }
+    free(stats1);
 
     for (i = 0; i < size; i++) {
         free(battleground0[i]);
