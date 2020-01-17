@@ -8,10 +8,6 @@
 #include <ctype.h>
 
 
-
-
-
-
 int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die Matrize und setzt sie auf Anfangswerte*/
 {
     int x;
@@ -36,9 +32,9 @@ int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die M
 
 }
 
-int init_stats(int ***stats, int *ships, int ship_count) /*Initalisiert eine Matrix zum Verfolgen der Treffer auf die vorhandenen Schiffstypen*/
+int init_stats(int ***stats1, int ***stats2, const int *ships, int ship_count) /*Initalisiert eine Matrix zum Verfolgen der Treffer auf die vorhandenen Schiffstypen*/
 {
-    int ship_class_count, last, i, j;
+    int ship_class_count, last, i;
     ship_class_count = last = 0;
 
     for (i = 0; i < ship_count; i++){
@@ -48,28 +44,52 @@ int init_stats(int ***stats, int *ships, int ship_count) /*Initalisiert eine Mat
         }
     }
 
-    if ((*stats = malloc(ship_class_count * sizeof(int*))) == NULL){
+    if ((*stats1 = malloc(ship_class_count * sizeof(int*))) == NULL){
+        return OUT_OF_MEMORY;
+    }
+
+    if ((*stats2 = malloc(ship_class_count * sizeof(int*))) == NULL){
+        free(stats1);
         return OUT_OF_MEMORY;
     }
 
     for (i = 0; i < ship_class_count; i++){
-        if ((*(*stats + i) = malloc(2 * sizeof(int))) == NULL){
+        if ((*(*stats1 + i) = malloc(2 * sizeof(int))) == NULL){
             i--;
             while (i <= 0){
-                free((*(*stats + i)));
+                free((*(*stats1 + i)));
                 i--;
             }
-            free(*stats);
+            free(*stats1);
             return OUT_OF_MEMORY;
         }
     }
 
-    set_ships_stats(*stats, ship_class_count, ships, ship_count);
+    for (i = 0; i < ship_class_count; i++){
+        if ((*(*stats2 + i) = malloc(2 * sizeof(int))) == NULL){
+            i--;
 
+            while (i <= 0){
+                free((*(*stats2 + i)));
+                i--;
+            }
+
+            for (i = 0; i < ship_class_count; i++){
+                free((*(*stats1 + i)));
+            }
+
+            free(*stats1);
+            free(*stats2);
+            return OUT_OF_MEMORY;
+        }
+    }
+
+    set_ships_stats(*stats1, ship_class_count, ships, ship_count);
+    set_ships_stats(*stats2, ship_class_count, ships, ship_count);
     return ship_class_count;
 }
 
-void set_ships_stats(int **stats, int ship_class_count, int *ships, int ship_count)
+void set_ships_stats(int **stats, int ship_class_count, const int *ships, int ship_count)
 {
     int last, i, j;
     last = j = 0;
@@ -80,6 +100,16 @@ void set_ships_stats(int **stats, int ship_class_count, int *ships, int ship_cou
                 stats[i][1] = 0;
                 break;
             }
+        }
+    }
+}
+
+void updateStats(int **stats, int ship_class_count, int hit)
+{
+    int i;
+    for (i = 0; i < ship_class_count; i++){
+        if (stats[i][0] == hit){
+            stats[i][1]++;
         }
     }
 }
@@ -324,8 +354,6 @@ int is_end_game(char **matrix, int size)
 
     return 1;
 }
-
-
 
 int compare (const void * a, const void * b)
 {

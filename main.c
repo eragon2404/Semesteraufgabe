@@ -13,12 +13,11 @@
 #define OUT_OF_MEMORY -69420
 #endif
 
-
 int main(void) {
 
     int i, player_turn, win, *shot, hit, downed; /*Hilfsvariablen*/
     int size, *ships, ship_count, single, diff, standart; /*Settings*/
-    int **stats, ship_class_count; /*Statistikspeicher*/
+    int **stats0, **stats1, ship_class_count; /*Statistikspeicher*/
 
     char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
@@ -46,7 +45,7 @@ int main(void) {
         ships[3] = 4;
         ships[4] = 5;
 
-        if ((ship_class_count = init_stats(&stats, ships, ship_count)) == OUT_OF_MEMORY) {
+        if ((ship_class_count = init_stats(&stats0, &stats1, ships, ship_count)) == OUT_OF_MEMORY) {
             free(ships);
             printf("Out of memory, abort!");
             return -1;
@@ -60,10 +59,10 @@ int main(void) {
             return -1;
         }
         if (ship_count > 1){
-            qsort(ships, size, sizeof(int), compare);
+            qsort(ships, ship_count, sizeof(int), compare);
         }
 
-        if ((ship_class_count = init_stats(&stats, ships, ship_count)) == OUT_OF_MEMORY) {
+        if ((ship_class_count = init_stats(&stats0, &stats1, ships, ship_count)) == OUT_OF_MEMORY) {
             free(ships);
             printf("Out of memory, abort!");
             return -1;
@@ -75,9 +74,9 @@ int main(void) {
     if (init_battleground(&battleground0, size) == OUT_OF_MEMORY) {
         free(ships);
         for (i = 0; i < ship_class_count; i++){
-            free(stats[i]);
+            free(stats0[i]);
         }
-        free(stats);
+        free(stats0);
         printf("Out of memory, abort!");
         return -1;
     }
@@ -85,9 +84,9 @@ int main(void) {
     if (init_battleground(&battleground1, size) == OUT_OF_MEMORY) {
         free(ships);
         for (i = 0; i < ship_class_count; i++){
-            free(stats[i]);
+            free(stats0[i]);
         }
-        free(stats);
+        free(stats0);
 
         for (i = 0; i < size; i++) {
             free(battleground0[i]);
@@ -118,6 +117,7 @@ int main(void) {
             if(hit > 0){
                 downed = check_downed(battleground1, size, shot[0], shot[1]);
             }
+            updateStats(stats0, ship_class_count, hit);
             response(battleground1, size, shot, hit, downed, player_turn);
 
             if (is_end_game(battleground1, size)){
@@ -136,6 +136,8 @@ int main(void) {
                 if(hit > 0){
                     downed = check_downed(battleground0, size, shot[0], shot[1]);
                 }
+
+                updateStats(stats1, ship_class_count, hit);
                 response(battleground0, size, shot, hit, downed, player_turn);
 
                 if (is_end_game(battleground0, size)){
@@ -153,6 +155,8 @@ int main(void) {
                 if(hit > 0){
                     downed = check_downed(battleground0, size, shot[0], shot[1]);
                 }
+
+                updateStats(stats1, ship_class_count, hit);
                 response(battleground0, size, shot, hit, downed, player_turn);
 
                 if (is_end_game(battleground0, size)){
@@ -169,6 +173,8 @@ int main(void) {
     clear_screen();
     draw_screen(battleground0, size);
     draw_screen(battleground1, size);
+    print_stats(stats0, stats1, ship_class_count);
+
     printf("Spieler %i hat gewonnen!\n", win);
 
 
@@ -176,9 +182,9 @@ int main(void) {
 
     free(ships);
     for (i = 0; i < ship_class_count; i++) {
-        free(stats[i]);
+        free(stats0[i]);
     }
-    free(stats);
+    free(stats0);
 
     for (i = 0; i < size; i++) {
         free(battleground0[i]);

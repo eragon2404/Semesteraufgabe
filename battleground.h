@@ -11,9 +11,11 @@
 
 int init_battleground(char ***battleground, int size);
 
-int init_stats(int ***stats, int *ships, int ship_count);
+int init_stats(int ***stats1, int ***stats2, const int *ships, int ship_count);
 
-void set_ships_stats(int **stats, int ship_class_count, int *ships, int ship_count);
+void updateStats(int **stats, int ship_class_count, int hit);
+
+void set_ships_stats(int **stats, int ship_class_count, const int *ships, int ship_count);
 
 void reset_battleground(char **matrix, int size);
 

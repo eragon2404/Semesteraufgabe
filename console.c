@@ -42,6 +42,22 @@ void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
     printf("\n");
 }
 
+void print_stats(int **stats1, int **stats2, int ship_class_count)
+{
+    int i;
+    printf("\nSpieler 1 hat folgende Schiffsklassen versenkt / nicht versenkte Schiffe getroffen:\n");
+    for (i = 0; i < ship_class_count - 1; i++){
+        printf("%i Felder lange Schiffe: %i / %i || ", stats1[i][0], stats1[i][1] / stats1[i][0], stats1[i][1] % stats1[i][0]);
+    }
+    printf("%i Felder lange Schiffe: %i / %i\n\n", stats1[ship_class_count - 1][0], stats1[ship_class_count - 1][1] / stats1[ship_class_count - 1][0], stats1[ship_class_count - 1][1] % stats1[ship_class_count - 1][0]);
+
+    printf("\nSpieler 2 hat folgende Schiffsklassen versenkt / nicht versenkte Schiffe getroffen:\n");
+    for (i = 0; i < ship_class_count - 1; i++){
+        printf("%i Felder lange Schiffe: %i / %i || ", stats2[i][0], stats2[i][1] / stats2[i][0], stats2[i][1] % stats2[i][0]);
+    }
+    printf("%i Felder lange Schiffe: %i / %i\n\n", stats2[ship_class_count - 1][0], stats2[ship_class_count - 1][1] / stats2[ship_class_count - 1][0], stats2[ship_class_count - 1][1] % stats2[ship_class_count - 1][0]);
+}
+
 
 void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 {
@@ -381,7 +397,7 @@ int response(char **matrix, int size, int *shot, int hit, int downed, int player
     }
     printf("\n");
     draw_screen(matrix, size);
-    printf("\n  WEITER (enter)");
+    printf("\nWEITER (enter)");
     if(getchar() != '\n'){
         flush();
     }
