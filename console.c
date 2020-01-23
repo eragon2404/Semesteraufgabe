@@ -2,7 +2,7 @@
 #pragma ide diagnostic ignored "cert-err34-c"
 
 #include "console.h"
-#include "battleground.h"
+#include "logic.h"
 #include <stdio.h>
 #include <stdlib.h>
 

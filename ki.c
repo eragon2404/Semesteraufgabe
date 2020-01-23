@@ -228,22 +228,22 @@ int is_useful(char **matrix, int y, int x, int size, int difficulty, const int *
         }
         if (difficulty >= 2) {
                 if (y + 1 < size) {
-                        if (matrix[(y + 1)][(x + 0)] == 'd') {
+                        if (matrix[(y + 1)][(x + 0)] == 'D') {
                                 return 0;
                         }
                 }
                 if (y - 1 >= 0) {
-                        if (matrix[(y - 1)][(x + 0)] == 'd') {
+                        if (matrix[(y - 1)][(x + 0)] == 'D') {
                                 return 0;
                         }
                 }
                 if (x + 1 < size) {
-                        if (matrix[(y + 0)][(x + 1)] == 'd') {
+                        if (matrix[(y + 0)][(x + 1)] == 'D') {
                                 return 0;
                         }
                 }
                 if (x - 1 >= 0) {
-                        if (matrix[(y + 0)][(x - 1)] == 'd') {
+                        if (matrix[(y + 0)][(x - 1)] == 'D') {
                                 return 0;
                         }
                 }

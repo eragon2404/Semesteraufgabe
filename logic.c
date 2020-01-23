@@ -3,7 +3,7 @@
 #pragma ide diagnostic ignored "bugprone-narrowing-conversions"
 #pragma ide diagnostic ignored "bugprone-branch-clone"
 
-#include "battleground.h"
+#include "logic.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -94,7 +94,7 @@ void set_ships_stats(int **stats, int ship_class_count, const int *ships, int sh
         int last, i, j;
         last = j = 0;
         for (i = 0; i < ship_class_count; i++) {
-                for (j; j < ship_count; j++) {
+                for (; j < ship_count; j++) {
                         if (last < ships[j]) {
                                 last = stats[i][0] = ships[j];
                                 stats[i][1] = 0;

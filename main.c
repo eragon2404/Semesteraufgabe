@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "battleground.h"
+#include "logic.h"
 #include "ki.h"
 #include "console.h"
 
