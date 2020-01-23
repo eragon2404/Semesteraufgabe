@@ -2,7 +2,7 @@
 #define SEMESTERAUFGABE_BATTLEGROUND_H
 
 #ifndef OUT_OF_MEMORY
-#define OUT_OF_MEMORY -69420
+#define OUT_OF_MEMORY (-69420)
 #endif
 
 #define SHIP_MASS_THRESHOLD 1/*0.69*/
@@ -35,6 +35,6 @@ int check_downed_helper(char **matrix, int size, int y, int x, int dy, int dx);
 
 int is_end_game(char **matrix, int size);
 
-int compare (const void * a, const void * b);
+int compare(const void *a, const void *b);
 
 #endif
