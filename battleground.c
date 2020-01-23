@@ -290,7 +290,7 @@ int shoot(char **matrix, int y, int x) {
                 hit = matrix[y][x] - '0';
                 matrix[y][x] = 'X';
                 return hit;
-        } else if (matrix[y][x] == 'M' || matrix[y][x] == 'X') {
+        } else if (matrix[y][x] == 'M' || matrix[y][x] == 'X' || matrix[y][x] == 'D') {
                 printf("Diese Feld hatten sie schon. Schade!\n");
                 return -1;
         } else {
