@@ -13,7 +13,7 @@ Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, (
                     M = Miss
                     (länge) = Unhit, die Länge ist angegeben um die Treffer auf verschiedene Schiffsarten nachvollziehen zu können
                     X = Hit
-                    d = Downed
+                    D = Downed
 
             Beispiel:
                 sy = 4, sx = 5
@@ -21,8 +21,8 @@ Ein Spielfeld ist durch eine 2D-Matrix[sy][sx] realisiert mit den Werten w, m, (
 
                     w w m w w w    <- Hier wurde ein Schuss ins Wasser gesetzt
                     2 2 w w w w     <- Hier steht ein Schiff der Länge 2
-                    w w h 3 3 w     <- Hier steht ein Schiff der Länge 3 das einmal getroffen wurde
-                    w d d w w w     <- Hier steht ein versenktes Schiff der Länge 2
+                    w w X 3 3 w     <- Hier steht ein Schiff der Länge 3 das einmal getroffen wurde
+                    w D D w w w     <- Hier steht ein versenktes Schiff der Länge 2
 
 Regeln zum setzen der Schiffe:
             -Jedes Schiff muss einmal gesetzt werden
