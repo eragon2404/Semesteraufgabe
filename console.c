@@ -5,6 +5,7 @@
 #include "logic.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 /*---------------------------------Methoden die das Spiel zeichnen----------------------------------------------------*/
 
@@ -35,6 +36,35 @@ void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
                 printf("%i:\t", y + 1);
                 for (x = 0; x < size; x++) {
                         printf("%c  ", matrix[y][x]);
+                }
+                printf("\n");
+        }
+        printf("\n");
+}
+
+void player_draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
+{
+        int x, y;
+
+        printf("\t");
+        for (x = 0; x < size; x++) {
+                if (x < 9) {
+                        printf("%i  ", x + 1);
+                } else {
+                        printf("%i ", x + 1);
+                }
+
+        }
+        printf("\n");
+
+        for (y = 0; y < size; y++) {
+                printf("%i:\t", y + 1);
+                for (x = 0; x < size; x++) {
+                        if (isdigit(matrix[y][x])){
+                                printf("w  ");
+                        } else {
+                                printf("%c  ", matrix[y][x]);
+                        }
                 }
                 printf("\n");
         }
@@ -351,8 +381,11 @@ int *player_move(char **matrix, int size, int player_turn) {
 
         clear_screen();
         printf("Spieler %i ist an der Reihe:\n", player_turn + 1);
-        draw_screen(matrix,
-                    size); /*TODO: Hier muss selbstverständlich noch die zensierte Methode zur Ausgabe der Matrix verwendet werden*/
+        if (SHOW_FULL_BATTLEGROUND){
+                draw_screen(matrix, size);
+        } else {
+                player_draw_screen(matrix, size);
+        }
         printf("Wohin moechten sie schiessen? (Format: x.y)\n");
 
         do {
@@ -392,14 +425,19 @@ int response(char **matrix, int size, int *shot, int hit, int downed, int player
                         printf("Ein Schuss ins Wasser.\n");
                         break;
                 default:
-                        printf("TREFFER - auf ein Schiff der Laenge %i\n", hit);
+                        printf("TREFFER\n");
                         break;
         }
         if (downed) {
                 printf("VERSENKT\n");
         }
         printf("\n");
-        draw_screen(matrix, size);
+        if (SHOW_FULL_BATTLEGROUND){
+                draw_screen(matrix, size);
+        } else {
+                player_draw_screen(matrix, size);
+        }
+
         printf("\nWEITER (enter)");
         if (getchar() != '\n') {
                 flush();

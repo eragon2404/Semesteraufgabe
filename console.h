@@ -1,9 +1,13 @@
 #ifndef SEMESTERAUFGABE_CONSOLE_H
 #define SEMESTERAUFGABE_CONSOLE_H
 
+#define SHOW_FULL_BATTLEGROUND 0
+
 void draw_intro();
 
 void draw_screen(char **matrix, int size);
+
+void player_draw_screen(char **matrix, int size);
 
 void print_stats(int **stats1, int **stats2, int ship_class_count);
 
