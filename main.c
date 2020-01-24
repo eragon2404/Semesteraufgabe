@@ -181,12 +181,9 @@ int main(void) {
         free(ships);
         for (i = 0; i < ship_class_count; i++) {
                 free(stats0[i]);
-        }
-        free(stats0);
-
-        for (i = 0; i < ship_class_count; i++) {
                 free(stats1[i]);
         }
+        free(stats0);
         free(stats1);
 
         for (i = 0; i < size; i++) {
