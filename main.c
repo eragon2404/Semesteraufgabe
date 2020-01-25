@@ -15,7 +15,7 @@
 
 int main(void) {
 
-        int i, player_turn, win, *shot, hit, downed; /*Hilfsvariablen*/
+        int i, player_turn, win, *shot, hit, downed, first; /*Hilfsvariablen*/
         int size, *ships, ship_count, single, diff, standart; /*Settings*/
         int **stats0, **stats1, ship_class_count; /*Statistikspeicher*/
 
@@ -27,6 +27,7 @@ int main(void) {
         ships = NULL;
 
         player_turn = win = 0;
+        first = 1;
         draw_intro();
         getSettings(&single, &diff, &standart);
         clear_screen();
@@ -112,6 +113,15 @@ int main(void) {
         do { /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
                 downed = 0;
                 if (!player_turn) {  /*Spieler 1*/
+                        if (first){
+                                printf("Spieler 1 ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n");
+                                printf("WEITER (enter)");
+                                if (getchar() != '\n') {
+                                        flush();
+                                }
+                                show_player_battleground(battleground0, size);
+                                first = 0;
+                        }
                         shot = player_move(battleground1, size, player_turn);
                         hit = shoot(battleground1, shot[0], shot[1]);
                         if (hit > 0) {
@@ -126,6 +136,7 @@ int main(void) {
 
                         if (hit < 1) {
                                 player_turn = !player_turn;
+                                first = 1;
                         }
 
 
@@ -150,6 +161,16 @@ int main(void) {
 
 
                         } else { /*Menschlicher Spieler 2*/
+                                if (first){
+                                        printf("Spieler 2 ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n");
+                                        printf("WEITER (enter)");
+                                        if (getchar() != '\n') {
+                                                flush();
+                                        }
+                                        show_player_battleground(battleground1, size);
+                                        first = 0;
+                                }
+
                                 shot = player_move(battleground0, size, player_turn);
                                 hit = shoot(battleground0, shot[0], shot[1]);
                                 if (hit > 0) {
@@ -165,6 +186,7 @@ int main(void) {
 
                                 if (hit < 1) {
                                         player_turn = !player_turn;
+                                        first = 1;
                                 }
                         }
                 }

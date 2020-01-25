@@ -380,7 +380,7 @@ int *player_move(char **matrix, int size, int player_turn) {
         static int result[2];
 
         clear_screen();
-        printf("Spieler %i ist an der Reihe:\n", player_turn + 1);
+        printf("Spieler %i ist am Zug:\n", player_turn + 1);
         if (SHOW_FULL_BATTLEGROUND){
                 draw_screen(matrix, size);
         } else {
@@ -412,6 +412,19 @@ int *player_move(char **matrix, int size, int player_turn) {
         result[0] = y;
 
         return result;
+}
+
+void show_player_battleground(char **matrix, int size)
+{
+        printf("Das ist ihr momentanes Spielfeld:\n");
+
+        draw_screen(matrix, size);
+
+        printf("\nWEITER (enter)");
+        if (getchar() != '\n') {
+                flush();
+        }
+        printf("\n\n");
 }
 
 int response(char **matrix, int size, int *shot, int hit, int downed, int player) {
