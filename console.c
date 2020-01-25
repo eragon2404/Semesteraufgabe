@@ -121,26 +121,30 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) /*Lä
                                         clear_screen();
                                         draw_screen(matrix, size);
                                         printf("Ist das so in Ordnung? (j / n)\n");
-                                        switch (getchar()) {
-                                                case 'j':
-                                                        if (getchar() != '\n') {
-                                                                flush();
-                                                        }
-                                                        return;
-                                                case 'n':
-                                                        reset_battleground(matrix, size);
-                                                        rand_set_ships(matrix, size, ships, ship_count);
-                                                        if (getchar() != '\n') {
-                                                                flush();
-                                                        }
-                                                        break;
-                                                default:
-                                                        printf("Keine gueltige Antwort, erneut versuchen!\n");
-                                                        if (getchar() != '\n') {
-                                                                flush();
-                                                        }
-                                                        break;
-                                        }
+                                        do{
+                                                switch (getchar()) {
+                                                        case 'j':
+                                                                if (getchar() != '\n') {
+                                                                        flush();
+                                                                }
+                                                                return;
+                                                        case 'n':
+                                                                reset_battleground(matrix, size);
+                                                                rand_set_ships(matrix, size, ships, ship_count);
+                                                                if (getchar() != '\n') {
+                                                                        flush();
+                                                                }
+                                                                i = 0;
+                                                                break;
+                                                        default:
+                                                                printf("Keine gueltige Antwort, erneut versuchen!\n");
+                                                                if (getchar() != '\n') {
+                                                                        flush();
+                                                                }
+                                                                break;
+                                                }
+                                        } while (i);
+
                                 } while (1);
 
                         case 'n':
@@ -209,7 +213,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count) /*Lä
         }
 }
 
-void getSettings(int *single, int *diff, int *standart)/*Fragt Spieler nach den Spieleinstellungen*/
+void get_settings(int *single, int *diff, int *standart)/*Fragt Spieler nach den Spieleinstellungen*/
 {
         *single = *diff = *standart = -1;
 

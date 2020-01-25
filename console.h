@@ -13,7 +13,7 @@ void print_stats(int **stats1, int **stats2, int ship_class_count);
 
 void player_set_ships(char **matrix, int size, int *ships, int ship_count);
 
-void getSettings(int *single, int *diff, int *standart);
+void get_settings(int *single, int *diff, int *standart);
 
 int get_battleground_size();
 

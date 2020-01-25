@@ -29,7 +29,7 @@ int main(void) {
         player_turn = win = 0;
         first = 1;
         draw_intro();
-        getSettings(&single, &diff, &standart);
+        get_settings(&single, &diff, &standart);
         clear_screen();
 
         if (standart) {
