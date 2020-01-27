@@ -17,7 +17,8 @@ void draw_intro() {
                "--------------------------------------------------------------------------------\n");
 }
 
-void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
+/*Zeichnet die uebergebene Matrize*/
+void draw_screen(char **matrix, int size)
 {
         int x, y;
 
@@ -42,7 +43,8 @@ void draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
         printf("\n");
 }
 
-void player_draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matrize*/
+/*Zeichnet die uebergebene Matrize ohne Schiffe preiszugeben*/
+void player_draw_screen(char **matrix, int size)
 {
         int x, y;
 
@@ -71,6 +73,7 @@ void player_draw_screen(char **matrix, int size) /*Zeichnet die uebergebene Matr
         printf("\n");
 }
 
+/*Gibt die Statistiken aus*/
 void print_stats(int **stats1, int **stats2, int ship_class_count) {
         int i;
         printf("\nSpieler 1 hat folgende Schiffsklassen versenkt / nicht versenkte Schiffe getroffen:\n");
@@ -92,8 +95,8 @@ void print_stats(int **stats1, int **stats2, int ship_class_count) {
                stats2[ship_class_count - 1][1] % stats2[ship_class_count - 1][0]);
 }
 
-
-void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
+/*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
+void clear_screen()
 {
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -101,7 +104,8 @@ void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 
 /*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
-void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn) /*Lässt den Spieler seine Schiffe setzen*/
+/*Lässt den Spieler seine Schiffe setzen*/
+void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn)
 {
         int i, current_ship, x, y, direction;
         i = 1;
@@ -220,7 +224,8 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
         }
 }
 
-void get_settings(int *single, int *diff, int *standart)/*Fragt Spieler nach den Spieleinstellungen*/
+/*Fragt Spieler nach den Spieleinstellungen*/
+void get_settings(int *single, int *diff, int *standart)
 {
         *single = *diff = *standart = -1;
 
@@ -316,7 +321,8 @@ void get_settings(int *single, int *diff, int *standart)/*Fragt Spieler nach den
         } while (*standart == -1);
 }
 
-int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße*/
+/*Fragt den Spiele nach der gewünschten Feldgroeße*/
+int get_battleground_size()
 {
         int n;
         do {
@@ -338,7 +344,8 @@ int get_battleground_size() /*Fragt den Spiele nach der gewünschten Feldgröße
         } while (1);
 }
 
-int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viele Schiffe welcher Art es geben soll*/
+/*Fragt den Spiele wie viele Schiffe welcher Art es geben soll*/
+int get_ships(int **ships, int *ship_count, int size)
 {
         int length, i;
         do {
@@ -395,6 +402,7 @@ int get_ships(int **ships, int *ship_count, int size)/*Fragt den Spiele wie viel
         return 1;
 }
 
+/*Fragt den Spieler wohin er schiessen moechte*/
 int *player_move(char **matrix, int size, int player_turn) {
         int x, y;
         static int result[2];
@@ -434,6 +442,7 @@ int *player_move(char **matrix, int size, int player_turn) {
         return result;
 }
 
+/*Zeigt dem Spieler seinen eigenes Spielfeld*/
 void show_player_battleground(char **matrix, int size, int player_turn)
 {
         printf("Spieler %i ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n", player_turn + 1);
@@ -452,6 +461,7 @@ void show_player_battleground(char **matrix, int size, int player_turn)
         printf("\n\n");
 }
 
+/*Antwort auf einen Spielzug*/
 int response(char **matrix, int size, int *shot, int hit, int downed, int player) {
         clear_screen();
         printf("Spieler %i hat auf %i.%i geschossen!\n", player + 1, shot[1] + 1, shot[0] + 1);
@@ -484,6 +494,7 @@ int response(char **matrix, int size, int *shot, int hit, int downed, int player
         return 1;
 }
 
+/*Leert den Eingabepuffer*/
 void flush() {
         while (getchar() != '\n');
 }
