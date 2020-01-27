@@ -137,6 +137,9 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
                                                                 }
                                                                 i = 0;
                                                                 break;
+                                                        case '\n':
+                                                                printf("Keine gueltige Antwort, erneut versuchen!\n");
+                                                                break;
                                                         default:
                                                                 printf("Keine gueltige Antwort, erneut versuchen!\n");
                                                                 if (getchar() != '\n') {
@@ -153,6 +156,9 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
                                         flush();
                                 }
                                 i = 0;
+                                break;
+                        case '\n':
+                                printf("Keine gueltige Antwort, erneut versuchen!\n");
                                 break;
                         default:
                                 printf("Keine gueltige Antwort, erneut versuchen!\n");
@@ -233,6 +239,9 @@ void get_settings(int *single, int *diff, int *standart)/*Fragt Spieler nach den
                                         flush();
                                 }
                                 break;
+                        case '\n':
+                                printf("Keine gueltige Antwort, erneut versuchen!\n");
+                                break;
                         default:
                                 printf("Keine gueltige Antwort, erneut versuchen!\n");
                                 if (getchar() != '\n') {
@@ -265,6 +274,9 @@ void get_settings(int *single, int *diff, int *standart)/*Fragt Spieler nach den
                                                 flush();
                                         }
                                         break;
+                                case '\n':
+                                        printf("Keine gueltige Antwort, erneut versuchen!\n");
+                                        break;
                                 default:
                                         printf("Keine gueltige Antwort, erneut versuchen!\n");
                                         if (getchar() != '\n') {
@@ -290,6 +302,9 @@ void get_settings(int *single, int *diff, int *standart)/*Fragt Spieler nach den
                                 if (getchar() != '\n') {
                                         flush();
                                 }
+                                break;
+                        case '\n':
+                                printf("Keine gueltige Antwort, erneut versuchen!\n");
                                 break;
                         default:
                                 printf("Keine gueltige Antwort, erneut versuchen!\n");
