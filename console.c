@@ -101,13 +101,14 @@ void clear_screen() /*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
 
 /*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
-void player_set_ships(char **matrix, int size, int *ships, int ship_count) /*Lässt den Spieler seine Schiffe setzen*/
+void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn) /*Lässt den Spieler seine Schiffe setzen*/
 {
         int i, current_ship, x, y, direction;
         i = 1;
         current_ship = 0;
         direction = 0;
 
+        printf("Spieler %i muss nun seine Schiffe setzen!\n", player_turn + 1);
         printf("Moechten sie die Schiffe zufaellig setzen lassen? (j / n)\n");
         do {
                 switch (getchar()) {
@@ -418,8 +419,13 @@ int *player_move(char **matrix, int size, int player_turn) {
         return result;
 }
 
-void show_player_battleground(char **matrix, int size)
+void show_player_battleground(char **matrix, int size, int player_turn)
 {
+        printf("Spieler %i ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n", player_turn + 1);
+        printf("WEITER (enter)");
+        if (getchar() != '\n') {
+                flush();
+        }
         printf("Das ist ihr momentanes Spielfeld:\n");
 
         draw_screen(matrix, size);
