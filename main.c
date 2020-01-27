@@ -32,7 +32,7 @@ int main(void) {
         get_settings(&single, &diff, &standart);
         clear_screen();
 
-        if (standart) { /*Setzt Standartwerte für ein Standartspiel*/
+        if (standart) { /*Setzt Standartwerte fuer ein Standartspiel*/
                 size = 10;
                 ship_count = 5;
                 if ((ships = malloc(ship_count * sizeof(int))) == NULL) {
@@ -59,7 +59,7 @@ int main(void) {
                         printf("Out of memory, abort!");
                         return -1;
                 }
-                if (ship_count > 1) { /*Sortiert das Feld der verfügbaren Schiffe*/
+                if (ship_count > 1) { /*Sortiert das Feld der verfuegbaren Schiffe*/
                         qsort(ships, ship_count, sizeof(int), compare);
                 }
 
@@ -72,7 +72,7 @@ int main(void) {
                 clear_screen();
         }
 
-        /*Initalisiert die Matrizen für das Spiel*/
+        /*Initalisiert die Matrizen fuer das Spiel*/
 
         if (init_battleground(&battleground0, size) == OUT_OF_MEMORY) {
                 free(ships);

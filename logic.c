@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-/*Belegt den Speicher für die Matrize und setzt sie auf Anfangswerte*/
+/*Belegt den Speicher fuer die Matrize und setzt sie auf Anfangswerte*/
 int init_battleground(char ***matrix, int size)
 {
         int x;
@@ -91,7 +91,7 @@ int init_stats(int ***stats1, int ***stats2, const int *ships, int ship_count)
         return ship_class_count;
 }
 
-/*Initalisiert den Speicher für die Stats*/
+/*Initalisiert den Speicher fuer die Stats*/
 void set_ships_stats(int **stats, int ship_class_count, const int *ships, int ship_count) {
         int last, i, j;
         last = j = 0;
@@ -106,7 +106,7 @@ void set_ships_stats(int **stats, int ship_class_count, const int *ships, int sh
         }
 }
 
-/*Aktualisiert die Stats abhängig von der getroffenen Schiffsklasse*/
+/*Aktualisiert die Stats abhaengig von der getroffenen Schiffsklasse*/
 void updateStats(int **stats, int ship_class_count, int hit) {
         int i;
         for (i = 0; i < ship_class_count; i++) {
@@ -155,7 +155,7 @@ int rand_set_ships(char **matrix, int size, int *ships, int ship_count)
         }
 }
 
-/*Setzt ein Schiff der Laenge ship_length nach den uebergebenen Koordinaten. Gibt 0 zurück falls nicht moeglich*/
+/*Setzt ein Schiff der Laenge ship_length nach den uebergebenen Koordinaten. Gibt 0 zurueck falls nicht moeglich*/
 int set_ship(char **matrix, int size, int y, int x, int direction, int ship_length)
 {
         int i;
@@ -289,7 +289,7 @@ int ship_mass_validation(int size, const int *ships, int ship_count)
         return ((float) mass / (float) (size * size) <= SHIP_MASS_THRESHOLD); /*das hier wird ein Bool*/
 }
 
-/*Schiesst das Feld an den uebergebenen Koordinaten und gibt zurück, welche Schiffsklasse getroffen wurde*/
+/*Schiesst das Feld an den uebergebenen Koordinaten und gibt zurueck, welche Schiffsklasse getroffen wurde*/
 int shoot(char **matrix, int y, int x) {
         int hit;
         if (isdigit(matrix[y][x])) {
@@ -364,7 +364,7 @@ int is_end_game(char **matrix, int size) {
         return 1;
 }
 
-/*Vergleichsfunktion für qsort (vgl. http://www.cplusplus.com/reference/cstdlib/qsort/)*/
+/*Vergleichsfunktion fuer qsort (vgl. http://www.cplusplus.com/reference/cstdlib/qsort/)*/
 int compare(const void *a, const void *b) {
         return (*(int *) a - *(int *) b);
 }

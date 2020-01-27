@@ -95,7 +95,7 @@ void print_stats(int **stats1, int **stats2, int ship_class_count) {
                stats2[ship_class_count - 1][1] % stats2[ship_class_count - 1][0]);
 }
 
-/*Ein wunderschöner Weg um den Screen sauber zu bekommen*/
+/*Ein wunderschoener Weg um den Screen sauber zu bekommen*/
 void clear_screen()
 {
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -104,7 +104,7 @@ void clear_screen()
 
 /*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
-/*Lässt den Spieler seine Schiffe setzen*/
+/*Laesst den Spieler seine Schiffe setzen*/
 void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn)
 {
         int i, current_ship, x, y, direction;
@@ -122,7 +122,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
                                         flush();
                                 }
 
-                                do { /*Wiederholt das zufällige Setzen solange, bis der Spieler zufrieden ist*/
+                                do { /*Wiederholt das zufaellige Setzen solange, bis der Spieler zufrieden ist*/
                                         clear_screen();
                                         draw_screen(matrix, size);
                                         printf("Ist das so in Ordnung? (j / n)\n");
@@ -321,7 +321,7 @@ void get_settings(int *single, int *diff, int *standart)
         } while (*standart == -1);
 }
 
-/*Fragt den Spiele nach der gewünschten Feldgroeße*/
+/*Fragt den Spiele nach der gewuenschten Feldgroesse*/
 int get_battleground_size()
 {
         int n;
