@@ -1,10 +1,10 @@
 #ifndef SEMESTERAUFGABE_CONSOLE_H
 #define SEMESTERAUFGABE_CONSOLE_H
 
-#define SHOW_FULL_BATTLEGROUND 0
+#define SHOW_FULL_BATTLEGROUND 0 /*Schalter um stets alle Schiffe anzuzeigen*/
+#define SHOW_ASCII_ART 1 /*Schalter um Ausgabeart der Matrix einzustellen*/
 
-#define SHOW_ASCII_ART 1
-#define TILE_SIZE_VERT 2
+#define TILE_SIZE_VERT 2 /*Hoehe und Breite der Tiles im ASCII Modus, nicht verändern ohne Code anzupassen!*/
 #define TILE_SIZE_HOR 7
 
 

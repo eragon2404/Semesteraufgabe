@@ -591,7 +591,7 @@ int get_battleground_size()
 {
         int n;
         do {
-                printf("Waehlen sie eine Feldgroesse: (min 10, max 20):\n");
+                printf("Waehlen sie eine Feldgroesse: (min %i, max %i):\n", MIN_BATTLEGROUND_SIZE, MAX_BATTLEGROUND_SIZE);
                 if (scanf("%i", &n) != 1) {
                         printf("Keine gueltige Eingabe!\n");
                         n = 0;
@@ -600,7 +600,7 @@ int get_battleground_size()
                         }
                         continue;
                 }
-                if (n < 10 || n > 20) {
+                if (n < MIN_BATTLEGROUND_SIZE || n > MAX_BATTLEGROUND_SIZE) {
                         printf("Keine gueltige Eingabe!\n");
                         n = 0;
                 } else {

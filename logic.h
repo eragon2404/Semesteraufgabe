@@ -6,6 +6,9 @@
 #endif
 
 /*Das Standartspiel wird hiervon nicht beeinflusst*/
+#define MIN_BATTLEGROUND_SIZE 10 /*Darf nicht < 3 sein*/
+#define MAX_BATTLEGROUND_SIZE 20 /*Ein Wert größer als 99 fuehrt zu UI Problemen (wenn es ueberhaupt passt)*/
+
 #define MIN_SHIP_LENGTH 2 /*Darf nicht < 2 sein*/
 #define MAX_SHIP_LENGTH 7
 #define SHIPS_LIMIT 20
