@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "logic.h"
-#include "glorifiedifstatements(ai).h"
+#include "ai.h"
 #include "console.h"
 
 #include <time.h>

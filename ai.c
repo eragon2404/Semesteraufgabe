@@ -1,4 +1,4 @@
-#include "glorifiedifstatements(ai).h"
+#include "ai.h"
 #include <stdlib.h>
 #include <ctype.h>
 
