@@ -44,9 +44,23 @@ void draw_screen(char **matrix, int size, tiles *t)
                 }
                 printf("\n");
         } else {
-                for (y = 0; y < size; y++) {
 
+                printf("\t");
+                for (i = 0; i < size - 1; i++){
+                        if (i < 10){
+                                printf("  %i   ", i + 1);
+                        } else {
+                                printf(" %i   ", i + 1);
+                        }
+                }
+                printf(" %i\n", size);
+
+                for (y = 0; y < size; y++) {
+                        printf("%i:\t", y + 1);
                         for (i = 0; i < 2; i++){
+                                if (i){
+                                        printf("|______ ");
+                                }
                                 for (x = 0; x < size; x++) {
                                         switch(matrix[y][x]){
                                                 case 'w':
@@ -54,7 +68,31 @@ void draw_screen(char **matrix, int size, tiles *t)
                                                         break;
 
                                                 case 'D':
-                                                        printf("%s", t->downed[i]);
+                                                        switch(check_tile_orientation(matrix, size, x, y)){
+                                                                case 0:
+                                                                        printf("%s", t->dwn_front_vert[i]);
+                                                                        break;
+
+                                                                case 1:
+                                                                        printf("%s", t->dwn_mid_vert[i]);
+                                                                        break;
+
+                                                                case 2:
+                                                                        printf("%s", t->dwn_end_vert[i]);
+                                                                        break;
+
+                                                                case 3:
+                                                                        printf("%s", t->dwn_front_hor[i]);
+                                                                        break;
+
+                                                                case 4:
+                                                                        printf("%s", t->dwn_mid_hor[i]);
+                                                                        break;
+
+                                                                case 5:
+                                                                        printf("%s", t->dwn_end_hor[i]);
+                                                                        break;
+                                                        }
                                                         break;
 
                                                 case 'X':
@@ -131,13 +169,50 @@ void player_draw_screen(char **matrix, int size, tiles *t)
                 }
                 printf("\n");
         } else {
-                for (y = 0; y < size; y++) {
+                printf("\t");
+                for (i = 0; i < size - 1; i++){
+                        if (i < 10){
+                                printf("  %i   ", i + 1);
+                        } else {
+                                printf(" %i   ", i + 1);
+                        }
+                }
+                printf(" %i\n", size);
 
+                for (y = 0; y < size; y++) {
+                        printf("%i:\t", y + 1);
                         for (i = 0; i < 2; i++){
+                                if (i){
+                                        printf("|______ ");
+                                }
                                 for (x = 0; x < size; x++) {
                                         switch(matrix[y][x]){
                                                 case 'D':
-                                                        printf("%s", t->downed[i]);
+                                                        switch(check_tile_orientation(matrix, size, x, y)){
+                                                                case 0:
+                                                                        printf("%s", t-> dwn_front_vert[i]);
+                                                                        break;
+
+                                                                case 1:
+                                                                        printf("%s", t-> dwn_mid_vert[i]);
+                                                                        break;
+
+                                                                case 2:
+                                                                        printf("%s", t-> dwn_end_vert[i]);
+                                                                        break;
+
+                                                                case 3:
+                                                                        printf("%s", t-> dwn_front_hor[i]);
+                                                                        break;
+
+                                                                case 4:
+                                                                        printf("%s", t-> dwn_mid_hor[i]);
+                                                                        break;
+
+                                                                case 5:
+                                                                        printf("%s", t-> dwn_end_hor[i]);
+                                                                        break;
+                                                        }
                                                         break;
 
                                                 case 'X':
@@ -168,24 +243,24 @@ int check_tile_orientation(char **matrix, int size, int x, int y)
 {
         unsigned short status = 0;
 
-        if (y - 1 < 0 || (y - 1 >= 0 && matrix[y - 1][x] == 'w')){
+        if (y - 1 < 0 || (y - 1 >= 0 && (matrix[y - 1][x] == 'w' || matrix[y - 1][x] == 'M'))){
                 status = status + 1;
         }
 
         status = status << 1;
-        if (x + 1 >= size || (x + 1 < size && matrix[y][x + 1] == 'w')){
-
-                status = status + 1;
-        }
-
-        status = status << 1;
-        if (y + 1 >= size || (y + 1 < size && matrix[y + 1][x] == 'w')){
+        if (x + 1 >= size || (x + 1 < size && (matrix[y][x + 1] == 'w' || matrix[y][x + 1] == 'M'))){
 
                 status = status + 1;
         }
 
         status = status << 1;
-        if (x - 1 < 0 || (x - 1 >= 0 && matrix[y][x - 1] == 'w')){
+        if (y + 1 >= size || (y + 1 < size && (matrix[y + 1][x] == 'w' || matrix[y + 1][x] == 'M'))){
+
+                status = status + 1;
+        }
+
+        status = status << 1;
+        if (x - 1 < 0 || (x - 1 >= 0 && (matrix[y][x - 1] == 'w' || matrix[y][x - 1] == 'M'))){
 
                 status = status + 1;
         }
@@ -231,17 +306,35 @@ void set_tiles(tiles *t){
         strcpy(t -> end_hor[0], "__[^]_");
         strcpy(t -> end_hor[1], "o_o_o/");
 
-        strcpy(t -> hit[0], "__[^]_");
-        strcpy(t -> hit[1], "o_o_o/");
+        strcpy(t -> dwn_front_vert[0], "~~X\\~~");
+        strcpy(t -> dwn_front_vert[1], "~/_X\\~");
 
-        strcpy(t -> miss[0], "__[^]_");
-        strcpy(t -> miss[1], "o_o_o/");
+        strcpy(t -> dwn_mid_vert[0], "~| X|~");
+        strcpy(t -> dwn_mid_vert[1], "~|X_|~");
 
-        strcpy(t -> water[0], "~~~~~~");
-        strcpy(t -> water[1], "~~~~~~");
+        strcpy(t -> dwn_end_vert[0], "~|X_|~");
+        strcpy(t -> dwn_end_vert[1], "~\\_X/~");
 
-        strcpy(t -> downed[0], "__[^]_");
-        strcpy(t -> downed[1], "o_o_o/");
+        strcpy(t -> dwn_front_hor[0], " _____");
+        strcpy(t -> dwn_front_hor[1], "\\_x_x_");
+
+        strcpy(t -> dwn_mid_hor[0], "______");
+        strcpy(t -> dwn_mid_hor[1], "x_x_x_");
+
+        strcpy(t -> dwn_end_hor[0], "__[^]_");
+        strcpy(t -> dwn_end_hor[1], "x_x_x/");
+
+        strcpy(t -> hit[0], " \\  / ");
+        strcpy(t -> hit[1], " /  \\ ");
+
+        strcpy(t -> miss[0], " oOoO ");
+        strcpy(t -> miss[1], " OoOo ");
+
+        strcpy(t -> water[0], " ~~~~ ");
+        strcpy(t -> water[1], " ~~~~ ");
+
+        strcpy(t -> downed[0], "__[x]_");
+        strcpy(t -> downed[1], "x_x_x/");
 
 }
 

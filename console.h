@@ -18,6 +18,13 @@ typedef struct _tiles{
         char mid_hor[TILE_SIZE_VERT][TILE_SIZE_HOR];
         char end_hor[TILE_SIZE_VERT][TILE_SIZE_HOR];
 
+        char dwn_front_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];
+        char dwn_mid_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];
+        char dwn_end_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];
+        char dwn_front_hor[TILE_SIZE_VERT][TILE_SIZE_HOR];
+        char dwn_mid_hor[TILE_SIZE_VERT][TILE_SIZE_HOR];
+        char dwn_end_hor[TILE_SIZE_VERT][TILE_SIZE_HOR];
+
         char water[TILE_SIZE_VERT][TILE_SIZE_HOR];
         char downed[TILE_SIZE_VERT][TILE_SIZE_HOR];
         char hit[TILE_SIZE_VERT][TILE_SIZE_HOR];
