@@ -2,6 +2,8 @@
 #define SEMESTERAUFGABE_CONSOLE_H
 
 #define SHOW_FULL_BATTLEGROUND 0
+#define MIN_SHIP_LENGTH 1 /*Das Standartspiel wird hiervon nicht beeinflusst*/
+#define MAX_SHIP_LENGTH 7
 
 void draw_intro();
 

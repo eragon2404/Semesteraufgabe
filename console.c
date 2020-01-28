@@ -373,7 +373,7 @@ int get_ships(int **ships, int *ship_count, int size)
                 }
 
                 for (i = 0; i < *ship_count; i++) {
-                        printf("Welche Groesse soll Schiff %i haben? (Min 2, Max 5)\n", i + 1);
+                        printf("Welche Groesse soll Schiff %i haben? (Min %i, Max %i)\n", i + 1, MIN_SHIP_LENGTH, MAX_SHIP_LENGTH);
                         do {
                                 printf("Eingabe:\n");
                                 if (scanf("%i", &length) != 1) {
@@ -383,7 +383,7 @@ int get_ships(int **ships, int *ship_count, int size)
                                         }
                                         continue;
                                 }
-                                if (length < 2 || length > 5) {
+                                if (length < MIN_SHIP_LENGTH || length > MAX_SHIP_LENGTH) {
                                         printf("Keine gueltige Eingabe!\n");
                                         if (getchar() != '\n') {
                                                 flush();
