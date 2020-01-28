@@ -283,6 +283,9 @@ int check_tile_orientation(char **matrix, int size, int x, int y)
 
                 case 14:
                         return 5;
+
+                default:
+                        return -1;
         }
 }
 
