@@ -32,7 +32,7 @@ int main(void) {
         get_settings(&single, &diff, &standart);
         clear_screen();
 
-        if (standart) {
+        if (standart) { /*Setzt Standartwerte fuer ein Standartspiel*/
                 size = 10;
                 ship_count = 5;
                 if ((ships = malloc(ship_count * sizeof(int))) == NULL) {
@@ -52,14 +52,14 @@ int main(void) {
                         return -1;
                 }
 
-        } else {
+        } else { /*Spiel mit benutzerdefinierten Werten*/
 
                 size = get_battleground_size();
                 if (get_ships(&ships, &ship_count, size) == OUT_OF_MEMORY) {
                         printf("Out of memory, abort!");
                         return -1;
                 }
-                if (ship_count > 1) {
+                if (ship_count > 1) { /*Sortiert das Feld der verfuegbaren Schiffe*/
                         qsort(ships, ship_count, sizeof(int), compare);
                 }
 
@@ -71,6 +71,8 @@ int main(void) {
 
                 clear_screen();
         }
+
+        /*Initalisiert die Matrizen fuer das Spiel*/
 
         if (init_battleground(&battleground0, size) == OUT_OF_MEMORY) {
                 free(ships);
@@ -98,15 +100,14 @@ int main(void) {
                 return -1;
         }
 
-        printf("Spieler 1 muss nun seine Schiffe setzen!\n");
-        player_set_ships(battleground0, size, ships, ship_count);
+        /*Setzen der Schiffe*/
+        player_set_ships(battleground0, size, ships, ship_count, 0);
 
         if (single) {
                 rand_set_ships(battleground1, size, ships, ship_count);
         } else {
                 clear_screen();
-                printf("Spieler 2 muss nun seine Schiffe setzen!\n");
-                player_set_ships(battleground1, size, ships, ship_count);
+                player_set_ships(battleground1, size, ships, ship_count, 1);
         }
         clear_screen();
 
@@ -114,12 +115,7 @@ int main(void) {
                 downed = 0;
                 if (!player_turn) {  /*Spieler 1*/
                         if (first){
-                                printf("Spieler 1 ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n");
-                                printf("WEITER (enter)");
-                                if (getchar() != '\n') {
-                                        flush();
-                                }
-                                show_player_battleground(battleground0, size);
+                                show_player_battleground(battleground0, size, player_turn);
                                 first = 0;
                         }
                         shot = player_move(battleground1, size, player_turn);
@@ -162,12 +158,7 @@ int main(void) {
 
                         } else { /*Menschlicher Spieler 2*/
                                 if (first){
-                                        printf("Spieler 2 ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n");
-                                        printf("WEITER (enter)");
-                                        if (getchar() != '\n') {
-                                                flush();
-                                        }
-                                        show_player_battleground(battleground1, size);
+                                        show_player_battleground(battleground1, size, player_turn);
                                         first = 0;
                                 }
 

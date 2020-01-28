@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die Matrize und setzt sie auf Anfangswerte*/
+/*Belegt den Speicher fuer die Matrize und setzt sie auf Anfangswerte*/
+int init_battleground(char ***matrix, int size)
 {
         int x;
         if ((*matrix = malloc(size * sizeof(char *))) == NULL) {
@@ -32,8 +33,8 @@ int init_battleground(char ***matrix, int size) /*Belegt den Speicher für die M
 
 }
 
-int init_stats(int ***stats1, int ***stats2, const int *ships,
-               int ship_count) /*Initalisiert eine Matrix zum Verfolgen der Treffer auf die vorhandenen Schiffstypen*/
+/*Initalisiert eine Matrix zum Verfolgen der Treffer auf die vorhandenen Schiffstypen*/
+int init_stats(int ***stats1, int ***stats2, const int *ships, int ship_count)
 {
         int ship_class_count, last, i;
         ship_class_count = last = 0;
@@ -90,6 +91,7 @@ int init_stats(int ***stats1, int ***stats2, const int *ships,
         return ship_class_count;
 }
 
+/*Initalisiert den Speicher fuer die Stats*/
 void set_ships_stats(int **stats, int ship_class_count, const int *ships, int ship_count) {
         int last, i, j;
         last = j = 0;
@@ -104,6 +106,7 @@ void set_ships_stats(int **stats, int ship_class_count, const int *ships, int sh
         }
 }
 
+/*Aktualisiert die Stats abhaengig von der getroffenen Schiffsklasse*/
 void updateStats(int **stats, int ship_class_count, int hit) {
         int i;
         for (i = 0; i < ship_class_count; i++) {
@@ -113,7 +116,8 @@ void updateStats(int **stats, int ship_class_count, int hit) {
         }
 }
 
-void reset_battleground(char **matrix, int size) /*Setzt die Matrix zurueck*/
+/*Setzt die Matrix zurueck*/
+void reset_battleground(char **matrix, int size)
 {
         int x, y;
         for (x = 0; x < size; x++) {
@@ -123,7 +127,8 @@ void reset_battleground(char **matrix, int size) /*Setzt die Matrix zurueck*/
         }
 }
 
-int rand_set_ships(char **matrix, int size, int *ships, int ship_count) /* Setzt die Schiffe zufaellig in die Matrix*/
+/*Setzt die Schiffe zufaellig in die Matrix*/
+int rand_set_ships(char **matrix, int size, int *ships, int ship_count)
 {
         int i, j, done;
         done = 0;
@@ -150,8 +155,8 @@ int rand_set_ships(char **matrix, int size, int *ships, int ship_count) /* Setzt
         }
 }
 
-int set_ship(char **matrix, int size, int y, int x, int direction,
-             int ship_length) /*Setzt ein Schiff der Laenge ship_length nach den uebergebenen Koordinaten. Gibt 0 zurück falls nicht moeglich*/
+/*Setzt ein Schiff der Laenge ship_length nach den uebergebenen Koordinaten. Gibt 0 zurueck falls nicht moeglich*/
+int set_ship(char **matrix, int size, int y, int x, int direction, int ship_length)
 {
         int i;
 
@@ -170,8 +175,8 @@ int set_ship(char **matrix, int size, int y, int x, int direction,
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y + i][x] != 'w') {
                                         return 0;
-                                } else if (y + i + 1 < size && matrix[y + i + 1][x] !=
-                                                               'w') { /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                } else if (y + i + 1 < size && matrix[y + i + 1][x] != 'w') {
                                         return 0;
                                 } else if (y + i - 1 >= 0 && matrix[y + i - 1][x] != 'w') {
                                         return 0;
@@ -195,8 +200,8 @@ int set_ship(char **matrix, int size, int y, int x, int direction,
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y][x - i] != 'w') {
                                         return 0;
-                                } else if (y + 1 < size && matrix[y + 1][x - i] !=
-                                                           'w') { /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                } else if (y + 1 < size && matrix[y + 1][x - i] != 'w') {
                                         return 0;
                                 } else if (y - 1 >= 0 && matrix[y - 1][x - i] != 'w') {
                                         return 0;
@@ -220,8 +225,8 @@ int set_ship(char **matrix, int size, int y, int x, int direction,
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y - i][x] != 'w') {
                                         return 0;
-                                } else if (y - i + 1 < size && matrix[y - i + 1][x] !=
-                                                               'w') { /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                } else if (y - i + 1 < size && matrix[y - i + 1][x] != 'w') {
                                         return 0;
                                 } else if (y - i - 1 >= 0 && matrix[y - i - 1][x] != 'w') {
                                         return 0;
@@ -245,8 +250,8 @@ int set_ship(char **matrix, int size, int y, int x, int direction,
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y][x + i] != 'w') {
                                         return 0;
-                                } else if (y + 1 < size && matrix[y + 1][x + i] !=
-                                                           'w') { /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                } else if (y + 1 < size && matrix[y + 1][x + i] != 'w') {
                                         return 0;
                                 } else if (y - 1 >= 0 && matrix[y - 1][x + i] != 'w') {
                                         return 0;
@@ -269,8 +274,8 @@ int set_ship(char **matrix, int size, int y, int x, int direction,
         return 1;
 }
 
-int ship_mass_validation(int size, const int *ships,
-                         int ship_count) /*Stellt sicher, dass nicht zu viele Schiffen gesetzt werden*/
+/*Stellt sicher, dass nicht zu viele Schiffen gesetzt werden*/
+int ship_mass_validation(int size, const int *ships, int ship_count)
 {
         int i;
         int mass;
@@ -284,6 +289,7 @@ int ship_mass_validation(int size, const int *ships,
         return ((float) mass / (float) (size * size) <= SHIP_MASS_THRESHOLD); /*das hier wird ein Bool*/
 }
 
+/*Schiesst das Feld an den uebergebenen Koordinaten und gibt zurueck, welche Schiffsklasse getroffen wurde*/
 int shoot(char **matrix, int y, int x) {
         int hit;
         if (isdigit(matrix[y][x])) {
@@ -299,6 +305,7 @@ int shoot(char **matrix, int y, int x) {
         return 0;
 }
 
+/*Prueft, ob ein Schiff versenkt wurde und setzt falls dies der Fall ist das Schiff auf 'D'*/
 int check_downed(char **matrix, int size, int y, int x) {
         int count;
         count = 0;
@@ -317,6 +324,7 @@ int check_downed(char **matrix, int size, int y, int x) {
         return 1;
 }
 
+/*Hilfsfunktion zu check_downed*/
 int check_downed_helper(char **matrix, int size, int y, int x, int dy, int dx) {
         if (y < 0 || x < 0 || y >= size || x >= size) {
                 return 0;
@@ -342,6 +350,7 @@ int downed_maker(char **matrix, int size, int y, int x, int dy, int dx) {
         return 1;
 }
 
+/*Prueft ob das Spiel zuende ist*/
 int is_end_game(char **matrix, int size) {
         int x, y;
         for (x = 0; x < size; x++) {
@@ -355,6 +364,7 @@ int is_end_game(char **matrix, int size) {
         return 1;
 }
 
+/*Vergleichsfunktion fuer qsort (vgl. http://www.cplusplus.com/reference/cstdlib/qsort/)*/
 int compare(const void *a, const void *b) {
         return (*(int *) a - *(int *) b);
 }
