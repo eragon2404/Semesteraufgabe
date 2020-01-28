@@ -19,6 +19,8 @@ int main(void) {
         int size, *ships, ship_count, single, diff, standart; /*Settings*/
         int **stats0, **stats1, ship_class_count; /*Statistikspeicher*/
 
+        tiles tiles;
+
         char **battleground0 /*Matrize Spieler 0*/, **battleground1; /*Matrize Spieler 1*/
 
         srand(time(NULL));
@@ -28,6 +30,8 @@ int main(void) {
 
         player_turn = win = 0;
         first = 1;
+
+        set_tiles(&tiles);
         draw_intro();
         get_settings(&single, &diff, &standart);
         clear_screen();
@@ -101,13 +105,13 @@ int main(void) {
         }
 
         /*Setzen der Schiffe*/
-        player_set_ships(battleground0, size, ships, ship_count, 0);
+        player_set_ships(battleground0, size, ships, ship_count, 0, &tiles);
 
         if (single) {
                 rand_set_ships(battleground1, size, ships, ship_count);
         } else {
                 clear_screen();
-                player_set_ships(battleground1, size, ships, ship_count, 1);
+                player_set_ships(battleground1, size, ships, ship_count, 1, &tiles);
         }
         clear_screen();
 
@@ -115,16 +119,16 @@ int main(void) {
                 downed = 0;
                 if (!player_turn) {  /*Spieler 1*/
                         if (first){
-                                show_player_battleground(battleground0, size, player_turn);
+                                show_player_battleground(battleground0, size, player_turn, &tiles);
                                 first = 0;
                         }
-                        shot = player_move(battleground1, size, player_turn);
+                        shot = player_move(battleground1, size, player_turn, &tiles);
                         hit = shoot(battleground1, shot[0], shot[1]);
                         if (hit > 0) {
                                 downed = check_downed(battleground1, size, shot[0], shot[1]);
                         }
                         updateStats(stats0, ship_class_count, hit);
-                        response(battleground1, size, shot, hit, downed, player_turn);
+                        response(battleground1, size, shot, hit, downed, player_turn, &tiles);
 
                         if (is_end_game(battleground1, size)) {
                                 win = 1;
@@ -145,7 +149,7 @@ int main(void) {
                                 }
 
                                 updateStats(stats1, ship_class_count, hit);
-                                response(battleground0, size, shot, hit, downed, player_turn);
+                                response(battleground0, size, shot, hit, downed, player_turn, &tiles);
 
                                 if (is_end_game(battleground0, size)) {
                                         win = 2;
@@ -158,18 +162,18 @@ int main(void) {
 
                         } else { /*Menschlicher Spieler 2*/
                                 if (first){
-                                        show_player_battleground(battleground1, size, player_turn);
+                                        show_player_battleground(battleground1, size, player_turn, &tiles);
                                         first = 0;
                                 }
 
-                                shot = player_move(battleground0, size, player_turn);
+                                shot = player_move(battleground0, size, player_turn, &tiles);
                                 hit = shoot(battleground0, shot[0], shot[1]);
                                 if (hit > 0) {
                                         downed = check_downed(battleground0, size, shot[0], shot[1]);
                                 }
 
                                 updateStats(stats1, ship_class_count, hit);
-                                response(battleground0, size, shot, hit, downed, player_turn);
+                                response(battleground0, size, shot, hit, downed, player_turn, &tiles);
 
                                 if (is_end_game(battleground0, size)) {
                                         win = 2;
@@ -184,8 +188,8 @@ int main(void) {
         } while (!win);
 
         clear_screen();
-        draw_screen(battleground0, size);
-        draw_screen(battleground1, size);
+        draw_screen(battleground0, size, &tiles);
+        draw_screen(battleground1, size, &tiles);
         printf("Spieler %i hat gewonnen!\n", win);
         print_stats(stats0, stats1, ship_class_count);
 

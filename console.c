@@ -5,6 +5,7 @@
 #include "logic.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <ctype.h>
 
 /*---------------------------------Methoden die das Spiel zeichnen----------------------------------------------------*/
@@ -18,59 +19,230 @@ void draw_intro() {
 }
 
 /*Zeichnet die uebergebene Matrize*/
-void draw_screen(char **matrix, int size)
+void draw_screen(char **matrix, int size, tiles *t)
 {
-        int x, y;
+        int x, y, i;
+        if (!SHOW_ASCII_ART){
 
-        printf("\t");
-        for (x = 0; x < size; x++) {
-                if (x < 9) {
-                        printf("%i  ", x + 1);
-                } else {
-                        printf("%i ", x + 1);
-                }
-
-        }
-        printf("\n");
-
-        for (y = 0; y < size; y++) {
-                printf("%i:\t", y + 1);
+                printf("\t");
                 for (x = 0; x < size; x++) {
-                        printf("%c  ", matrix[y][x]);
+                        if (x < 9) {
+                                printf("%i  ", x + 1);
+                        } else {
+                                printf("%i ", x + 1);
+                        }
+
                 }
                 printf("\n");
-        }
-        printf("\n");
-}
 
-/*Zeichnet die uebergebene Matrize ohne Schiffe preiszugeben*/
-void player_draw_screen(char **matrix, int size)
-{
-        int x, y;
-
-        printf("\t");
-        for (x = 0; x < size; x++) {
-                if (x < 9) {
-                        printf("%i  ", x + 1);
-                } else {
-                        printf("%i ", x + 1);
-                }
-
-        }
-        printf("\n");
-
-        for (y = 0; y < size; y++) {
-                printf("%i:\t", y + 1);
-                for (x = 0; x < size; x++) {
-                        if (isdigit(matrix[y][x])){
-                                printf("w  ");
-                        } else {
+                for (y = 0; y < size; y++) {
+                        printf("%i:\t", y + 1);
+                        for (x = 0; x < size; x++) {
                                 printf("%c  ", matrix[y][x]);
+                        }
+                        printf("\n");
+                }
+                printf("\n");
+        } else {
+                for (y = 0; y < size; y++) {
+
+                        for (i = 0; i < 2; i++){
+                                for (x = 0; x < size; x++) {
+                                        switch(matrix[y][x]){
+                                                case 'w':
+                                                        printf("%s", t->water[i]);
+                                                        break;
+
+                                                case 'D':
+                                                        printf("%s", t->downed[i]);
+                                                        break;
+
+                                                case 'X':
+                                                        printf("%s", t->hit[i]);
+                                                        break;
+
+                                                case 'M':
+                                                        printf("%s", t->miss[i]);
+                                                        break;
+
+                                                default:
+                                                        switch(check_tile_orientation(matrix, size, x, y)){
+                                                                case 0:
+                                                                        printf("%s", t->front_vert[i]);
+                                                                        break;
+
+                                                                case 1:
+                                                                        printf("%s", t->mid_vert[i]);
+                                                                        break;
+
+                                                                case 2:
+                                                                        printf("%s", t->end_vert[i]);
+                                                                        break;
+
+                                                                case 3:
+                                                                        printf("%s", t->front_hor[i]);
+                                                                        break;
+
+                                                                case 4:
+                                                                        printf("%s", t->mid_hor[i]);
+                                                                        break;
+
+                                                                case 5:
+                                                                        printf("%s", t->end_hor[i]);
+                                                                        break;
+                                                        }
+                                        }
+                                }
+
+                                printf("\n");
                         }
                 }
                 printf("\n");
         }
-        printf("\n");
+}
+
+/*Zeichnet die uebergebene Matrize ohne Schiffe preiszugeben*/
+void player_draw_screen(char **matrix, int size, tiles *t)
+{
+        int x, y, i;
+
+        if (!SHOW_ASCII_ART){
+                printf("\t");
+                for (x = 0; x < size; x++) {
+                        if (x < 9) {
+                                printf("%i  ", x + 1);
+                        } else {
+                                printf("%i ", x + 1);
+                        }
+
+                }
+                printf("\n");
+
+                for (y = 0; y < size; y++) {
+                        printf("%i:\t", y + 1);
+                        for (x = 0; x < size; x++) {
+                                if (isdigit(matrix[y][x])){
+                                        printf("w  ");
+                                } else {
+                                        printf("%c  ", matrix[y][x]);
+                                }
+                        }
+                        printf("\n");
+                }
+                printf("\n");
+        } else {
+                for (y = 0; y < size; y++) {
+
+                        for (i = 0; i < 2; i++){
+                                for (x = 0; x < size; x++) {
+                                        switch(matrix[y][x]){
+                                                case 'D':
+                                                        printf("%s", t->downed[i]);
+                                                        break;
+
+                                                case 'X':
+                                                        printf("%s", t->hit[i]);
+                                                        break;
+
+                                                case 'M':
+                                                        printf("%s", t->miss[i]);
+                                                        break;
+
+                                                default:
+                                                        printf("%s", t->water[i]);
+                                                        break;
+                                        }
+
+
+                                }
+
+                                printf("\n");
+                        }
+                }
+                printf("\n");
+        }
+
+}
+
+int check_tile_orientation(char **matrix, int size, int x, int y)
+{
+        unsigned short status = 0;
+
+        if (y - 1 < 0 || (y - 1 >= 0 && matrix[y - 1][x] == 'w')){
+                status = status + 1;
+        }
+
+        status = status << 1;
+        if (x + 1 >= size || (x + 1 < size && matrix[y][x + 1] == 'w')){
+
+                status = status + 1;
+        }
+
+        status = status << 1;
+        if (y + 1 >= size || (y + 1 < size && matrix[y + 1][x] == 'w')){
+
+                status = status + 1;
+        }
+
+        status = status << 1;
+        if (x - 1 < 0 || (x - 1 >= 0 && matrix[y][x - 1] == 'w')){
+
+                status = status + 1;
+        }
+
+        switch(status){
+                case 13:
+                        return 0;
+
+                case 5:
+                        return 1;
+
+                case 7:
+                        return 2;
+
+                case 11:
+                        return 3;
+
+                case 10:
+                        return 4;
+
+                case 14:
+                        return 5;
+        }
+}
+
+/*Bereitet das Struct mit den Tiles vor*/
+void set_tiles(tiles *t){
+        strcpy(t -> front_vert[0], "~~/\\~~");
+        strcpy(t -> front_vert[1], "~/__\\~");
+
+        strcpy(t -> mid_vert[0], "~|  |~");
+        strcpy(t -> mid_vert[1], "~|__|~");
+
+        strcpy(t -> end_vert[0], "~|__|~");
+        strcpy(t -> end_vert[1], "~\\__/~");
+
+        strcpy(t -> front_hor[0], " _____");
+        strcpy(t -> front_hor[1], "\\_o_o_");
+
+        strcpy(t -> mid_hor[0], "______");
+        strcpy(t -> mid_hor[1], "o_o_o_");
+
+        strcpy(t -> end_hor[0], "__[^]_");
+        strcpy(t -> end_hor[1], "o_o_o/");
+
+        strcpy(t -> hit[0], "__[^]_");
+        strcpy(t -> hit[1], "o_o_o/");
+
+        strcpy(t -> miss[0], "__[^]_");
+        strcpy(t -> miss[1], "o_o_o/");
+
+        strcpy(t -> water[0], "~~~~~~");
+        strcpy(t -> water[1], "~~~~~~");
+
+        strcpy(t -> downed[0], "__[^]_");
+        strcpy(t -> downed[1], "o_o_o/");
+
 }
 
 /*Gibt die Statistiken aus*/
@@ -105,7 +277,7 @@ void clear_screen()
 /*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
 /*Laesst den Spieler seine Schiffe setzen*/
-void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn)
+void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn, tiles *t)
 {
         int i, current_ship, x, y, direction;
         i = 1;
@@ -124,7 +296,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
 
                                 do { /*Wiederholt das zufaellige Setzen solange, bis der Spieler zufrieden ist*/
                                         clear_screen();
-                                        draw_screen(matrix, size);
+                                        draw_screen(matrix, size, t);
                                         printf("Ist das so in Ordnung? (j / n)\n");
                                         do{
                                                 switch (getchar()) {
@@ -177,7 +349,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
         while (current_ship < ship_count) {
 
                 clear_screen();
-                draw_screen(matrix, size);
+                draw_screen(matrix, size, t);
                 printf("Es stehen folgende Schiffe zur Auswahl (Die Zahl gibt die Laenge an):\n");
                 for (i = 0; i < ship_count - 1; i++) {
                         printf("%i ", ships[i]);
@@ -403,16 +575,16 @@ int get_ships(int **ships, int *ship_count, int size)
 }
 
 /*Fragt den Spieler wohin er schiessen moechte*/
-int *player_move(char **matrix, int size, int player_turn) {
+int *player_move(char **matrix, int size, int player_turn, tiles *t) {
         int x, y;
         static int result[2];
 
         clear_screen();
         printf("Spieler %i ist am Zug:\n", player_turn + 1);
         if (SHOW_FULL_BATTLEGROUND){
-                draw_screen(matrix, size);
+                draw_screen(matrix, size, t);
         } else {
-                player_draw_screen(matrix, size);
+                player_draw_screen(matrix, size, t);
         }
         printf("Wohin moechten sie schiessen? (Format: x.y)\n");
 
@@ -443,7 +615,7 @@ int *player_move(char **matrix, int size, int player_turn) {
 }
 
 /*Zeigt dem Spieler seinen eigenes Spielfeld*/
-void show_player_battleground(char **matrix, int size, int player_turn)
+void show_player_battleground(char **matrix, int size, int player_turn, tiles *t)
 {
         printf("Spieler %i ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n", player_turn + 1);
         printf("WEITER (enter)");
@@ -452,7 +624,7 @@ void show_player_battleground(char **matrix, int size, int player_turn)
         }
         printf("Das ist ihr momentanes Spielfeld:\n");
 
-        draw_screen(matrix, size);
+        draw_screen(matrix, size, t);
 
         printf("\nWEITER (enter)");
         if (getchar() != '\n') {
@@ -462,7 +634,7 @@ void show_player_battleground(char **matrix, int size, int player_turn)
 }
 
 /*Antwort auf einen Spielzug*/
-int response(char **matrix, int size, int *shot, int hit, int downed, int player) {
+int response(char **matrix, int size, int *shot, int hit, int downed, int player, tiles *t) {
         clear_screen();
         printf("Spieler %i hat auf %i.%i geschossen!\n", player + 1, shot[1] + 1, shot[0] + 1);
         switch (hit) {
@@ -481,9 +653,9 @@ int response(char **matrix, int size, int *shot, int hit, int downed, int player
         }
         printf("\n");
         if (SHOW_FULL_BATTLEGROUND){
-                draw_screen(matrix, size);
+                draw_screen(matrix, size, t);
         } else {
-                player_draw_screen(matrix, size);
+                player_draw_screen(matrix, size, t);
         }
 
         printf("\nWEITER (enter)");
