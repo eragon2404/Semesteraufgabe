@@ -61,7 +61,7 @@ int *ai_diff2(char **matrix, int size, int *ships) {
                         }
                 }
         }
-        /* Kein getroffenes Schiff -> Zufaelliges Feld im Muster nehmen */
+        /* Kein getroffenes Schiff -> Zufaelliges Feld nehmen */
         if (count_hit == 0) {
                 random_num = rand() % count_useful;
                 in = 0;
