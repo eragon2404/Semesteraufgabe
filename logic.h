@@ -5,9 +5,12 @@
 #define OUT_OF_MEMORY (-69420)
 #endif
 
-#define SHIP_MASS_THRESHOLD 1/*0.69*/
+/*Das Standartspiel wird hiervon nicht beeinflusst*/
+#define MIN_SHIP_LENGTH 2 /*Darf nicht < 2 sein*/
+#define MAX_SHIP_LENGTH 7
+#define SHIPS_LIMIT 20
 
-#define SHIPS_LIMIT 15
+#define SHIP_MASS_THRESHOLD 0.95 /*0.69*/
 
 int init_battleground(char ***battleground, int size);
 

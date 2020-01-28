@@ -7,8 +7,7 @@
 #define TILE_SIZE_VERT 2
 #define TILE_SIZE_HOR 7
 
-#define MIN_SHIP_LENGTH 1 /*Das Standartspiel wird hiervon nicht beeinflusst*/
-#define MAX_SHIP_LENGTH 7
+
 
 typedef struct _tiles{
         char front_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];
