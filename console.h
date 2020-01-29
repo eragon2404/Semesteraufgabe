@@ -8,8 +8,7 @@
 #define TILE_SIZE_HOR 7
 
 
-
-typedef struct _tiles{
+typedef struct _tiles {
         char front_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];
         char mid_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];
         char end_vert[TILE_SIZE_VERT][TILE_SIZE_HOR];

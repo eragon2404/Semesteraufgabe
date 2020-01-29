@@ -19,10 +19,9 @@ void draw_intro() {
 }
 
 /*Zeichnet die uebergebene Matrize*/
-void draw_screen(char **matrix, int size, tiles *t)
-{
+void draw_screen(char **matrix, int size, tiles *t) {
         int x, y, i;
-        if (!SHOW_ASCII_ART){
+        if (!SHOW_ASCII_ART) {
 
                 printf("\t");
                 for (x = 0; x < size; x++) {
@@ -46,8 +45,8 @@ void draw_screen(char **matrix, int size, tiles *t)
         } else {
 
                 printf("\t");
-                for (i = 0; i < size - 1; i++){
-                        if (i < 10){
+                for (i = 0; i < size - 1; i++) {
+                        if (i < 10) {
                                 printf("  %i   ", i + 1);
                         } else {
                                 printf(" %i   ", i + 1);
@@ -57,18 +56,18 @@ void draw_screen(char **matrix, int size, tiles *t)
 
                 for (y = 0; y < size; y++) {
                         printf("%i:\t", y + 1);
-                        for (i = 0; i < 2; i++){
-                                if (i){
+                        for (i = 0; i < 2; i++) {
+                                if (i) {
                                         printf("|______ ");
                                 }
                                 for (x = 0; x < size; x++) {
-                                        switch(matrix[y][x]){
+                                        switch (matrix[y][x]) {
                                                 case 'w':
                                                         printf("%s", t->water[i]);
                                                         break;
 
                                                 case 'D':
-                                                        switch(check_tile_orientation(matrix, size, x, y)){
+                                                        switch (check_tile_orientation(matrix, size, x, y)) {
                                                                 case 0:
                                                                         printf("%s", t->dwn_front_vert[i]);
                                                                         break;
@@ -104,7 +103,7 @@ void draw_screen(char **matrix, int size, tiles *t)
                                                         break;
 
                                                 default:
-                                                        switch(check_tile_orientation(matrix, size, x, y)){
+                                                        switch (check_tile_orientation(matrix, size, x, y)) {
                                                                 case 0:
                                                                         printf("%s", t->front_vert[i]);
                                                                         break;
@@ -140,11 +139,10 @@ void draw_screen(char **matrix, int size, tiles *t)
 }
 
 /*Zeichnet die uebergebene Matrize ohne Schiffe preiszugeben*/
-void player_draw_screen(char **matrix, int size, tiles *t)
-{
+void player_draw_screen(char **matrix, int size, tiles *t) {
         int x, y, i;
 
-        if (!SHOW_ASCII_ART){
+        if (!SHOW_ASCII_ART) {
                 printf("\t");
                 for (x = 0; x < size; x++) {
                         if (x < 9) {
@@ -159,7 +157,7 @@ void player_draw_screen(char **matrix, int size, tiles *t)
                 for (y = 0; y < size; y++) {
                         printf("%i:\t", y + 1);
                         for (x = 0; x < size; x++) {
-                                if (isdigit(matrix[y][x])){
+                                if (isdigit(matrix[y][x])) {
                                         printf("w  ");
                                 } else {
                                         printf("%c  ", matrix[y][x]);
@@ -170,8 +168,8 @@ void player_draw_screen(char **matrix, int size, tiles *t)
                 printf("\n");
         } else {
                 printf("\t");
-                for (i = 0; i < size - 1; i++){
-                        if (i < 10){
+                for (i = 0; i < size - 1; i++) {
+                        if (i < 10) {
                                 printf("  %i   ", i + 1);
                         } else {
                                 printf(" %i   ", i + 1);
@@ -181,36 +179,36 @@ void player_draw_screen(char **matrix, int size, tiles *t)
 
                 for (y = 0; y < size; y++) {
                         printf("%i:\t", y + 1);
-                        for (i = 0; i < 2; i++){
-                                if (i){
+                        for (i = 0; i < 2; i++) {
+                                if (i) {
                                         printf("|______ ");
                                 }
                                 for (x = 0; x < size; x++) {
-                                        switch(matrix[y][x]){
+                                        switch (matrix[y][x]) {
                                                 case 'D':
-                                                        switch(check_tile_orientation(matrix, size, x, y)){
+                                                        switch (check_tile_orientation(matrix, size, x, y)) {
                                                                 case 0:
-                                                                        printf("%s", t-> dwn_front_vert[i]);
+                                                                        printf("%s", t->dwn_front_vert[i]);
                                                                         break;
 
                                                                 case 1:
-                                                                        printf("%s", t-> dwn_mid_vert[i]);
+                                                                        printf("%s", t->dwn_mid_vert[i]);
                                                                         break;
 
                                                                 case 2:
-                                                                        printf("%s", t-> dwn_end_vert[i]);
+                                                                        printf("%s", t->dwn_end_vert[i]);
                                                                         break;
 
                                                                 case 3:
-                                                                        printf("%s", t-> dwn_front_hor[i]);
+                                                                        printf("%s", t->dwn_front_hor[i]);
                                                                         break;
 
                                                                 case 4:
-                                                                        printf("%s", t-> dwn_mid_hor[i]);
+                                                                        printf("%s", t->dwn_mid_hor[i]);
                                                                         break;
 
                                                                 case 5:
-                                                                        printf("%s", t-> dwn_end_hor[i]);
+                                                                        printf("%s", t->dwn_end_hor[i]);
                                                                         break;
                                                         }
                                                         break;
@@ -239,33 +237,32 @@ void player_draw_screen(char **matrix, int size, tiles *t)
 
 }
 
-int check_tile_orientation(char **matrix, int size, int x, int y)
-{
+int check_tile_orientation(char **matrix, int size, int x, int y) {
         unsigned short status = 0;
 
-        if (y - 1 < 0 || (y - 1 >= 0 && (matrix[y - 1][x] == 'w' || matrix[y - 1][x] == 'M'))){
+        if (y - 1 < 0 || (y - 1 >= 0 && (matrix[y - 1][x] == 'w' || matrix[y - 1][x] == 'M'))) {
                 status = status + 1;
         }
 
         status = status << 1;
-        if (x + 1 >= size || (x + 1 < size && (matrix[y][x + 1] == 'w' || matrix[y][x + 1] == 'M'))){
-
-                status = status + 1;
-        }
-
-        status = status << 1;
-        if (y + 1 >= size || (y + 1 < size && (matrix[y + 1][x] == 'w' || matrix[y + 1][x] == 'M'))){
+        if (x + 1 >= size || (x + 1 < size && (matrix[y][x + 1] == 'w' || matrix[y][x + 1] == 'M'))) {
 
                 status = status + 1;
         }
 
         status = status << 1;
-        if (x - 1 < 0 || (x - 1 >= 0 && (matrix[y][x - 1] == 'w' || matrix[y][x - 1] == 'M'))){
+        if (y + 1 >= size || (y + 1 < size && (matrix[y + 1][x] == 'w' || matrix[y + 1][x] == 'M'))) {
 
                 status = status + 1;
         }
 
-        switch(status){
+        status = status << 1;
+        if (x - 1 < 0 || (x - 1 >= 0 && (matrix[y][x - 1] == 'w' || matrix[y][x - 1] == 'M'))) {
+
+                status = status + 1;
+        }
+
+        switch (status) {
                 case 13:
                         return 0;
 
@@ -290,54 +287,54 @@ int check_tile_orientation(char **matrix, int size, int x, int y)
 }
 
 /*Bereitet das Struct mit den Tiles vor*/
-void set_tiles(tiles *t){
-        strcpy(t -> front_vert[0], "~~/\\~~");
-        strcpy(t -> front_vert[1], "~/__\\~");
+void set_tiles(tiles *t) {
+        strcpy(t->front_vert[0], "~~/\\~~");
+        strcpy(t->front_vert[1], "~/__\\~");
 
-        strcpy(t -> mid_vert[0], "~|  |~");
-        strcpy(t -> mid_vert[1], "~|__|~");
+        strcpy(t->mid_vert[0], "~|  |~");
+        strcpy(t->mid_vert[1], "~|__|~");
 
-        strcpy(t -> end_vert[0], "~|__|~");
-        strcpy(t -> end_vert[1], "~\\__/~");
+        strcpy(t->end_vert[0], "~|__|~");
+        strcpy(t->end_vert[1], "~\\__/~");
 
-        strcpy(t -> front_hor[0], " _____");
-        strcpy(t -> front_hor[1], "\\_o_o_");
+        strcpy(t->front_hor[0], " _____");
+        strcpy(t->front_hor[1], "\\_o_o_");
 
-        strcpy(t -> mid_hor[0], "______");
-        strcpy(t -> mid_hor[1], "o_o_o_");
+        strcpy(t->mid_hor[0], "______");
+        strcpy(t->mid_hor[1], "o_o_o_");
 
-        strcpy(t -> end_hor[0], "__[^]_");
-        strcpy(t -> end_hor[1], "o_o_o/");
+        strcpy(t->end_hor[0], "__[^]_");
+        strcpy(t->end_hor[1], "o_o_o/");
 
-        strcpy(t -> dwn_front_vert[0], "~~X\\~~");
-        strcpy(t -> dwn_front_vert[1], "~/_X\\~");
+        strcpy(t->dwn_front_vert[0], "~~X\\~~");
+        strcpy(t->dwn_front_vert[1], "~/_X\\~");
 
-        strcpy(t -> dwn_mid_vert[0], "~| X|~");
-        strcpy(t -> dwn_mid_vert[1], "~|X_|~");
+        strcpy(t->dwn_mid_vert[0], "~| X|~");
+        strcpy(t->dwn_mid_vert[1], "~|X_|~");
 
-        strcpy(t -> dwn_end_vert[0], "~|X_|~");
-        strcpy(t -> dwn_end_vert[1], "~\\_X/~");
+        strcpy(t->dwn_end_vert[0], "~|X_|~");
+        strcpy(t->dwn_end_vert[1], "~\\_X/~");
 
-        strcpy(t -> dwn_front_hor[0], " _____");
-        strcpy(t -> dwn_front_hor[1], "\\_x_x_");
+        strcpy(t->dwn_front_hor[0], " _____");
+        strcpy(t->dwn_front_hor[1], "\\_x_x_");
 
-        strcpy(t -> dwn_mid_hor[0], "______");
-        strcpy(t -> dwn_mid_hor[1], "x_x_x_");
+        strcpy(t->dwn_mid_hor[0], "______");
+        strcpy(t->dwn_mid_hor[1], "x_x_x_");
 
-        strcpy(t -> dwn_end_hor[0], "__[^]_");
-        strcpy(t -> dwn_end_hor[1], "x_x_x/");
+        strcpy(t->dwn_end_hor[0], "__[^]_");
+        strcpy(t->dwn_end_hor[1], "x_x_x/");
 
-        strcpy(t -> hit[0], " \\  / ");
-        strcpy(t -> hit[1], " /  \\ ");
+        strcpy(t->hit[0], " \\  / ");
+        strcpy(t->hit[1], " /  \\ ");
 
-        strcpy(t -> miss[0], " oOoO ");
-        strcpy(t -> miss[1], " OoOo ");
+        strcpy(t->miss[0], " oOoO ");
+        strcpy(t->miss[1], " OoOo ");
 
-        strcpy(t -> water[0], " ~~~~ ");
-        strcpy(t -> water[1], " ~~~~ ");
+        strcpy(t->water[0], " ~~~~ ");
+        strcpy(t->water[1], " ~~~~ ");
 
-        strcpy(t -> downed[0], "__[x]_");
-        strcpy(t -> downed[1], "x_x_x/");
+        strcpy(t->downed[0], "__[x]_");
+        strcpy(t->downed[1], "x_x_x/");
 
 }
 
@@ -364,8 +361,7 @@ void print_stats(int **stats1, int **stats2, int ship_class_count) {
 }
 
 /*Ein wunderschoener Weg um den Screen sauber zu bekommen*/
-void clear_screen()
-{
+void clear_screen() {
         printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
                "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
@@ -373,8 +369,7 @@ void clear_screen()
 /*--------------------------------Alles rund um die Eingabe von Daten-------------------------------------------------*/
 
 /*Laesst den Spieler seine Schiffe setzen*/
-void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn, tiles *t)
-{
+void player_set_ships(char **matrix, int size, int *ships, int ship_count, int player_turn, tiles *t) {
         int i, current_ship, x, y, direction;
         i = 1;
         current_ship = 0;
@@ -394,7 +389,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
                                         clear_screen();
                                         draw_screen(matrix, size, t);
                                         printf("Ist das so in Ordnung? (j / n)\n");
-                                        do{
+                                        do {
                                                 switch (getchar()) {
                                                         case 'j':
                                                                 if (getchar() != '\n') {
@@ -493,8 +488,7 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
 }
 
 /*Fragt Spieler nach den Spieleinstellungen*/
-void get_settings(int *single, int *diff, int *standard)
-{
+void get_settings(int *single, int *diff, int *standard) {
         *single = *diff = *standard = -1;
 
         printf("Moechten sie allein oder zu zweit spielen? (1 / 2)\n");
@@ -590,11 +584,11 @@ void get_settings(int *single, int *diff, int *standard)
 }
 
 /*Fragt den Spiele nach der gewuenschten Feldgroesse*/
-int get_battleground_size()
-{
+int get_battleground_size() {
         int n;
         do {
-                printf("Waehlen sie eine Feldgroesse: (min %i, max %i):\n", MIN_BATTLEGROUND_SIZE, MAX_BATTLEGROUND_SIZE);
+                printf("Waehlen sie eine Feldgroesse: (min %i, max %i):\n", MIN_BATTLEGROUND_SIZE,
+                       MAX_BATTLEGROUND_SIZE);
                 if (scanf("%i", &n) != 1) {
                         printf("Keine gueltige Eingabe!\n");
                         n = 0;
@@ -613,8 +607,7 @@ int get_battleground_size()
 }
 
 /*Fragt den Spiele wie viele Schiffe welcher Art es geben soll*/
-int get_ships(int **ships, int *ship_count, int size)
-{
+int get_ships(int **ships, int *ship_count, int size) {
         int length, i;
         do {
                 printf("Wie viele Schiffe soll es geben? (Min 1, Max %i)\n", SHIPS_LIMIT);
@@ -641,7 +634,8 @@ int get_ships(int **ships, int *ship_count, int size)
                 }
 
                 for (i = 0; i < *ship_count; i++) {
-                        printf("Welche Groesse soll Schiff %i haben? (Min %i, Max %i)\n", i + 1, MIN_SHIP_LENGTH, MAX_SHIP_LENGTH);
+                        printf("Welche Groesse soll Schiff %i haben? (Min %i, Max %i)\n", i + 1, MIN_SHIP_LENGTH,
+                               MAX_SHIP_LENGTH);
                         do {
                                 printf("Eingabe:\n");
                                 if (scanf("%i", &length) != 1) {
@@ -677,7 +671,7 @@ int *player_move(char **matrix, int size, int player_turn, tiles *t) {
 
         clear_screen();
         printf("Spieler %i ist am Zug:\n", player_turn + 1);
-        if (SHOW_FULL_BATTLEGROUND){
+        if (SHOW_FULL_BATTLEGROUND) {
                 draw_screen(matrix, size, t);
         } else {
                 player_draw_screen(matrix, size, t);
@@ -711,8 +705,7 @@ int *player_move(char **matrix, int size, int player_turn, tiles *t) {
 }
 
 /*Zeigt dem Spieler seinen eigenes Spielfeld*/
-void show_player_battleground(char **matrix, int size, int player_turn, tiles *t)
-{
+void show_player_battleground(char **matrix, int size, int player_turn, tiles *t) {
         printf("Spieler %i ist am Zug! Im naechsten Schritt wird ihr eigenes Spielfeld angezeigt!\n", player_turn + 1);
         printf("WEITER (enter)");
         if (getchar() != '\n') {
@@ -748,7 +741,7 @@ int response(char **matrix, int size, int *shot, int hit, int downed, int player
                 printf("VERSENKT\n");
         }
         printf("\n");
-        if (SHOW_FULL_BATTLEGROUND){
+        if (SHOW_FULL_BATTLEGROUND) {
                 draw_screen(matrix, size, t);
         } else {
                 player_draw_screen(matrix, size, t);
