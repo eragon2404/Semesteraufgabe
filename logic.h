@@ -13,7 +13,7 @@
 #define MAX_SHIP_LENGTH 7
 #define SHIPS_LIMIT 20
 
-#define SHIP_MASS_THRESHOLD 0.95 /*0.69*/
+#define SHIP_MASS_THRESHOLD 0.95 /*Verhindert ueberladen der Matrix*/
 
 int init_battleground(char ***battleground, int size);
 

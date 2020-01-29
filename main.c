@@ -16,7 +16,7 @@
 int main(void) {
 
         int i, player_turn, win, *shot, hit, downed, first; /*Hilfsvariablen*/
-        int size, *ships, ship_count, single, diff, standart; /*Settings*/
+        int size, *ships, ship_count, single, diff, standard; /*Settings*/
         int **stats0, **stats1, ship_class_count; /*Statistikspeicher*/
 
         tiles tiles;
@@ -32,11 +32,12 @@ int main(void) {
         first = 1;
 
         set_tiles(&tiles);
+
         draw_intro();
-        get_settings(&single, &diff, &standart);
+        get_settings(&single, &diff, &standard);
         clear_screen();
 
-        if (standart) { /*Setzt Standartwerte fuer ein Standartspiel*/
+        if (standard) { /*Setzt Standardwerte fuer ein Standardspiel*/
                 size = 10;
                 ship_count = 5;
                 if ((ships = malloc(ship_count * sizeof(int))) == NULL) {
@@ -82,8 +83,11 @@ int main(void) {
                 free(ships);
                 for (i = 0; i < ship_class_count; i++) {
                         free(stats0[i]);
+                        free(stats1[i]);
                 }
                 free(stats0);
+                free(stats1);
+
                 printf("Out of memory, abort!");
                 return -1;
         }
@@ -92,8 +96,10 @@ int main(void) {
                 free(ships);
                 for (i = 0; i < ship_class_count; i++) {
                         free(stats0[i]);
+                        free(stats1[i]);
                 }
                 free(stats0);
+                free(stats1);
 
                 for (i = 0; i < size; i++) {
                         free(battleground0[i]);

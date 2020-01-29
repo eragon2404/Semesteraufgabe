@@ -493,9 +493,9 @@ void player_set_ships(char **matrix, int size, int *ships, int ship_count, int p
 }
 
 /*Fragt Spieler nach den Spieleinstellungen*/
-void get_settings(int *single, int *diff, int *standart)
+void get_settings(int *single, int *diff, int *standard)
 {
-        *single = *diff = *standart = -1;
+        *single = *diff = *standard = -1;
 
         printf("Moechten sie allein oder zu zweit spielen? (1 / 2)\n");
         do {
@@ -561,17 +561,17 @@ void get_settings(int *single, int *diff, int *standart)
                 } while (*diff == -1);
         }
 
-        printf("Wuenschen sie die Standarteinstellungen mit Feldgroesse 10 und 5 Schiffen? (j / n)\n");
+        printf("Wuenschen sie die Standardeinstellungen mit Feldgroesse 10 und 5 Schiffen? (j / n)\n");
         do {
                 switch (getchar()) {
                         case 'j':
-                                *standart = 1;
+                                *standard = 1;
                                 if (getchar() != '\n') {
                                         flush();
                                 }
                                 return;
                         case 'n':
-                                *standart = 0;
+                                *standard = 0;
                                 if (getchar() != '\n') {
                                         flush();
                                 }
@@ -586,7 +586,7 @@ void get_settings(int *single, int *diff, int *standart)
                                 }
                                 break;
                 }
-        } while (*standart == -1);
+        } while (*standard == -1);
 }
 
 /*Fragt den Spiele nach der gewuenschten Feldgroesse*/
