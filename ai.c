@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 
-
+/*Ruft abhaengig von der Schwierigkeit passende Berechnungsmethode auf*/
 int *get_ai_turn(char **battleground, int size, int difficulty, int *ships) {
         switch (difficulty) {
                 case 1:
@@ -16,6 +16,7 @@ int *get_ai_turn(char **battleground, int size, int difficulty, int *ships) {
         }
 }
 
+/*Schwierigkeit 1*/
 int *ai_diff1(int size) {
         static int result[2];
         result[0] = rand() % size;
@@ -23,6 +24,7 @@ int *ai_diff1(int size) {
         return result;
 }
 
+/*Schwierigkeit 2*/
 int *ai_diff2(char **matrix, int size, int *ships) {
 
         static int result[2];
@@ -121,6 +123,7 @@ int *ai_diff2(char **matrix, int size, int *ships) {
         return NULL;
 }
 
+/*Schwierigkeit 3*/
 int *ai_diff3(char **matrix, int size, int *ships) {
 
         static int result[2];
@@ -219,6 +222,7 @@ int *ai_diff3(char **matrix, int size, int *ships) {
         return NULL;
 }
 
+/*Bestimmt, ob es sinnvoll ist ein Feld zu beschiessen abhaengig von der Schwierigkeit und den Schiffen*/
 int is_useful(char **matrix, int y, int x, int size, int difficulty, const int *ships) {
         if (y < 0 || y >= size || x < 0 || x >= size) {
                 return 0;

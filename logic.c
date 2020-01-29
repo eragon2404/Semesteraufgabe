@@ -1,16 +1,10 @@
-#pragma clang diagnostic push
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "bugprone-narrowing-conversions"
-#pragma ide diagnostic ignored "bugprone-branch-clone"
-
 #include "logic.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 
 /*Belegt den Speicher fuer die Matrize und setzt sie auf Anfangswerte*/
-int init_battleground(char ***matrix, int size)
-{
+int init_battleground(char ***matrix, int size) {
         int x;
         if ((*matrix = malloc(size * sizeof(char *))) == NULL) {
                 return OUT_OF_MEMORY;
@@ -34,8 +28,7 @@ int init_battleground(char ***matrix, int size)
 }
 
 /*Initalisiert eine Matrix zum Verfolgen der Treffer auf die vorhandenen Schiffstypen*/
-int init_stats(int ***stats1, int ***stats2, const int *ships, int ship_count)
-{
+int init_stats(int ***stats1, int ***stats2, const int *ships, int ship_count) {
         int ship_class_count, last, i;
         ship_class_count = last = 0;
 
@@ -117,8 +110,7 @@ void updateStats(int **stats, int ship_class_count, int hit) {
 }
 
 /*Setzt die Matrix zurueck*/
-void reset_battleground(char **matrix, int size)
-{
+void reset_battleground(char **matrix, int size) {
         int x, y;
         for (x = 0; x < size; x++) {
                 for (y = 0; y < size; y++) {
@@ -128,8 +120,7 @@ void reset_battleground(char **matrix, int size)
 }
 
 /*Setzt die Schiffe zufaellig in die Matrix*/
-int rand_set_ships(char **matrix, int size, int *ships, int ship_count)
-{
+int rand_set_ships(char **matrix, int size, int *ships, int ship_count) {
         int i, j, done;
         done = 0;
 
@@ -156,8 +147,7 @@ int rand_set_ships(char **matrix, int size, int *ships, int ship_count)
 }
 
 /*Setzt ein Schiff der Laenge ship_length nach den uebergebenen Koordinaten. Gibt 0 zurueck falls nicht moeglich*/
-int set_ship(char **matrix, int size, int y, int x, int direction, int ship_length)
-{
+int set_ship(char **matrix, int size, int y, int x, int direction, int ship_length) {
         int i;
 
         if (matrix[y][x] != 'w') {
@@ -175,7 +165,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y + i][x] != 'w') {
                                         return 0;
-                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                        /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
                                 } else if (y + i + 1 < size && matrix[y + i + 1][x] != 'w') {
                                         return 0;
                                 } else if (y + i - 1 >= 0 && matrix[y + i - 1][x] != 'w') {
@@ -200,7 +190,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y][x - i] != 'w') {
                                         return 0;
-                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                        /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
                                 } else if (y + 1 < size && matrix[y + 1][x - i] != 'w') {
                                         return 0;
                                 } else if (y - 1 >= 0 && matrix[y - 1][x - i] != 'w') {
@@ -225,7 +215,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y - i][x] != 'w') {
                                         return 0;
-                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                        /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
                                 } else if (y - i + 1 < size && matrix[y - i + 1][x] != 'w') {
                                         return 0;
                                 } else if (y - i - 1 >= 0 && matrix[y - i - 1][x] != 'w') {
@@ -250,7 +240,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
                         for (i = 0; i <= ship_length; i++) {
                                 if (matrix[y][x + i] != 'w') {
                                         return 0;
-                                /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
+                                        /*Checkt, ob Index in erlaubtem Bereich und ob Feld belegt ist*/
                                 } else if (y + 1 < size && matrix[y + 1][x + i] != 'w') {
                                         return 0;
                                 } else if (y - 1 >= 0 && matrix[y - 1][x + i] != 'w') {
@@ -275,8 +265,7 @@ int set_ship(char **matrix, int size, int y, int x, int direction, int ship_leng
 }
 
 /*Stellt sicher, dass nicht zu viele Schiffen gesetzt werden*/
-int ship_mass_validation(int size, const int *ships, int ship_count)
-{
+int ship_mass_validation(int size, const int *ships, int ship_count) {
         int i;
         int mass;
         mass = 0;

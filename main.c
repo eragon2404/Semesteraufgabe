@@ -2,12 +2,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "logic.h"
 #include "ai.h"
 #include "console.h"
 
-#include <time.h>
 
 #ifndef OUT_OF_MEMORY
 #define OUT_OF_MEMORY (-69420)
@@ -124,7 +124,7 @@ int main(void) {
         do { /*Game Loop der erst dann verlassen wird, wenn es einen Gewinner gibt*/
                 downed = 0;
                 if (!player_turn) {  /*Spieler 1*/
-                        if (first){
+                        if (first) {
                                 show_player_battleground(battleground0, size, player_turn, &tiles);
                                 first = 0;
                         }
@@ -167,7 +167,7 @@ int main(void) {
 
 
                         } else { /*Menschlicher Spieler 2*/
-                                if (first){
+                                if (first) {
                                         show_player_battleground(battleground1, size, player_turn, &tiles);
                                         first = 0;
                                 }
