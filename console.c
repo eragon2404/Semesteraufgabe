@@ -654,7 +654,12 @@ int get_ships(int **ships, int *ship_count, int size) {
 
                         *(*ships + i) = length;
                 }
-        } while (!ship_mass_validation(size, *ships, *ship_count));
+                if (!ship_mass_validation(size, *ships, *ship_count)){
+                        printf("Zu viele Schiffe fuer dieses Spielfeld!\n\n");
+                        continue;
+                }
+                break;
+        } while (1);
         if (getchar() != '\n') {
                 flush();
         }

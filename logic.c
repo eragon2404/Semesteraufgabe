@@ -274,7 +274,6 @@ int ship_mass_validation(int size, const int *ships, int ship_count) {
         }
         mass *= 2;
         mass += ship_count;
-        printf("%f", (float) mass / (float) (size * size));
         return ((float) mass / (float) (size * size) <= SHIP_MASS_THRESHOLD); /*das hier wird ein Bool*/
 }
 
