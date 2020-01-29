@@ -10,7 +10,7 @@
 void draw_intro() {
         setbuf(stdout, 0);
         printf("--------------------------------------------------------------------------------\n"
-               "                            Schiffe Versenken Deluxe                            \n"
+               "                                 Schiffe Versenken                              \n"
                "--------------------------------------------------------------------------------\n"
                "--------------------------------------------------------------------------------\n");
 }
@@ -309,8 +309,8 @@ void set_tiles(tiles *t) {
         strcpy(t->dwn_mid_vert[0], "~| X|~");
         strcpy(t->dwn_mid_vert[1], "~|X_|~");
 
-        strcpy(t->dwn_end_vert[0], "~|X_|~");
-        strcpy(t->dwn_end_vert[1], "~\\_X/~");
+        strcpy(t->dwn_end_vert[0], "~|_X|~");
+        strcpy(t->dwn_end_vert[1], "~\\X_/~");
 
         strcpy(t->dwn_front_hor[0], " _____");
         strcpy(t->dwn_front_hor[1], "\\_x_x_");
