@@ -1,6 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-err34-c"
-
 #include "console.h"
 #include "logic.h"
 #include <stdio.h>

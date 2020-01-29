@@ -1,8 +1,3 @@
-#pragma clang diagnostic push
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "bugprone-narrowing-conversions"
-#pragma ide diagnostic ignored "bugprone-branch-clone"
-
 #include "logic.h"
 #include <stdio.h>
 #include <stdlib.h>
